@@ -1,0 +1,125 @@
+.sidebar {
+  font-size: 1.1rem;
+  color: rgb(230, 230, 230);
+  background-color: rgb(14, 14, 35);
+  width: 2.5rem;
+  padding: 1rem;
+  transition-duration: 0.2s;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+
+  .side-title {
+    height: 10px;
+    margin-top: 2.5rem;
+    text-align: center;
+    user-select: none;
+    font-size: 12px;
+    letter-spacing: 0.07em;
+  }
+  .title-menu {
+    display: none;
+  }
+
+  &:hover {
+    width: 8.5rem;
+    .category {
+      display: inline-block;
+    }
+    .title-menu {
+      display: inline-block;
+    }
+    .icon-menu {
+      display: none;
+    }
+  }
+}
+
+.title {
+  margin-left: 13rem;
+}
+.icon-menu {
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+.side-menu {
+  margin-top: 2rem;
+}
+
+.row {
+  margin-top: 0.8rem;
+  cursor: pointer;
+  margin-left: -16px;
+  display: flex;
+  width: 9.4rem;
+  padding-left: 1rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  align-items: center;
+  border-radius: 5px;
+  label {
+    width: fit-content;
+    text-align: center;
+    height: fit-content;
+    font-size: 10px;
+  }
+  .category {
+    margin-left: 1rem;
+    display: none;
+    width: min-content;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.07em;
+    user-select: none;
+    cursor: pointer;
+  }
+  .icon {
+    font-size: 2rem;
+  }
+  //   height: 1.9rem;
+  //   left: 0;
+  //   color: rgb(255, 255, 255);
+
+  //   border-radius: 5px;
+  //   transition: 0s;
+  //   margin: -16px;
+  //   vertical-align: middle;
+  //   cursor: pointer;
+
+  //   .icon {
+  //     margin-top: 50%;
+  //     font-size: 1.7rem;
+  //     text-align: center;
+  //     width: 3rem;
+  //     margin-left: 16px;
+  //     cursor: pointer;
+  //   }
+
+  //   .category {
+  //     top: 50%;
+  //     display: none;
+  //     width: min-content;
+  //     text-align: center;
+  //     font-size: 10px;
+  //     letter-spacing: 0.07em;
+  //     user-select: none;
+  //     cursor: pointer;
+  //   }
+
+  &:hover {
+    color: rgb(20, 20, 20);
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(240, 240, 240, 1) 55%,
+      rgba(255, 255, 255, 1) 56%,
+      rgba(255, 255, 255, 1) 91%
+    );
+    transition: 0s;
+  }
+}

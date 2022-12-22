@@ -1,0 +1,45 @@
+<div class="sidebar">
+  <div class="side-title">
+    <fa-icon [icon]="faBars" class="icon-menu"></fa-icon>
+    <label for="side-title" class="title-menu">MENU</label>
+  </div>
+
+  <div class="side-menu">
+    <div class="col">
+      <div class="row">
+        <fa-icon [icon]="faHomeUser" class="icon"></fa-icon>
+        <label for="row" class="category">INICIO</label>
+      </div>
+
+      <div class="row" *ngIf="Rol == 1 || Rol == 2">
+        <fa-icon [icon]="faGear" class="icon"></fa-icon>
+        <label for="row" class="category">ADMINISTRAR</label>
+      </div>
+
+      <div class="row">
+        <fa-icon [icon]="faFile" class="icon"></fa-icon>
+        <label for="row" class="category">ACTAS</label>
+      </div>
+
+      <div class="row">
+        <fa-icon [icon]="faFile" class="icon"></fa-icon>
+        <label for="row" class="category">RFC</label>
+      </div>
+
+      <div class="row">
+        <fa-icon [icon]="faSackDollar" class="icon"></fa-icon>
+        <label for="row" class="category">CORTE</label>
+      </div>
+
+      <div class="row" *ngIf="Rol == 1 || Rol == 2">
+        <fa-icon [icon]="faBook" class="icon"></fa-icon>
+        <label for="row" class="category">DOCUMENTOS</label>
+      </div>
+
+      <div class="row" (click)="LogOut()">
+        <fa-icon [icon]="faPersonWalkingArrowRight" class="icon"></fa-icon>
+        <label for="row" class="category">SALIR</label>
+      </div>
+    </div>
+  </div>
+</div>
