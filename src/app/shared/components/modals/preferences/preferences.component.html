@@ -1,0 +1,32 @@
+<h2>SELECCIONA LA FORMA DEL ACTA</h2>
+
+<mat-dialog-content class="mat-typography">
+    <div class="row">
+        <div class="selectionable" (click)="SelectPreferences(1)">
+            <img src="assets/images/preferences/1.png" alt="Normal">
+            <div class="footer">
+                <span>Simple</span>
+            </div>
+        </div>
+
+
+        <div class="selectionable" (click)="SelectPreferences(2)">
+            <img src="assets/images/preferences/2.png" alt="Normal">
+            <div class="footer">
+                <span>Con Reverso</span>
+            </div>
+        </div>
+
+        <div class="selectionable" (click)="SelectPreferences(3)">
+            <img src="assets/images/preferences/3.png" alt="Normal">
+            <div class="footer">
+                <span>Con Folio</span>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <app-action-button [Legend]="'Cancelar'" [Icon]="faXmark" mat-dialog-close></app-action-button>
+
+</mat-dialog-actions>

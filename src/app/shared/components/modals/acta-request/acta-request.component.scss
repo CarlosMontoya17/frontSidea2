@@ -1,0 +1,59 @@
+@import url(../../../styles/bootstrap.min.scss);
+@import url(../../../styles/colors.scss);
+
+.selects {
+    display: flex;
+    flex-direction: row;
+}
+
+.search, .type {
+    label{
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+}
+
+.card{
+
+    border: 0;
+}
+
+.card-body{
+    border-radius: 0.25rem;
+    background-color: #30475E;
+    color: rgb(255, 255, 255);
+
+}
+
+.form-select {
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    font-size: 1rem;
+    outline: none;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    option {
+        background-color: #5c636a;
+        color: white;
+    }
+}
+
+.valid {
+    background-color: rgb(182, 253, 76);
+}
+
+.invalid {
+    background-color: rgb(211, 211, 211);
+}
+
+.input-group {
+    padding: 1rem;
+}
+
+app-action-button{
+    margin: 0.5rem;
+}

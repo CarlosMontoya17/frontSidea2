@@ -1,0 +1,29 @@
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.selectionable{
+    cursor: pointer;
+    background-color: rgb(83, 83, 83);
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    margin: 0.5rem;
+    img{
+        padding: 0.5rem;
+        width: 18rem;
+        height: 24rem;
+    }
+    .footer {
+        margin-bottom: 0.5rem;
+    }
+    span {
+        user-select: none;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+    &:hover{
+        background-color: rgb(114, 114, 114);
+    }
+}

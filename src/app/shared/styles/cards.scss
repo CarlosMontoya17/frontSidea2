@@ -66,3 +66,14 @@
 .myCard::-webkit-scrollbar-track:active {
     background: #d4d4d4;
 }
+
+.myContainer {
+    display: flex;
+    flex-direction: column;
+}
+.myLegend{
+    align-self: flex-start;
+}
+app-action-button{
+    align-self: flex-end;
+}

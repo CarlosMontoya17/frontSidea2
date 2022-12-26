@@ -10,7 +10,7 @@ export class ErrorSimpleComponent implements OnInit {
 
   
   faTriangleExclamation = faTriangleExclamation;
-  @Input() Title: string = 'Error';
+  @Input() Title: string = 'ERROR';
   @Input() Content: string = '';
   @Input() Actions: boolean = false;
   @Output() onAccept: EventEmitter<any> = new EventEmitter();

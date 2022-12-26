@@ -1,0 +1,43 @@
+<h3>RESULTADOS</h3>
+
+<table class="mat-elevation-z8">
+
+    <thead>
+        <tr>
+            <ng-container *ngFor="let column of Table.Columns">
+                <th> {{ column.Display }} </th>
+            </ng-container>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let data of Table.Data">
+            <td>
+                {{ data.tipo }}
+            </td>
+            <td>
+                {{ data.busqueda }}
+            </td>
+            <td>
+                {{ data.curp }}
+            </td>
+            <td>
+                {{ data.nombres }}
+            </td>
+            <td>
+                {{ data.apellidos }}
+            </td>
+            <td>
+                {{ data.estado }}
+            </td>
+            <td>
+                {{ data.fechaNac }}
+            </td>
+            <td>
+                <app-action-button (onClick)="SendInformation(data.id)" [Legend]="'Descargar'"></app-action-button>
+            </td>
+        </tr>
+    </tbody>
+
+
+</table>

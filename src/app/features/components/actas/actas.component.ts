@@ -5,6 +5,12 @@ import { cardInfo } from 'src/app/shared/models/card-information.model';
 import { cardRequest, searchCURP } from 'src/app/shared/models/card-request.model';
 import { ActasService } from '../../services/actas.service';
 import { UtilsService } from '../../services/utils.service';
+import {MatDialog} from '@angular/material/dialog';
+import { ActaRequestComponent } from 'src/app/shared/components/modals/acta-request/acta-request.component';
+import { modalRequest } from 'src/app/shared/models/req-modal.model';
+import { PreferencesComponent } from 'src/app/shared/components/modals/preferences/preferences.component';
+import { TableModalComponent } from 'src/app/shared/components/modals/table-modal/table-modal.component';
+
 
 @Component({
   selector: 'app-actas',
@@ -60,7 +66,15 @@ export class ActasComponent implements OnInit {
     }
   ]
 
-  constructor(private svc: ActasService, private utils: UtilsService) { }
+  Reqs: modalRequest = {
+    Title: 'Solicitar Acta',
+    TitleSearch: 'Busqueda por',
+    Searches: ['CURP'],
+    TitleType: 'Tipo de documento',
+    Types: ['NACIMIENTO', 'MATRIMONIO', 'DIVORCIO', 'DEFUNCION']
+  }
+
+  constructor(private svc: ActasService, private utils: UtilsService, private dialog: MatDialog) { }
 
   async ngOnInit(): Promise<void> {
     
@@ -123,17 +137,21 @@ export class ActasComponent implements OnInit {
 
 
   onDownloadRequest(item: cardRequest): void {
-      this.svc.downloadActa(item.Id).subscribe((data:any) => {
-        if(data?.b64){
-          this.utils.downloadPDF(data?.b64, item.Search.CURP);
-          let _f = this.CardFilter.find((d:any) => d.Id == 1);
-          if(_f) {
-            let _date:any = _f.Content?.Default;
-            if(_date == 'Actual') _date = 'null';
-            this.getPeticiones(_date);
-          }
+    this.onDownloadActa(item.Id, item.Search.CURP);
+  }
+
+  onDownloadActa(Id: any, CURP: any): void {
+    this.svc.downloadActa(Id).subscribe((data:any) => {
+      if(data?.b64){
+        this.utils.downloadPDF(data?.b64, CURP);
+        let _f = this.CardFilter.find((d:any) => d.Id == 1);
+        if(_f) {
+          let _date:any = _f.Content?.Default;
+          if(_date == 'Actual') _date = 'null';
+          this.getPeticiones(_date);
         }
-      });
+      }
+    });
   }
 
 
@@ -145,7 +163,47 @@ export class ActasComponent implements OnInit {
       }
       else this.View = 0;
     }
+    else if (item.Id == 1) {
+      this.newRequest();
+    }
   }
+
+
+
+  newRequest(): void {
+
+
+    const _req = this.dialog.open(ActaRequestComponent, {
+      width: 'md'
+    });
+    _req.componentInstance.Req = this.Reqs;
+    _req.afterClosed().subscribe((data: any) => {
+      if(data){
+        const _pref = this.dialog.open(PreferencesComponent, {
+          width: 'md'
+        }); 
+        _pref.afterClosed().subscribe((pref: any) => {
+          if(pref) {
+            this.svc.newRequest(data.Type, data.Search, data.Data, data.State, pref).subscribe((req:any) => {
+              console.log(req);
+                if(req) {
+                  const _result = this.dialog.open(TableModalComponent);
+                  _result.componentInstance.Table.Data = [req];
+
+
+                  _result.afterClosed().subscribe((id: any) => {
+                    if(id) this.onDownloadActa(id, req.curp);
+                  });
+
+                }
+            });
+          }
+
+        });
+      } 
+    });
+  }
+
 
   selectDate(item: actionEmitter): void {
     let _f = this.CardFilter.find((d:any) => d.Id == item.Source);
@@ -157,6 +215,12 @@ export class ActasComponent implements OnInit {
 
   searchDoc(word: actionEmitter): void{
     console.log(word);
+  }
+
+
+
+  addRequest(): void {
+
   }
 
 

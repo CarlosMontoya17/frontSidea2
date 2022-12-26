@@ -1,0 +1,47 @@
+<h2> {{ Req.Title.toUpperCase() }} </h2>
+<mat-dialog-content class="mat-typography">
+
+    <div class="card">
+        <div class="card-body">
+
+            <div class="selects">
+                <div class="search">
+                    <label for="search"> {{ Req.TitleSearch }} </label>
+                    <select (change)="SelectSearch($event)" class="form-select" aria-label="select example">
+                        <ng-container *ngFor="let search of Req.Searches">
+                            <option value="{{ search }}"> {{ search }} </option>
+                        </ng-container>
+
+                    </select>
+                </div>
+
+                <div class="type">
+                    <label for="type"> {{ Req.TitleType }} </label>
+                    <select (change)="SelectType($event)" class="form-select" aria-label="select example">
+                        <ng-container *ngFor="let type of Req.Types">
+                            <option value="{{ type }}"> {{ type }} </option>
+                        </ng-container>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="input-group mb-3">
+                <input maxlength="18" appUpperText (appCurpValidation)="onKey($event)" type="text" class="form-control" [(ngModel)]="Data" placeholder="{{ Search.toUpperCase() }} A BUSCAR" aria-label="Recipient's username"
+                    aria-describedby="basic-addon2">
+                    <span *ngIf="Search == 'CURP'"  [ngClass]="{ 'valid':Valid, 'invalid': !Valid }" class="input-group-text" id="basic-addon2"> {{ Valid? State: 'NA' }} </span>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+    <app-action-button (onClick)="SendInformation()" [Legend]="'Enviar'" [Icon]="faPaperPlane" [disabled]="Valid"></app-action-button>
+    <app-action-button [Legend]="'Cancelar'" [Icon]="faTriangleExclamation" mat-dialog-close></app-action-button>
+
+</mat-dialog-actions>

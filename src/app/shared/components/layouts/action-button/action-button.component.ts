@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -7,18 +7,19 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './action-button.component.html',
   styleUrls: ['./action-button.component.scss']
 })
-export class ActionButtonComponent implements OnInit {
+export class ActionButtonComponent implements OnChanges {
 
   @Input() Legend: string = '';
   @Input() Icon!: IconDefinition;
   @Output() onClick: EventEmitter<any> = new EventEmitter();
+  @Input() disabled: boolean = true;
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {    
   }
 
   pressClick(): void{
-    this.onClick.emit();
+    if(this.disabled) this.onClick.emit();
   }
 
 

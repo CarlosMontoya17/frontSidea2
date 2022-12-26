@@ -22,4 +22,8 @@ export class ActasService {
     return this.http.get(`${_api}/api/services/actas/download/${id}`);
   }
 
+  newRequest(type: any, search: any, data: any, estado: any, preferences: any): Observable<any> {
+    return this.http.post(`${_api}/api/services/actas/new/`, { type, search, data, estado, preferences });
+  }
+
 }

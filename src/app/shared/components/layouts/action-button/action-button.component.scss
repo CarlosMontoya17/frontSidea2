@@ -1,5 +1,5 @@
 .myButt{
-    width: 30%;
+    width: fit-content;
 }
 
 .myButtonOn {
@@ -114,4 +114,24 @@
     100% {
         bottom: 100%;
     }
+}
+
+
+.myButtonOff {
+    border-radius: 5px;
+    transform: translate(-50%, 0);
+    user-select: none;
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #000000;
+    background: linear-gradient(0deg, rgba(204,204,204,1) 0%, rgba(204,204,204,1) 0%, rgba(145,145,145,1) 43%, rgba(196,196,196,1) 45%);
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    margin-top: 1rem;
+    letter-spacing: 4px;
+    left: 50%;
+    /* background-color: rgb(12, 105, 130); */
 }
