@@ -6,7 +6,9 @@ export interface cardRequest {
     Search: searchCURP | searchCadena | any;
     Date: string;
     Filename: string;
+    Available: boolean;
     Downloaded: boolean;
+    Comments: string;
 }
 
 

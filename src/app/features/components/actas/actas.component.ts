@@ -70,15 +70,13 @@ export class ActasComponent implements OnInit {
     let _dates: any = await this.svc.getDates().toPromise();
     if(_dates){
       let _n = _dates.find((d:any) => d.deadline == null);
-      if(_n){
-        _n.deadline = "Actual";
-        let _f = this.CardFilter.find((d:any) => d.Id == 1);
-        if(_f){
-          _f.Content!.Default = _dates[0].deadline;
-          _f.Content!.Options = _dates;
-          _f.Content!.Key = "deadline";
-          this.getPeticiones(_dates[0].deadline);
-        }
+      if(_n) _n.deadline = "Actual";
+      let _f = this.CardFilter.find((d:any) => d.Id == 1);
+      if(_f){
+        _f.Content!.Default = _dates[0].deadline;
+        _f.Content!.Options = _dates;
+        _f.Content!.Key = "deadline";
+        this.getPeticiones(_dates[0].deadline);
       }
     }
   }
@@ -110,7 +108,9 @@ export class ActasComponent implements OnInit {
             Filename: `${e.curp}.pdf`,
             Search: _s,
             Title: `ACTA DE ${e.type}`,
-            Type: e.type
+            Type: e.type,
+            Available: e.comments=="Descargado"? true: false,
+            Comments: e.comments
           };
           
           _date.push(_d);

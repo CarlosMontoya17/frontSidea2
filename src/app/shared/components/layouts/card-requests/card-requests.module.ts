@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardRequestsComponent } from './card-requests.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { ErrorSimpleModule } from '../../modals/error-simple/error-simple.module';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ErrorSimpleModule,
+    MatDialogModule
   ],
   exports: [CardRequestsComponent]
 })
