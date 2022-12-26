@@ -1,0 +1,48 @@
+<div class="myBody">
+    <div class="mySubCard">
+        <div class="mySubTitle">
+            <label for="mySubTitle">{{ Title }}</label>
+        </div>
+
+        
+        <div class="filters">
+            <ng-container *ngFor="let filter of Filters">
+            <div class="filter" [style.width.rem]="filter.Width">
+                <h6> {{ filter.Title }} </h6>
+
+                <ng-container *ngIf="filter.Type == 'Searcher'">
+                    <div class="input-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="BUSCAR POR DATOS PROPORCIONADOS"
+                          aria-label="Recipient's username"
+                          aria-describedby="basic-addon2"
+                          (keyup)="onKeySearcher(filter, $event)"
+                        />
+                        <span class="input-group-text" id="basic-addon2">
+                          <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+                        </span>
+                      </div>
+                </ng-container>
+
+                <ng-container *ngIf="filter.Type == 'Dropdown'">
+
+                    <div class="dropdown">
+                        <button class="btn" mat-button [matMenuTriggerFor]="beforeMenu">{{ filter.Content?.Default }}</button>
+                        <mat-menu #beforeMenu="matMenu" xPosition="before">
+                            <ng-container *ngFor="let opt of filter.Content?.Options">
+                                <button mat-menu-item (click)="onClickDropdown(filter, opt[filter.Content!.Key])" [ngClass]="{ 'active': opt == filter.Content?.Default }"> {{ opt[filter.Content!.Key] }} </button>
+                            </ng-container>
+                        </mat-menu>
+                    </div>
+
+                </ng-container>
+
+                
+
+            </div>
+        </ng-container>
+        </div>
+    </div>
+</div>

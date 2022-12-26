@@ -1,0 +1,456 @@
+<div class="myCard">
+  <div class="myHeader">
+    <p>
+      <fa-icon [icon]="faFaceGrin"></fa-icon>
+      Bienvenido {{ Username }}
+    </p>
+  </div>
+  <div class="myControllers">
+  
+    <section class="cards-wrapper" *ngFor="let robot of Robots">
+      <div class="card-grid-space">
+        <!-- <div class="num">{{robot.limit}}</div> -->
+
+        <a
+          class="card"
+          *ngIf="robot.name == 'HospitalBochil'"
+          style="--bg-img: url(../../../../assets/images/robots/Bochil.png)"
+        >
+          <div>
+            <h1>{{ robot.name }}</h1>
+
+            <div class="myOptions" *ngIf="robot.status != 'Off'">
+              <ul class="list-group">
+                <li class="product-price">Controles</li>
+
+                <ng-container>
+                  <li
+                    *ngIf=" robot.system == 'sat'"
+                    class="list-group-item myButtonList"
+                  >
+                    <fa-icon [icon]="faAddressCard"></fa-icon>&nbsp;Cambiar
+                    Credenciales
+                  </li>
+                  <li
+                    *ngIf="robot.system == 'sid'"
+                    class="list-group-item myButtonList"
+                    style="cursor: pointer"
+                    (click)="Instruction('changeAccessToken', robot)"
+                  >
+                    <fa-icon [icon]="faKey"></fa-icon>&nbsp;Cambiar Token
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+
+            <div *ngIf="robot.status != 'Off'">
+              <div class="date">{{ robot.status }}</div>
+            </div>
+            <div *ngIf="robot.status == 'Off'">
+              <div class="dateof">{{ robot.status }}</div>
+            </div>
+
+            <div class="tags">
+              <div class="tag">Limite: {{ robot.limit }}</div>
+              <div class="tag">Contador: {{ robot.current }}</div>
+            </div>
+            <br />
+            <span class="product-color">
+              <li
+                *ngIf="robot.status == 'Off'"
+                class="list-group-item myButtonList3"
+                style="
+                  cursor: pointer;
+                  color: rgb(255, 255, 255);
+                  user-select: none;
+                "
+                (click)="Instruction('on', robot)"
+              >
+                <fa-icon [icon]="faPowerOff"></fa-icon>&nbsp;Encender
+              </li>
+              <li
+                *ngIf="robot.status != 'Off'"
+                class="list-group-item myButtonList2"
+                style="
+                  cursor: pointer;
+                  color: rgb(255, 255, 255);
+                  user-select: none;
+                "
+                (click)="Instruction('off', robot)"
+              >
+                <fa-icon [icon]="faPowerOff"></fa-icon>&nbsp;Apagar
+              </li>
+            </span>
+          </div>
+        </a>
+        <a
+          class="card"
+          *ngIf="robot.name == 'HospitalVillaFlores'"
+          style="
+            --bg-img: url(../../../../assets/images/robots/Villaflores.png);
+          "
+        >
+          <div>
+            <h1>{{ robot.name }}</h1>
+
+            <div class="myOptions" *ngIf="robot.status != 'Off'">
+              <ul class="list-group">
+                <li class="product-price">Controles</li>
+
+                <ng-container>
+                  <li
+                    *ngIf=" robot.system == 'sat'"
+                    class="list-group-item myButtonList"
+                  >
+                    <fa-icon [icon]="faAddressCard"></fa-icon>&nbsp;Cambiar
+                    Credenciales
+                  </li>
+                  <li
+                    *ngIf="robot.system == 'sid'"
+                    class="list-group-item myButtonList"
+                    style="cursor: pointer"
+                    (click)="Instruction('changeAccessToken', robot)"
+                  >
+                    <fa-icon [icon]="faKey"></fa-icon>&nbsp;Cambiar Token
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+
+            <div *ngIf="robot.status != 'Off'">
+              <div class="date">{{ robot.status }}</div>
+            </div>
+            <div *ngIf="robot.status == 'Off'">
+              <div class="dateof">{{ robot.status }}</div>
+            </div>
+
+            <div class="tags">
+              <div class="tag">Limite: {{ robot.limit }}</div>
+              <div class="tag">Contador: {{ robot.current }}</div>
+            </div>
+            <br />
+            <span class="product-color">
+              <li
+                *ngIf="robot.status == 'Off'"
+                class="list-group-item myButtonList3"
+                style="
+                  cursor: pointer;
+                  color: rgb(255, 255, 255);
+                  user-select: none;
+                "
+                (click)="Instruction('on', robot)"
+              >
+                <fa-icon [icon]="faPowerOff"></fa-icon>&nbsp;Encender
+              </li>
+              <li
+                *ngIf="robot.status != 'Off'"
+                class="list-group-item myButtonList2"
+                style="
+                  cursor: pointer;
+                  color: rgb(255, 255, 255);
+                  user-select: none;
+                "
+                (click)="Instruction('off', robot)"
+              >
+                <fa-icon [icon]="faPowerOff"></fa-icon>&nbsp;Apagar
+              </li>
+            </span>
+          </div>
+        </a>
+        <a
+          class="card"
+          *ngIf="robot.name == 'Registro Civil 1'"
+          style="--bg-img: url(../../../../assets/images/robots/Civil.jpeg)"
+        >
+          <div>
+            <h1>{{ robot.name }}</h1>
+
+            <div class="myOptions" *ngIf="robot.status != 'Off'">
+              <ul class="list-group">
+                <li class="product-price">Controles</li>
+
+                <ng-container>
+                  <li
+                    *ngIf=" robot.system == 'sat'"
+                    class="list-group-item myButtonList"
+                  >
+                    <fa-icon [icon]="faAddressCard"></fa-icon>&nbsp;Cambiar
+                    Credenciales
+                  </li>
+                  <li
+                    *ngIf="robot.system == 'sid'"
+                    class="list-group-item myButtonList"
+                    style="cursor: pointer"
+                    (click)="Instruction('changeAccessToken', robot)"
+                  >
+                    <fa-icon [icon]="faKey"></fa-icon>&nbsp;Cambiar Token
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+
+            <div *ngIf="robot.status != 'Off'">
+              <div class="date">{{ robot.status }}</div>
+            </div>
+            <div *ngIf="robot.status == 'Off'">
+              <div class="dateof">{{ robot.status }}</div>
+            </div>
+
+            <div class="tags">
+              <div class="tag">Limite: {{ robot.limit }}</div>
+              <div class="tag">Contador: {{ robot.current }}</div>
+            </div>
+            <br />
+            <span class="product-color">
+              <li
+                *ngIf="robot.status == 'Off'"
+                class="list-group-item myButtonList3"
+                style="
+                  cursor: pointer;
+                  color: rgb(255, 255, 255);
+                  user-select: none;
+                "
+                (click)="Instruction('on', robot)"
+              >
+                <fa-icon [icon]="faPowerOff"></fa-icon>&nbsp;Encender
+              </li>
+              <li
+                *ngIf="robot.status != 'Off'"
+                class="list-group-item myButtonList2"
+                style="
+                  cursor: pointer;
+                  color: rgb(255, 255, 255);
+                  user-select: none;
+                "
+                (click)="Instruction('off', robot)"
+              >
+                <fa-icon [icon]="faPowerOff"></fa-icon>&nbsp;Apagar
+              </li>
+            </span>
+          </div>
+        </a>
+        <a
+          class="card"
+          *ngIf="robot.name == 'Toluca-Santos'"
+          style="--bg-img: url(../../../../assets/images/robots/Toluca.jpeg)"
+        >
+          <div>
+            <h1>{{ robot.name }}</h1>
+
+            <div class="myOptions" *ngIf="robot.status != 'Off'">
+              <ul class="list-group">
+                <li class="product-price">Controles</li>
+
+                <ng-container>
+                  <li
+                    *ngIf=" robot.system == 'sat'"
+                    class="list-group-item myButtonList"
+                  >
+                    <fa-icon [icon]="faAddressCard"></fa-icon>&nbsp;Cambiar
+                    Credenciales
+                  </li>
+                  <li
+                    *ngIf="robot.system == 'sid'"
+                    class="list-group-item myButtonList"
+                    style="cursor: pointer"
+                    (click)="Instruction('changeAccessToken', robot)"
+                  >
+                    <fa-icon [icon]="faKey"></fa-icon>&nbsp;Cambiar Token
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+
+            <div *ngIf="robot.status != 'Off'">
+              <div class="date">{{ robot.status }}</div>
+            </div>
+            <div *ngIf="robot.status == 'Off'">
+              <div class="dateof">{{ robot.status }}</div>
+            </div>
+
+            <div class="tags">
+              <div class="tag">Limite: {{ robot.limit }}</div>
+              <div class="tag">Contador: {{ robot.current }}</div>
+            </div>
+            <br />
+            <span class="product-color">
+              <li
+                *ngIf="robot.status == 'Off'"
+                class="list-group-item myButtonList3"
+                style="
+                  cursor: pointer;
+                  color: rgb(255, 255, 255);
+                  user-select: none;
+                "
+                (click)="Instruction('on', robot)"
+              >
+                <fa-icon [icon]="faPowerOff"></fa-icon>&nbsp;Encender
+              </li>
+              <li
+                *ngIf="robot.status != 'Off'"
+                class="list-group-item myButtonList2"
+                style="
+                  cursor: pointer;
+                  color: rgb(255, 255, 255);
+                  user-select: none;
+                "
+                (click)="Instruction('off', robot)"
+              >
+                <fa-icon [icon]="faPowerOff"></fa-icon>&nbsp;Apagar
+              </li>
+            </span>
+          </div>
+        </a>
+
+        <a
+          class="card"
+          *ngIf="robot.name == 'RFCPOAM'"
+          style="--bg-img: url(../../../../assets/images/robots/Rfc.png)"
+        >
+          <div>
+            <h1>{{ robot.name }}</h1>
+
+            <div *ngIf="robot.status != 'Off'">
+              <div class="date">{{ robot.status }}</div>
+            </div>
+            <div *ngIf="robot.status == 'Off'">
+              <div class="dateof">{{ robot.status }}</div>
+            </div>
+
+            <div class="tags">
+              <div class="tag">{{ robot.source }}</div>
+            </div>
+            <br />
+            <!-- <span class="product-color">
+              <li
+                *ngIf="robot.status == 'Off'"
+                class="list-group-item myButtonList2"
+                style="
+                  cursor: pointer;
+                  color: rgb(255, 255, 255);
+                  user-select: none;
+                "
+                (click)="Instruction('on', robot)"
+              >
+                <fa-icon [icon]="faPowerOff"></fa-icon>&nbsp;Encender
+              </li>
+              <li
+                *ngIf="robot.status != 'Off'"
+                class="list-group-item myButtonList2"
+                style="
+                  cursor: pointer;
+                  color: rgb(255, 255, 255);
+                  user-select: none;
+                "
+                (click)="Instruction('off', robot)"
+              >
+                <fa-icon [icon]="faPowerOff"></fa-icon>&nbsp;Apagar
+              </li>
+            </span> -->
+          </div>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <div class="modalInput" id="modal" style="display: none">
+    <div class="card2" id="changeToken" style="display: none">
+      <div class="card2-header" style="padding-top: 1em;">
+        <label for="card2-header">CAMBIAR TOKEN</label>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="input-group mb-3" style="  padding-left: 1em; padding-right: 1em;">
+            <span class="input-group-text" id="basic-addon2">Nuevo Token</span>
+            <input 
+            [(ngModel)]="NewAccessToken"
+              name="NewAccessToken"
+              type="text"
+              class="input"
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div style="  padding-left: 1em; padding-right: 1em;" class="col">
+            <div class="myButtonOn" (click)="NextStep()">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Enviar
+            </div>
+          </div>
+          <div style="  padding-left: 1em; padding-right: 1em;" class="col">
+            <div
+              class="myButtonOn"
+              (click)="CancelModal()"
+              style="
+                background: linear-gradient(
+                  0deg,
+                  rgb(115, 21, 21) 0%,
+                  rgb(115, 21, 21) 50%,
+                  rgb(126, 29, 29) 51%,
+                  rgb(115, 21, 21) 100%
+                );
+              "
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Cancelar
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card2" id="confirmRequest" style="display: none">
+      <div class="card2-header" style="padding-top: 1em;">
+        <label for="card2-header" >Confirmar</label>
+      </div>
+      <div class="card-body">
+        <div class="row text-center">
+          <div class="input-group mb-3">
+            <li class="Modal_title">¿SEGURO QUE QUIERES ENVIAR LA PETICIÓN?</li>
+         
+          </div>
+          <label for="row" style="text-align:center ;padding-left: 13em;"> INSTRUCCION PARA {{ instruction[1]?.name }} </label>
+        </div>
+        <div class="row">
+          <div style="  padding-left: 1em; padding-right: 1em;"  class="col">
+            <div class="myButtonOn" (click)="Send()">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Si, enviar
+            </div>
+          </div>
+          <div style="  padding-left: 1em; padding-right: 1em;"  class="col">
+            <div
+              class="myButtonOn"
+              (click)="CancelModal()"
+              style="
+                background: linear-gradient(
+                  0deg,
+                  rgb(115, 21, 21) 0%,
+                  rgb(115, 21, 21) 50%,
+                  rgb(126, 29, 29) 51%,
+                  rgb(115, 21, 21) 100%
+                );
+              "
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Cancelar
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

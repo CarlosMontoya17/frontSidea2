@@ -4,42 +4,41 @@
     <label for="side-title" class="title-menu">MENU</label>
   </div>
 
-  <div class="side-menu">
+  <div class="side-menu" *ngIf="Rol != 0">
     <div class="col">
-      <div class="row">
+      <div class="row" (click)="SelectView(0)">
         <fa-icon [icon]="faHomeUser" class="icon"></fa-icon>
         <label for="row" class="category">INICIO</label>
       </div>
 
-      <div class="row" *ngIf="Rol == 1 || Rol == 2">
+      <div class="row" *ngIf="Rol == 1 || Rol == 2" (click)="SelectView(1)">
         <fa-icon [icon]="faGear" class="icon"></fa-icon>
         <label for="row" class="category">ADMINISTRAR</label>
       </div>
 
-      <div class="row">
+      <div class="row" (click)="SelectView(2)" *ngIf="Services == 'actas' || Services == 'all'">
         <fa-icon [icon]="faFile" class="icon"></fa-icon>
         <label for="row" class="category">ACTAS</label>
       </div>
 
-      <div class="row">
+      <div class="row" (click)="SelectView(3)" *ngIf="Services == 'rfcs' || Services == 'all'">
         <fa-icon [icon]="faFile" class="icon"></fa-icon>
         <label for="row" class="category">RFC</label>
       </div>
 
-      <div class="row">
+      <div class="row" (click)="SelectView(4)">
         <fa-icon [icon]="faSackDollar" class="icon"></fa-icon>
         <label for="row" class="category">CORTE</label>
       </div>
 
-      <div class="row" *ngIf="Rol == 1 || Rol == 2">
+      <div class="row" *ngIf="Rol == 1 || Rol == 2" (click)="SelectView(5)">
         <fa-icon [icon]="faBook" class="icon"></fa-icon>
         <label for="row" class="category">DOCUMENTOS</label>
       </div>
-
-      <div class="row" (click)="LogOut()">
-        <fa-icon [icon]="faPersonWalkingArrowRight" class="icon"></fa-icon>
-        <label for="row" class="category">SALIR</label>
-      </div>
     </div>
+  </div>
+  <div class="row" (click)="LogOut()">
+    <fa-icon [icon]="faPersonWalkingArrowRight" class="icon"></fa-icon>
+    <label for="row" class="category">SALIR</label>
   </div>
 </div>

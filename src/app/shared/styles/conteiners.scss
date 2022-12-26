@@ -1,0 +1,12 @@
+.myBody {
+    display: flex;
+    list-style: none;
+    flex-flow: wrap;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    /* position: relative; */
+}
+.space {
+    justify-content: space-around;
+}

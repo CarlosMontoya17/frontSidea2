@@ -1,0 +1,36 @@
+<div class="myCard">
+    <div class="myTitle">
+        <label for="myTitle">ACTAS</label>
+    </div>
+    
+    <app-card-information
+        [Cards]="CardInfo"
+        (onClicked)="cardsButtons($event)"
+    ></app-card-information>
+    
+
+
+    <div *ngIf="View == 2">
+        <app-card-filter
+        [Filters]="CardFilter"
+        (onClicked)="selectDate($event)"
+        (onKey)="searchDoc($event)"
+        ></app-card-filter>
+        
+        <div  class="row">
+            <div *ngFor="let req of Peticiones">
+                <app-card-requests [Info]="req" (Download)="onDownloadRequest($event)"></app-card-requests>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+

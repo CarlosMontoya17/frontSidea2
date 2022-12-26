@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   faBars,
@@ -9,8 +9,6 @@ import {
   faBook,
   faPersonWalkingArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
-import { Roles } from 'src/app/core/models/roles.model';
-import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -26,12 +24,17 @@ export class SidebarComponent implements OnInit {
   faBook = faBook;
   faPersonWalkingArrowRight = faPersonWalkingArrowRight;
 
-  @Input() Rol: Roles = 1;
-
+  @Input() Services: string = 'none';
+  @Input() Rol: number = 0;
+  @Output() View: EventEmitter<number> = new EventEmitter();
   constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
+  SelectView(View: number): void {
+    this.View.emit(View);
+  }
+  
   LogOut(): void {
     localStorage.clear();
     this.router.navigate(['/']);

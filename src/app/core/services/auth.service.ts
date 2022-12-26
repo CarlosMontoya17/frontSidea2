@@ -17,4 +17,9 @@ export class AuthService {
   LogIn(username: string, password: string): Observable<any> {
     return this.http.post(`${_api}/api/user/signin/`, { username, password });
   }
+
+  getInfo(): Observable<any> {
+    return this.http.get(`${_api}/api/user/myData/`);
+  }
+
 }

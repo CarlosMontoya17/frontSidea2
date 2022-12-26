@@ -1,2 +1,11 @@
-<app-sidebar></app-sidebar>
-<app-navbar></app-navbar>
+<app-sidebar [Services]="myServices" [Rol]="myRol" (View)="setView($event)"></app-sidebar>
+<app-navbar [Username]="myUsername"></app-navbar>
+
+<div class="content" [ngSwitch]="View">
+    <app-home [Username]="myUsername" [Rol]="myRol" *ngSwitchCase="0"></app-home>
+    <app-managment *ngSwitchCase="1"></app-managment>
+    <app-actas *ngSwitchCase="2"></app-actas>
+    <app-rfcs *ngSwitchCase="3"></app-rfcs>
+    <app-pays *ngSwitchCase="4"></app-pays>
+    <app-docs *ngSwitchCase="5"></app-docs>
+</div>

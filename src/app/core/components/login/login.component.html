@@ -1,8 +1,8 @@
 <div class="fondo">
   <div class="form">
     <h3>INGRESAR</h3>
-    <input type="text" [(ngModel)]="USERNAME" name="USERNAME" />
-    <input type="password" [(ngModel)]="PASSWORD" name="PASSWORD" />
+    <input type="text" placeholder="Usuario" [(ngModel)]="USERNAME" name="USERNAME" />
+    <input type="password" placeholder="Contraseña" [(ngModel)]="PASSWORD" name="PASSWORD" (keyup.enter)="LogIn()"/>
     <button (click)="LogIn()">Iniciar Sesión</button>
   </div>
 </div>

@@ -1,0 +1,33 @@
+@import url(../../../styles/conteiners.scss);
+@import url(../../../styles/cards.scss);
+@import url(../../../styles/filters.scss);
+
+
+.mySubCard {
+    background-color: #494848 !important; 
+    width: 100% !important;  
+}
+
+.mySubTitle{
+    text-align: center;
+}
+
+.filters {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    h6 {
+        margin: 0;
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
+}
+
+.filter {
+    display: table-cell;
+}
+
+
+

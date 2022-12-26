@@ -1,0 +1,41 @@
+<div class="Card">
+    <div class="Card-head">
+        <div class="Card-cover" [ngStyle]="{'background-image': 'url(' + Info.Background + ')'}"></div>
+    </div>
+
+    <div class="Card-main">
+        <h1 class="Card-titleContent"> {{ Info.Title! }} </h1>
+        <h2 class="Card-subTitleContent"> {{ Info.Type! }} - {{ Info.Date! }}  </h2>
+
+        <div class="Card-genre">DATOS</div>
+
+        <div class="metadata">
+
+
+            <div class="searchCURP">
+                <p class="Card-desc">Tipo: {{ Info.Type! }} </p>
+                <p class="Card-desc">CURP: {{ Info.Search.CURP }} </p>
+                <p class="Card-desc">ESTADO: {{ Info.Search.State }} </p>
+            </div>
+
+        </div>
+
+        <div class="Card-footer">
+            <label for="Card-main" class="Card-filename"> {{ Info.Filename }} </label>
+            <button class="Button"  [ngClass]="{'backgroud-disabled': Info.Downloaded, 'backgroud-success' : !Info.Downloaded }" (click)="onDownload(Info)"> 
+                <fa-icon [icon]="faFileArrowDown" *ngIf="!Info.Downloaded"></fa-icon>    
+                <fa-icon [icon]="faCheckToSlot" *ngIf="Info.Downloaded"></fa-icon>  
+                {{ Info.Downloaded? 'Descargado': 'Descargar'  }} 
+            </button>
+<!-- 
+            <button class="Button backgroud-primary">
+                <fa-icon [icon]="faPeopleArrowsLeftRight"></fa-icon> Re-Asignar Acta
+            </button> -->
+
+        </div>
+
+
+
+
+    </div>
+</div>

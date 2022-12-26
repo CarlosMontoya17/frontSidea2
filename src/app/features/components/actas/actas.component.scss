@@ -1,0 +1,8 @@
+@import url(../../../shared/styles/headers.scss);
+@import url(../../../shared/styles/flexboxgrid.min.scss);
+@import url(../../../shared/styles/cards.scss);
+
+.row {
+    align-items: center;
+    padding: 0 5rem;
+}

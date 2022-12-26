@@ -3,12 +3,63 @@
     <label for="title">ACTAS AL INSTANTE</label>
   </div>
 
-  <div class="user">
+  <div (click)="openPopup()" class="user">
+
+    <img
+    style="cursor: pointer"
+    class="card-avatar"
+    [src]="imageToShow"
+    *ngIf="!isImageLoading; else noImageFound"
+  />
+  <ng-template #noImageFound>
     <img
       class="card-avatar"
       src="../../../assets/icons/user.png"
       alt="avatar"
     />
-    <label for="user">Pruebas</label>
+  </ng-template>
+    <!-- <img
+      class="card-avatar"
+      src="../../../assets/icons/user.png"
+      alt="avatar"
+    /> -->
+    <label for="user">{{ Username }}</label>
   </div>
+
+
+
+</div>
+
+
+<div
+class="modal"
+tabindex="-1"
+role="dialog"
+[ngStyle]="{ display: displayStyle }"
+>
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">SUBIR FOTO DE PERFIL</h4>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <input
+            accept="image/png , image/jpeg"
+            type="file"
+            (change)="onImageUpload($event)"
+          />
+        </div>
+      </form>
+    </div>
+    <div></div>
+    <div (click)="imageUploadAction()" class="modal-footer">
+      <button type="button" class="btn btn-success">Subir Foto</button>
+      <button type="button" class="btn btn-danger" (click)="closePopup()">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
 </div>

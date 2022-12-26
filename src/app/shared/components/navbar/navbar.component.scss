@@ -2,7 +2,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  /* background-color: rgb(243, 246, 253); */
+
+
   background-color: #d61c4e;
   color: white;
   width: 100%;
@@ -23,7 +24,7 @@
 .user {
   display: flex;
   cursor: pointer;
-  margin-right: 1rem;
+  margin-left: auto;
   align-items: center;
   &:hover {
     border-radius: 2rem;
@@ -47,6 +48,7 @@
     letter-spacing: 0.07em;
     font-weight: 700;
   }
+
   .card-avatar {
     user-select: none;
     width: 3rem;
@@ -56,4 +58,31 @@
     object-position: center;
     object-fit: cover;
   }
+}
+.modal-body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 1rem;
+}
+.modal-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: calc(.3rem - 1px);
+  border-top-right-radius: calc(.3rem - 1px);
+}
+
+  .modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
+    padding: .75rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: calc(.3rem - 1px);
+    border-bottom-left-radius: calc(.3rem - 1px);
 }

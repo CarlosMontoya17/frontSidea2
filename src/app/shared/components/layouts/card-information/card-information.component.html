@@ -1,0 +1,15 @@
+<div class="myBody space">
+    <ng-container *ngFor="let card of Cards">
+        <div class="mySubCard" [style.width.rem]="card.Width">
+            <div class="mySubTitle">    
+                <label for="mySubTitle">{{ card.Title }}</label>
+            </div>
+            <div class="myContainer">
+                <div class="myLegend">
+                    {{ card.Legend }}    
+                </div>
+                <app-action-button (onClick)="pressButton(card)" [Legend]="card.LegendBtn" [Icon]="card.IconBtn"></app-action-button>
+            </div>
+        </div>
+    </ng-container>
+</div>

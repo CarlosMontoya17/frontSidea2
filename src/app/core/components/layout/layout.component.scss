@@ -1,0 +1,14 @@
+.content{
+    height: calc(100% - 4rem);
+    margin-left: 64px;
+    margin-top: 3.5rem;
+    overflow: hidden;
+    
+    /*width: 800px;*/
+    
+    // margin-left: 4rem;
+    // display: flex;
+    position: fixed;
+    width: calc(100% - (72px));
+    // height: calc(100% - (4rem));
+}
