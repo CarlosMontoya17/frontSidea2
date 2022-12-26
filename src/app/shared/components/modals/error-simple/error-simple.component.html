@@ -5,5 +5,5 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <app-action-button [Legend]="'Aceptar'" [Icon]="faTriangleExclamation" ></app-action-button>
+    <app-action-button (onClick)="onAccepted()" [Legend]="'Aceptar'" [Icon]="faTriangleExclamation"  mat-dialog-close></app-action-button>
 </mat-dialog-actions>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -12,10 +12,16 @@ export class ErrorSimpleComponent implements OnInit {
   faTriangleExclamation = faTriangleExclamation;
   @Input() Title: string = 'Error';
   @Input() Content: string = '';
-  @Input() Actions: string = '';
+  @Input() Actions: boolean = false;
+  @Output() onAccept: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+
+  onAccepted(): void {
+    if(this.Actions) this.onAccept.emit(true);
   }
 
 }
