@@ -1,3 +1,4 @@
+<div matBadge="{{ Info.Index }}">
 <div class="Card">
     <div class="Card-head">
         <div class="Card-cover" [ngStyle]="{'background-image': 'url(' + Info.Background + ')'}"></div>
@@ -5,7 +6,7 @@
 
     <div class="Card-main">
         <h1 class="Card-titleContent"> {{ Info.Title! }} </h1>
-        <h2 class="Card-subTitleContent"> {{ Info.Type! }} - {{ Info.Date! }}  </h2>
+        <h2 class="Card-subTitleContent"> {{ Info.Type! }} - {{ Info.Date! | dating }}  </h2>
 
         <div class="Card-genre">DATOS</div>
 
@@ -28,14 +29,15 @@
                 {{ Info.Downloaded? 'Descargado': 'Descargar'  }} 
             </button>
 
-            <button class="Button backgroud-danger"  *ngIf="!Info.Available" (click)="onError(Info)" >
+            <button  class="Button backgroud-danger"  *ngIf="!Info.Available" (click)="onError(Info)" >
                 <fa-icon [icon]="faCircleXmark"></fa-icon>
                 Detalles
             </button>
-<!-- 
-            <button class="Button backgroud-primary">
-                <fa-icon [icon]="faPeopleArrowsLeftRight"></fa-icon> Re-Asignar Acta
-            </button> -->
+
+            <button *ngIf="Info.Available && (Info.Rol == 1 || Info.Rol == 2)" class="Button" [ngClass]="{'backgroud-primary': !Info.ReAssigned, 'backgroud-disabled' : Info.ReAssigned }" (click)="onReasign(Info)">
+                <fa-icon [icon]="faPeopleArrowsLeftRight"></fa-icon> 
+                {{ !Info.ReAssigned? 'Re-Asignar Acta': 'Acta Re-Asignada' }}
+            </button>
 
         </div>
 
@@ -43,4 +45,5 @@
 
 
     </div>
+</div>
 </div>

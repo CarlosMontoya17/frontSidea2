@@ -19,13 +19,17 @@ export class ActaRequestComponent implements OnInit, OnChanges {
   Data: string = '';
   Valid:boolean = false;
   State: string = '';
+  VariableSearch: boolean = false;
+  Searches:any;
 
   Req: modalRequest = {
     Title: '',
     TitleSearch: '',
     Searches: [''],
     TitleType: '',
-    Types: ['']
+    Types: [''],
+    Primary: 'Search',
+    DependencySearch: null
   };
   
 
@@ -43,6 +47,7 @@ export class ActaRequestComponent implements OnInit, OnChanges {
 
   InitForm(): void {
     this.Search = this.Req.Searches[0]!;
+    this.Searches = this.Req.Searches;
     this.Type = this.Req.Types[0]!;
     this.Data = '';
     this.Valid = false;    
@@ -58,6 +63,18 @@ export class ActaRequestComponent implements OnInit, OnChanges {
     this.Type = e.target.value;
     this.Data = '';
     this.Valid = false;
+    if(this.Req.DependencySearch){
+      if(this.Type == this.Req.DependencySearch.Type){
+        this.Search = this.Req.DependencySearch.Searches[0];
+        this.Searches = this.Req.DependencySearch.Searches;
+      }
+      else {
+        this.Searches = this.Req.Searches;
+      }
+    }
+    else {
+      this.Searches = this.Req.Searches;
+    };
   }
 
   onKey(e: any): void {

@@ -1,2 +1,11 @@
 @import url(../../../styles/conteiners.scss);
 @import url(../../../styles/cards.scss);
+@import url(../../../styles/filters.scss);
+
+.input-group {
+    position: relative;
+    align-self: flex-start;
+    width: 23rem !important;
+    height: 1rem;
+    padding: 1rem;
+}

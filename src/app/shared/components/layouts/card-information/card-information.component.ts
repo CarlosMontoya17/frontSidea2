@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { cardInfo } from 'src/app/shared/models/card-information.model';
 
 @Component({
@@ -9,9 +9,10 @@ import { cardInfo } from 'src/app/shared/models/card-information.model';
 })
 export class CardInformationComponent implements OnInit {
 
+  faMagnifyingGlass = faMagnifyingGlass;
   @Input() Cards: cardInfo[] = [];
   @Output() onClicked: EventEmitter<cardInfo> = new EventEmitter();
-
+  @Output() onKey: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
@@ -19,6 +20,12 @@ export class CardInformationComponent implements OnInit {
 
   pressButton(item: cardInfo): void{
     this.onClicked.emit(item);
+  }
+
+  pressKey(e:any, card:cardInfo): void {
+    let _v = e.target.value;    
+    this.onKey.emit({ Source: card.Id, Key: _v });
+
   }
 
 }

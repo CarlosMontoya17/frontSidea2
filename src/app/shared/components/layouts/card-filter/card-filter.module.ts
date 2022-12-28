@@ -6,6 +6,7 @@ import { ToogleBtnDirective } from 'src/app/shared/directives/toogle-btn.directi
 import { SharedModule } from 'src/app/shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {MatMenuModule} from '@angular/material/menu';
     FontAwesomeModule,
     SharedModule,
     BrowserAnimationsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTooltipModule
   ],
   exports: [CardFilterComponent]
 })

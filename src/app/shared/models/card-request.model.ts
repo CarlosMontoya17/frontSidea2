@@ -1,4 +1,6 @@
 export interface cardRequest {
+    Rol: number;
+    Index: number;
     Id: string;
     Background: string;
     Title: string;
@@ -9,6 +11,7 @@ export interface cardRequest {
     Available: boolean;
     Downloaded: boolean;
     Comments: string;
+    ReAssigned: boolean;
 }
 
 

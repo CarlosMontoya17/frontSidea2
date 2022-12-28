@@ -3,6 +3,7 @@ export interface cardFilter {
     Title: string;
     Type: 'Searcher' | 'Dropdown';
     Width: number;
+    Tooltip: string;
     Content: contentDropdown | null;
 }
 

@@ -10,3 +10,43 @@
 
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-tooltip{
+  text-transform: uppercase;
+  font-size: 0.8rem !important;
+  background-color: #4e4e4ee6 !important;
+}
+
+.mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content {
+  right: 4px;
+  background-color: #0d6efd;
+}
+
+*::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(0deg, rgba(31, 29, 29, 1) 0%, rgba(75, 75, 75, 1) 100%);
+  border-radius: 1rem;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(61deg, rgba(128, 133, 133, 1) 0%, rgb(88, 88, 87) 100%);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+*::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 1rem;
+}
+
+*::-webkit-scrollbar-track:hover,
+*::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+}

@@ -1,4 +1,18 @@
 .mat-typography {
+    margin-top: 0.8rem;
     font-size: 1rem;
     font-weight: 400;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    h2 {
+        margin: 0;
+    }
+}
+
+img {
+    width: 2rem;
+    margin-right: 0.5rem;
 }

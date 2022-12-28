@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-error-simple',
@@ -9,7 +9,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 export class ErrorSimpleComponent implements OnInit {
 
   
-  faTriangleExclamation = faTriangleExclamation;
+  faXmark = faXmark;
   @Input() Title: string = 'ERROR';
   @Input() Content: string = '';
   @Input() Actions: boolean = false;

@@ -12,6 +12,9 @@ import { PreferencesModule } from 'src/app/shared/components/modals/preferences/
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { TableModalModule } from 'src/app/shared/components/modals/table-modal/table-modal.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { EmptyStateModule } from 'src/app/shared/components/layouts/empty-state/empty-state.module';
+import { TransposeModule } from 'src/app/shared/components/modals/transpose/transpose.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { TableModalModule } from 'src/app/shared/components/modals/table-modal/t
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
-    TableModalModule
+    TableModalModule,
+    SharedModule,
+    EmptyStateModule,
+    TransposeModule
   ],
   exports: [ActasComponent]
 })

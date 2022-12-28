@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { faBook, faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { actionEmitter, cardFilter } from 'src/app/shared/models/card-filters.model';
 import { cardInfo } from 'src/app/shared/models/card-information.model';
@@ -10,7 +10,9 @@ import { ActaRequestComponent } from 'src/app/shared/components/modals/acta-requ
 import { modalRequest } from 'src/app/shared/models/req-modal.model';
 import { PreferencesComponent } from 'src/app/shared/components/modals/preferences/preferences.component';
 import { TableModalComponent } from 'src/app/shared/components/modals/table-modal/table-modal.component';
-
+import { TransposeComponent } from 'src/app/shared/components/modals/transpose/transpose.component';
+import { UsersService } from '../../services/users.service';
+import { SimpleMixed } from 'src/app/shared/alerts';
 
 @Component({
   selector: 'app-actas',
@@ -23,9 +25,11 @@ export class ActasComponent implements OnInit {
   faFileCirclePlus = faFileCirclePlus;
   
 
+  @Input() Rol: number = 0;
+
   Search:string = '';
   Peticiones:cardRequest[] = [];
-  View:number = 0;
+  View:boolean = false;
 
   CardInfo: cardInfo[] = [
     {
@@ -34,7 +38,8 @@ export class ActasComponent implements OnInit {
       Title: 'SOLICITUDES',
       Legend: 'PARA REVISAR O DESCARGAR TUS SOLICITUDES ENVIADAS, DA CLICK EN EL BÓTON.',
       LegendBtn: 'Ver',
-      IconBtn: faBook
+      IconBtn: faBook,
+      Input: false
     },
     {
       Id: 1,
@@ -42,7 +47,8 @@ export class ActasComponent implements OnInit {
       Title: 'NUEVO',
       Legend: 'PARA SOLICITAR UN ACTA DE NACIMIENTO, DEFUNCIÓN, DIVORCIO Y MATRIMONIO, DA CLICK EN EL BÓTON.',
       LegendBtn: 'Nuevo',
-      IconBtn: faFileCirclePlus
+      IconBtn: faFileCirclePlus,
+      Input: false
     }
   ];
   CardFilter: cardFilter[] = [
@@ -51,6 +57,7 @@ export class ActasComponent implements OnInit {
       Title: 'Buscador',
       Type: 'Searcher',
       Width: 35,
+      Tooltip: 'Buscar por CURP, Tipo de acta o estado',
       Content: null
     },
     {
@@ -58,6 +65,7 @@ export class ActasComponent implements OnInit {
       Title: 'Seleccionar Corte',
       Type: 'Dropdown',
       Width: 15,
+      Tooltip: 'Seleccionar fecha de corte',
       Content: {
         Default: '',
         Options: [],
@@ -71,10 +79,17 @@ export class ActasComponent implements OnInit {
     TitleSearch: 'Busqueda por',
     Searches: ['CURP'],
     TitleType: 'Tipo de documento',
-    Types: ['NACIMIENTO', 'MATRIMONIO', 'DIVORCIO', 'DEFUNCION']
+    Types: ['NACIMIENTO', 'MATRIMONIO', 'DIVORCIO', 'DEFUNCION'],
+    Primary: 'Search',
+    DependencySearch: null
   }
 
-  constructor(private svc: ActasService, private utils: UtilsService, private dialog: MatDialog) { }
+  constructor(
+    private svc: ActasService, 
+    private utils: UtilsService, 
+    private dialog: MatDialog,
+    private users: UsersService
+  ) { }
 
   async ngOnInit(): Promise<void> {
     
@@ -106,7 +121,9 @@ export class ActasComponent implements OnInit {
 
   TransformPeticiones(data: any): void {
       let _date: cardRequest[] = [];
-      data.forEach((e: any) => {
+
+      for (let i = 0; i < data.length; i++) {
+        let e:any = data[i];        
         if(e.search == "CURP"){
           const _s: searchCURP = {
             CURP: e.curp,
@@ -115,6 +132,8 @@ export class ActasComponent implements OnInit {
           };
 
           const _d: cardRequest = {
+            Rol: this.Rol,
+            Index: i+1,
             Id: e.id,
             Background: `/assets/images/icons/${String(e.type).toLowerCase()}.png`,
             Date: e.createdAt,
@@ -124,12 +143,13 @@ export class ActasComponent implements OnInit {
             Title: `ACTA DE ${e.type}`,
             Type: e.type,
             Available: e.comments=="Descargado"? true: false,
-            Comments: e.comments
+            Comments: e.comments,
+            ReAssigned: e.transposeId != null? true: false
           };
           
           _date.push(_d);
         }
-      });
+      }
 
 
       this.Peticiones = _date;      
@@ -157,22 +177,21 @@ export class ActasComponent implements OnInit {
 
   async cardsButtons(item: cardInfo): Promise<void> {
     if(item.Id == 0){
-      if(this.View == 0){
+      if(!this.View){
         await this.getDates();
-        this.View = 2;
+        this.View = true;
       }
-      else this.View = 0;
+      else {
+        this.Search = '';
+        this.View = false;
+      }
     }
     else if (item.Id == 1) {
       this.newRequest();
     }
   }
 
-
-
   newRequest(): void {
-
-
     const _req = this.dialog.open(ActaRequestComponent, {
       width: 'md'
     });
@@ -187,12 +206,20 @@ export class ActasComponent implements OnInit {
             this.svc.newRequest(data.Type, data.Search, data.Data, data.State, pref).subscribe((req:any) => {
               console.log(req);
                 if(req) {
+                  let _f = this.CardFilter.find((d:any) => d.Id == 1);
+                  if(_f) {
+                    let _date:any = _f.Content?.Default;
+                    if(_date == 'Actual') _date = 'null';
+                    this.getPeticiones(_date);
+                  }
                   const _result = this.dialog.open(TableModalComponent);
                   _result.componentInstance.Table.Data = [req];
 
 
                   _result.afterClosed().subscribe((id: any) => {
-                    if(id) this.onDownloadActa(id, req.curp);
+                    if(id){
+                      this.onDownloadActa(id, req.curp);
+                    }
                   });
 
                 }
@@ -214,14 +241,37 @@ export class ActasComponent implements OnInit {
   }
 
   searchDoc(word: actionEmitter): void{
-    console.log(word);
+    this.Search = word.Value;
+  }
+
+
+  async reAssign(e: cardRequest): Promise<void> {    
+    let _dialog = this.dialog.open(TransposeComponent, {
+      width: 'md'
+    });
+
+    const _users = await this.users.getFull().toPromise();
+
+    _dialog.componentInstance.Users = _users;
+
+    _dialog.afterClosed().subscribe((data:any) => {
+      if(data) {
+        this.svc.reAssign(e.Id, data.id).subscribe((re: any) => {
+          let _f = this.CardFilter.find((d:any) => d.Id == 1);
+          if(_f) {
+            let _date:any = _f.Content?.Default;
+            if(_date == 'Actual') _date = 'null';
+            this.getPeticiones(_date);
+          }
+          SimpleMixed("success", "REGISTRO REASIGNADO");
+          
+        })
+      }
+    });
   }
 
 
 
-  addRequest(): void {
-
-  }
 
 
 

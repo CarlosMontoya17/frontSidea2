@@ -13,7 +13,7 @@
         (onClicked)="cardsButtons($event)"
     ></app-card-information>
     
-    <div *ngIf="View == 2">
+    <div *ngIf="View">
         <app-card-filter
         [Filters]="CardFilter"
         (onClicked)="selectDate($event)"
@@ -21,9 +21,16 @@
         ></app-card-filter>
         
         <div  class="row">
-            <div *ngFor="let req of Peticiones">
-                <app-card-requests [Info]="req" (Download)="onDownloadRequest($event)"></app-card-requests>
-            </div>
+            <ng-container *ngIf="Peticiones | searching: Search as search">
+                <div *ngFor="let req of Peticiones | searching: Search">
+                    <app-card-requests class="animate__animated animate__fadeInUp" [Info]="req" (ReAsign)="reAssign($event)" (Download)="onDownloadRequest($event)"></app-card-requests>
+                </div>
+
+                <app-empty-state *ngIf="search.length == 0"></app-empty-state>
+                
+            </ng-container>
+
+
         </div>
     </div>
 

@@ -1,15 +1,28 @@
 <div class="myBody space">
     <ng-container *ngFor="let card of Cards">
         <div class="mySubCard" [style.width.rem]="card.Width">
-            <div class="mySubTitle">    
+            <div class="mySubTitle">
                 <label for="mySubTitle">{{ card.Title }}</label>
             </div>
             <div class="myContainer">
-                
+
                 <div class="myLegend">
-                    {{ card.Legend }}    
+                    {{ card.Legend }}
                 </div>
-                <app-action-button (onClick)="pressButton(card)" [Legend]="card.LegendBtn" [Icon]="card.IconBtn"></app-action-button>
+
+                <div class="myActions">
+
+                    <div class="input-group" *ngIf="card.Input" >
+                        <input type="text" class="form-control" placeholder="BUSCAR"
+                            aria-describedby="basic-addon2" (keyup)="pressKey($event, card)"/>
+                        <span class="input-group-text" id="basic-addon2">
+                            <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+                        </span>
+                    </div>
+
+                    <app-action-button (onClick)="pressButton(card)" [Legend]="card.LegendBtn"
+                        [Icon]="card.IconBtn"></app-action-button>
+                </div>
             </div>
         </div>
     </ng-container>

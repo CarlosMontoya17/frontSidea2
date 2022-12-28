@@ -1,0 +1,35 @@
+@import url('../../../styles/cards.scss');
+
+.myCard {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.151) !important;
+    border-radius: 0.5rem;
+    height: 10rem;
+}
+
+.myTitle {
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    margin: 1rem 0 0 0;
+    p {
+        margin: 0;
+    }
+}
+
+.myContent {
+    flex-direction: column;
+    justify-content: center;
+    color: #000000b3;
+    padding: 0 1rem;
+    display: flex;
+    p {
+        text-align: center;
+    }
+    img {
+        user-select: none;
+        align-self: center;
+        width: 5rem;
+        position: relative;
+    }
+}

@@ -1,0 +1,19 @@
+@import url(../../../styles/filters.scss);
+
+h3 {
+    text-transform: uppercase;
+}
+
+.form-control {
+    text-transform: none;
+    width: 25rem;
+}
+.input-group {
+    width: 511px;
+}
+.list-group {
+    min-height: 40px;
+    max-height: 406px;
+    overflow: hidden;
+    overflow-y: auto;
+}

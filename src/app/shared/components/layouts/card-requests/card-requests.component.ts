@@ -18,6 +18,8 @@ export class CardRequestsComponent implements OnInit {
   faPeopleArrowsLeftRight = faPeopleArrowsLeftRight;
 
   @Input() Info: cardRequest = {
+    Rol: 0,
+    Index: 0,
     Background: '',
     Date: '',
     Downloaded: false,
@@ -27,10 +29,12 @@ export class CardRequestsComponent implements OnInit {
     Title: '',
     Type: '',
     Available: false,
-    Comments: ''
+    Comments: '',
+    ReAssigned: false
   };
 
   @Output() Download: EventEmitter<cardRequest> = new EventEmitter();
+  @Output() ReAsign: EventEmitter<cardRequest> = new EventEmitter();
 
   constructor(private dialog: MatDialog) { }
 
@@ -42,13 +46,13 @@ export class CardRequestsComponent implements OnInit {
   }
 
   onError(item: cardRequest): void {
-    
-
     // SimpleAlert("error", "");
-
     const _dialog = this.dialog.open(ErrorSimpleComponent);
     _dialog.componentInstance.Content = item.Comments;
+  }
 
+  onReasign(item: cardRequest): void {
+    this.ReAsign.emit(item);
   }
 
 

@@ -23,6 +23,7 @@
     "@fortawesome/angular-fontawesome": "^0.10.2",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "animate.css": "^4.1.1",
     "bootstrap": "^5.2.3",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.4.8",

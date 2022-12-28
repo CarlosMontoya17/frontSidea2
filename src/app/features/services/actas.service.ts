@@ -26,4 +26,8 @@ export class ActasService {
     return this.http.post(`${_api}/api/services/actas/new/`, { type, search, data, estado, preferences });
   }
 
+  reAssign(id:any, new_user_id:any): Observable<any> {
+    return this.http.put(`${_api}/api/actas/reg/reassign/${id}`, { reassignId: new_user_id });
+  }
+
 }

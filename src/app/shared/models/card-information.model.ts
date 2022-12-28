@@ -7,4 +7,6 @@ export interface cardInfo {
     Legend: string;
     LegendBtn: string;
     IconBtn: IconDefinition;
+    Input: boolean;
 }
+

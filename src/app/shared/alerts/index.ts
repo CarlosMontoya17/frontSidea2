@@ -10,3 +10,22 @@ export function SimpleAlert(icon: any, title: string, text:string): void {
         else return false;
     })
 }
+
+export function SimpleMixed(icon: any, text:string){
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: icon,
+        title: text
+      });
+}

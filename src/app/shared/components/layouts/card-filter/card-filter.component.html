@@ -13,9 +13,11 @@
                 <ng-container *ngIf="filter.Type == 'Searcher'">
                     <div class="input-group">
                         <input
+                            matTooltip="{{ filter.Tooltip }}"
+                            
                           type="text"
                           class="form-control"
-                          placeholder="BUSCAR POR DATOS PROPORCIONADOS"
+                          placeholder="BUSCAR"
                           aria-label="Recipient's username"
                           aria-describedby="basic-addon2"
                           (keyup)="onKeySearcher(filter, $event)"
@@ -29,7 +31,7 @@
                 <ng-container *ngIf="filter.Type == 'Dropdown'">
 
                     <div class="dropdown">
-                        <button class="btn" mat-button [matMenuTriggerFor]="beforeMenu">{{ filter.Content?.Default }}</button>
+                        <button matTooltip="{{ filter.Tooltip }}" class="btn" mat-button [matMenuTriggerFor]="beforeMenu">{{ filter.Content?.Default }}</button>
                         <mat-menu #beforeMenu="matMenu" xPosition="before">
                             <ng-container *ngFor="let opt of filter.Content?.Options">
                                 <button mat-menu-item (click)="onClickDropdown(filter, opt[filter.Content!.Key])" [ngClass]="{ 'active': opt == filter.Content?.Default }"> {{ opt[filter.Content!.Key] }} </button>
