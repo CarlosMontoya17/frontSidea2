@@ -75,7 +75,6 @@
   font-size: 20px;
   margin-bottom: 8px;
   text-align: center;
-  white-space: nowrap;
 }
 
 .Card-subTitleContent {
@@ -149,13 +148,22 @@
 }
 
 
-.backgroud-primary {
-    color: #fff;
+.backgroud-warning {
+    color: #19191a;
     font-weight: 600;
-    background-color: $primary;
+    background-color: #ffc107;
     &:hover{
-        background-color: #0e5ace;
+        background-color: #dba709;
     }
+}
+
+.backgroud-primary {
+  color: #fff;
+  font-weight: 600;
+  background-color: $primary;
+  &:hover{
+      background-color: #0e5ace;
+  }
 }
 
 .backgroud-danger {

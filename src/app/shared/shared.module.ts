@@ -6,6 +6,7 @@ import { CurpValidationDirective } from './directives/curp-validation.directive'
 import { DatingPipe } from './pipes/dating.pipe';
 import { SearchingPipe } from './pipes/searching.pipe';
 import { UserNamePipe } from './pipes/user-name.pipe';
+import { RfcValidationDirective } from './directives/rfc-validation.directive';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { UserNamePipe } from './pipes/user-name.pipe';
     CurpValidationDirective,
     DatingPipe,
     SearchingPipe,
-    UserNamePipe
+    UserNamePipe,
+    RfcValidationDirective
   ],
   imports: [CommonModule],
   exports: [
@@ -23,7 +25,8 @@ import { UserNamePipe } from './pipes/user-name.pipe';
     CurpValidationDirective, 
     DatingPipe,
     SearchingPipe,
-    UserNamePipe
+    UserNamePipe,
+    RfcValidationDirective
   ]
 })
 export class SharedModule {}

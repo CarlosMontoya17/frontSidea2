@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { faCheckToSlot, faCircleXmark, faFileArrowDown, faPeopleArrowsLeftRight } from '@fortawesome/free-solid-svg-icons';
+import { faCheckToSlot, faCircleXmark, faFileArrowDown, faPeopleArrowsLeftRight, faRotate } from '@fortawesome/free-solid-svg-icons';
 import { SimpleAlert } from 'src/app/shared/alerts';
 import { cardRequest } from 'src/app/shared/models/card-request.model';
 import {MatDialog} from '@angular/material/dialog';
@@ -16,6 +16,7 @@ export class CardRequestsComponent implements OnInit {
   faCheckToSlot = faCheckToSlot;
   faCircleXmark = faCircleXmark;
   faPeopleArrowsLeftRight = faPeopleArrowsLeftRight;
+  faRotate = faRotate;
 
   @Input() Info: cardRequest = {
     Rol: 0,
@@ -30,7 +31,8 @@ export class CardRequestsComponent implements OnInit {
     Type: '',
     Available: false,
     Comments: '',
-    ReAssigned: false
+    ReAssigned: false,
+    ReAssignedLeyend: ''
   };
 
   @Output() Download: EventEmitter<cardRequest> = new EventEmitter();

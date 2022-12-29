@@ -127,11 +127,12 @@ export class ActasComponent implements OnInit {
         if(e.search == "CURP"){
           const _s: searchCURP = {
             CURP: e.curp,
-            Type: e.type,
+            Type: e.search,
             State: e.estado
           };
 
           const _d: cardRequest = {
+            ReAssignedLeyend: "Acta",
             Rol: this.Rol,
             Index: i+1,
             Id: e.id,
@@ -169,6 +170,7 @@ export class ActasComponent implements OnInit {
           let _date:any = _f.Content?.Default;
           if(_date == 'Actual') _date = 'null';
           this.getPeticiones(_date);
+          SimpleMixed("success", "DOCUMENTO DESCARGADO");
         }
       }
     });
@@ -204,7 +206,6 @@ export class ActasComponent implements OnInit {
         _pref.afterClosed().subscribe((pref: any) => {
           if(pref) {
             this.svc.newRequest(data.Type, data.Search, data.Data, data.State, pref).subscribe((req:any) => {
-              console.log(req);
                 if(req) {
                   let _f = this.CardFilter.find((d:any) => d.Id == 1);
                   if(_f) {

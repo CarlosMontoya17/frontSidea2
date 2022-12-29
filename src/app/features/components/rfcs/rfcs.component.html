@@ -1,1 +1,46 @@
-<p>rfcs works!</p>
+<div class="myCard">
+
+    <div class="myTitle">
+        <label for="myTitle">RFC</label>
+    </div>
+
+    <button  matTooltip="Nueva petición" matTooltipClass="tooltip" (click)="newRequest()" class="add" mat-mini-fab color="secundary">
+        <mat-icon>add</mat-icon>
+    </button>
+      
+    <app-card-information
+    [Cards]="CardInfo"
+    (onClicked)="onClick($event)"
+
+    ></app-card-information>
+
+
+
+    <ng-container *ngIf="View">
+        <app-card-filter
+        [Filters]="Filtros"
+        (onClicked)="selectDate($event)"
+        (onKey)="onKey($event)"
+        ></app-card-filter>
+    
+        <div class="row">
+            <ng-container *ngIf="Peticiones | searching: Buscar as search">
+                <div *ngFor="let peticion of Peticiones | searching: Buscar">
+                    <app-card-requests
+                    class="animate__animated animate__fadeInUp"
+                    [Info]="peticion"
+                    (ReAsign)="reAssing($event)"
+                    (Download)="onDownloadRequest($event)"
+                    ></app-card-requests>
+                </div>
+                <app-empty-state *ngIf="search.length == 0"></app-empty-state>
+            </ng-container>
+
+        </div>
+    </ng-container>
+
+
+
+
+
+</div>

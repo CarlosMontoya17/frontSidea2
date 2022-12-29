@@ -11,8 +11,6 @@ export class CardFilterComponent implements OnChanges {
 
   faMagnifyingGlass = faMagnifyingGlass;
 
-  
-
   @Input() Title: string = 'Filtros';
   @Input() Filters: cardFilter[] = [];
 

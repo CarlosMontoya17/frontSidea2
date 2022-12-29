@@ -12,6 +12,7 @@ export interface cardRequest {
     Downloaded: boolean;
     Comments: string;
     ReAssigned: boolean;
+    ReAssignedLeyend: string;
 }
 
 

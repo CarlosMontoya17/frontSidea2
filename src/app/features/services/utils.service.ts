@@ -38,6 +38,16 @@ export class UtilsService {
     a.remove();
   }
 
+  downloadBlob(blob:any, filename: string): void{
+    let a = document.createElement('a');
+    var url = URL.createObjectURL(blob);
+    a.href = url;
+    a.download = String(filename);
+    a.click();
+    URL.revokeObjectURL(url);
+    a.remove();
+  }
+
   SetState(CURP: string) {
     let res = CURP.charAt(11) + CURP.charAt(12);
     switch (res) {

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Auth } from '../../models/auth.model';
 import { storageKeys } from '../../models/storageKeys.model';
 import { AuthService } from '../../services/auth.service';
+import { SimpleAlert } from '../../../shared/alerts/index';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +32,8 @@ export class LoginComponent implements OnInit {
 
         this.router.navigate(['app']);
       }
+    }, (err:any) => {
+      SimpleAlert("error", "ERROR", "Credenciales invalidas");
     });
   }
 }

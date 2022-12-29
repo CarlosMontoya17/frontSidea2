@@ -6,7 +6,7 @@
      position: relative; 
     height: fit-content;
     padding: 1rem;
-    border: solid 4px #181717; 
+    //border: solid 4px #181717; 
 }
 
 .mySubTitle {
@@ -86,4 +86,15 @@ app-action-button{
 
 .form-control {
     text-transform: none !important;
+}
+
+.myTitle {
+    color: rgb(68, 67, 66);
+    position: relative;
+    padding-top: 2rem;
+    padding-left: 2rem;
+    font-size: 1.3rem;
+    user-select: none;
+    letter-spacing: 0.1em;
+    font-weight: 720;
 }
