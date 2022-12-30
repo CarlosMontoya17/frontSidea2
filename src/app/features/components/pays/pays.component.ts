@@ -140,7 +140,7 @@ export class PaysComponent implements OnInit {
 }
 //////// Search Docs from a Ciber
 selectCiber(aux:any){
-  console.log(aux);
+  // console.log(aux);
 }
 
 
