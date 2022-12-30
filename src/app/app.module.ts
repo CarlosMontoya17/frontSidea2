@@ -10,6 +10,7 @@ import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 import { LoginModule } from './core/components/login/login.module';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],

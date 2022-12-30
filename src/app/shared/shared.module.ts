@@ -6,6 +6,7 @@ import { CurpValidationDirective } from './directives/curp-validation.directive'
 import { DatingPipe } from './pipes/dating.pipe';
 import { SearchingPipe } from './pipes/searching.pipe';
 import { UserNamePipe } from './pipes/user-name.pipe';
+//import { PaysFilterComponent } from './components/layouts/pays-filter/pays-filter.component';
 
 @NgModule({
   declarations: [

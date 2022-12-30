@@ -1,0 +1,41 @@
+@import url(../../../styles/conteiners.scss);
+@import url(../../../styles/cards.scss);
+@import url(../../../styles/filters.scss);
+// @import url(../../../styles/headers.scss);
+//@import url(../../../styles/flexboxgrid.min.scss);
+
+
+.mySubCard {
+    background-color: #494848 !important; 
+    width: 100% !important;  
+}
+
+.mySubTitle{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.filters {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    h6 {
+        margin: 0;
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
+}
+
+.filter {
+    display: table-cell;
+}
+.btn {
+
+  padding: 6px 26px;
+
+
+}
+
+

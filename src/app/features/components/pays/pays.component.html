@@ -1,1 +1,74 @@
-<p>pays works!</p>
+<div class="myBody">
+    <div class="myCard">
+        <div class="myTitle">
+            <label for="myTitle">CORTES</label>
+        </div>
+
+        <div class="row">
+            <div class="col-3 mySubCard" style="background-color: lightcyan;">
+                <app-pays-filter
+                [Filters]="PaysFilter"
+                (onClicked)="selectDate($event)"
+                (onKey)="searchDoc($event)"
+                ></app-pays-filter>
+                
+                <div class="container text-center filterSubItems">
+                    <div class="btn btn-success">Exportar Excel</div>
+                </div>
+
+                <div class="container text-center filterSubItems">
+                    <h3 class="ciberCardTitle">Cibers</h3>
+                    <div class="ciberFather" *ngFor="let sol of Solicitudes">
+                        <app-card-corte 
+                        [Info]="sol"
+                        (click)="selectCiber($event)"  
+                        ></app-card-corte>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="col-9 mySubCard tablaDocs">
+                
+            </div>
+        </div>
+    <!-- 
+        <div *ngFor="let sol of Solicitudes">
+            <app-card-corte [Info]="sol"></app-card-corte>
+        </div> -->
+
+        <!-- <p *ngFor="let sol of Solicitudes">{{sol.Name}}</p> -->
+        
+
+    </div>
+</div>
+
+
+
+<!-- <div class="myBody space">
+<div class="mySubCard text-center">
+ <h2>Tipo de Corte</h2>
+ <p><a href="">General</a> || <a href="">Personal</a> </p>
+</div>
+</div> -->
+
+<!-- <div class="row" style="margin-top: 30px; margin-left: 1%;">
+    <div class="col-3 text-center myFilter">
+        Filtro
+        <div class="row">
+            <button class="btn" style="margin-left: 40px;">Fecha ###</button>
+            <button class="btn-success" style="margin-left: auto; margin-right: 40px;">Exportar Excel</button> 
+        </div>
+        <div class="row">
+            
+            <input class="input-group" type="text" name="" id="" placeholder="Buscar..." (input)="onNewSearch($event)">
+            <p>{{searchString}}</p>         
+            searchString contiene el string que se buscara entre los nombres de los "cibers"
+        </div>
+    </div>
+
+    <div class="col-9 text-center">
+
+    </div> 
+
+</div>-->
