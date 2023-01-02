@@ -9,6 +9,7 @@ import {
   faBook,
   faPersonWalkingArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
+import { UsersService } from 'src/app/features/services/users.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -27,7 +28,7 @@ export class SidebarComponent implements OnInit {
   @Input() Services: string = 'none';
   @Input() Rol: number = 0;
   @Output() View: EventEmitter<number> = new EventEmitter();
-  constructor(private router: Router) {}
+  constructor(private router: Router, private user: UsersService) {}
 
   ngOnInit(): void {}
 

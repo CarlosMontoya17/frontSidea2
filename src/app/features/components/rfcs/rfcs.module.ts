@@ -12,6 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { EmptyStateModule } from 'src/app/shared/components/layouts/empty-state/empty-state.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TransposeModule } from 'src/app/shared/components/modals/transpose/transpose.module';
+import { PendientsModule } from 'src/app/shared/components/layouts/add-ons/pendients/pendients.module';
 
 
 
@@ -31,7 +32,8 @@ import { TransposeModule } from 'src/app/shared/components/modals/transpose/tran
     MatTooltipModule,
     EmptyStateModule,
     MatDialogModule,
-    TransposeModule
+    TransposeModule,
+    PendientsModule
   ],
   exports: [RfcsComponent]
 })

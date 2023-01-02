@@ -23,23 +23,23 @@
 
         <div class="Card-footer">
             <label for="Card-main" class="Card-filename"> {{ Info.Filename }} </label>
-            <button class="Button" *ngIf="Info.Available && Info.Comments"  [ngClass]="{'backgroud-disabled': Info.Downloaded, 'backgroud-success' : !Info.Downloaded }" (click)="onDownload(Info)"> 
+            <button  matTooltip="Descargar documento" [matTooltipPosition]="'left'"  class="Button" *ngIf="Info.Available && Info.Comments"  [ngClass]="{'backgroud-disabled': Info.Downloaded, 'backgroud-success' : !Info.Downloaded }" (click)="onDownload(Info)"> 
                 <fa-icon [icon]="faFileArrowDown" *ngIf="!Info.Downloaded"></fa-icon>    
                 <fa-icon [icon]="faCheckToSlot" *ngIf="Info.Downloaded"></fa-icon>  
                 {{ Info.Downloaded? 'Descargado': 'Descargar'  }} 
             </button>
 
-            <button  class="Button backgroud-danger"  *ngIf="!Info.Available && Info.Comments" (click)="onError(Info)" >
+            <button matTooltip="ver error" [matTooltipPosition]="'left'" class="Button backgroud-danger"  *ngIf="!Info.Available && Info.Comments" (click)="onError(Info)" >
                 <fa-icon [icon]="faCircleXmark"></fa-icon>
                 Detalles
             </button>
 
-            <button *ngIf="!Info.Comments" class="Button backgroud-warning" (click)="onReasign(Info)">
+            <button matTooltip="documento en proceso" [matTooltipPosition]="'left'" *ngIf="!Info.Comments" class="Button backgroud-warning">
                 <fa-icon [icon]="faRotate"></fa-icon> 
                 En proceso
             </button>
 
-            <button *ngIf="Info.Available && (Info.Rol == 1 || Info.Rol == 2)" class="Button" [ngClass]="{'backgroud-primary': !Info.ReAssigned, 'backgroud-disabled' : Info.ReAssigned }" (click)="onReasign(Info)">
+            <button matTooltip="Re-Asignar registro" [matTooltipPosition]="'left'" *ngIf="Info.Available && (Info.Rol == 1 || Info.Rol == 2)" class="Button" [ngClass]="{'backgroud-primary': !Info.ReAssigned, 'backgroud-disabled' : Info.ReAssigned }" (click)="onReasign(Info)">
                 <fa-icon [icon]="faPeopleArrowsLeftRight"></fa-icon> 
                 {{ !Info.ReAssigned? 'Re-Asignar '+Info.ReAssignedLeyend: Info.ReAssignedLeyend+' Re-Asignada' }}
             </button>

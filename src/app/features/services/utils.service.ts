@@ -1,11 +1,14 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { SimpleMixed } from 'src/app/shared/alerts';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
 
   b64ToBlob(b64:any, contentType: string = 'application/pdf'): any{
@@ -46,6 +49,16 @@ export class UtilsService {
     a.click();
     URL.revokeObjectURL(url);
     a.remove();
+  }
+
+  ErrorManage(err: HttpErrorResponse): void {
+    if(err.status == 404){
+      SimpleMixed("warning", "NO ENCONTRADO");
+    }
+    else if(err.status == 401){
+      localStorage.clear();
+      this.router.navigate(['/']);
+    }
   }
 
   SetState(CURP: string) {

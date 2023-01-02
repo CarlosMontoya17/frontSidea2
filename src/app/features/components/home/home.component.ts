@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { faFaceGrin, faPowerOff, faKey, faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { Robots } from '../../models/robots.model';
 import { RobotsService } from '../../services/robots.service';
+import { UtilsService } from '../../services/utils.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnChanges {
   @Input() Username: string = '';
   @Input() Rol: number = 0;
 
-  constructor(private robots: RobotsService) {
+  constructor(private robots: RobotsService, private utils: UtilsService) {
     
 
 
@@ -42,7 +43,7 @@ export class HomeComponent implements OnChanges {
       this.Robots = data;
       console.log(this.Robots);
       
-    });
+    }, (err:any) => this.utils.ErrorManage(err));
   }
 
 

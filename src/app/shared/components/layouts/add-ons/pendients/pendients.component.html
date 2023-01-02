@@ -1,0 +1,53 @@
+
+<button  matTooltip="{{ !(VM$ | async)? 'VER PENDIENTES': 'OCULTAR' }}" (click)="dMenu()" [matTooltipPosition]="'left'"  matTooltipClass="tooltip" class="apps" mat-mini-fab color="secundary">
+    <mat-icon *ngIf="VM$ | async">close</mat-icon>
+    <mat-icon *ngIf="!(VM$ | async)">apps</mat-icon>
+</button>
+
+
+
+<div class="menu animate__animated animate__fadeInRight tra" #asMenu *ngIf="VM$ | async">
+
+    <label for="menu">PETICIONES PENDIENTES</label>
+
+
+
+    <table class="table dark" *ngIf="Pnds.length > 0">
+        <thead>
+            <tr>
+                <th>CURP</th>
+                <th>RFC</th>
+                <th>TIPO</th>
+                <th>ESTATUS</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let pnt of Pnds">
+                <td>{{ pnt.CURP }}</td>
+                <td>{{ pnt.RFC }}</td>
+                <td>{{ pnt.Type }}</td>
+                <td> 
+                    <div class="row">
+                        <label [ngClass]="{'warning': pnt.Status==0}">{{ pnt.Status==0? 'PENDIENTE': 'SIN SISTEMA' }} </label>
+                        <div *ngIf="pnt.Status==1" class="btn" matTooltip="REINTENTAR" [matTooltipPosition]="'left'" (click)="reTry(pnt)">
+                            <mat-icon>autorenew</mat-icon>
+                        </div>
+    
+                    </div>
+
+                </td>
+            </tr>
+
+
+        </tbody>
+
+    </table>
+
+    <div *ngIf="Pnds.length == 0">
+        <p for="menu">- NO HAY PENDIENTES -</p>
+        <mat-icon style="color: #4eff16;">done</mat-icon>
+    </div>
+
+
+</div>

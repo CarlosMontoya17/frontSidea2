@@ -11,6 +11,7 @@ import { TransposeComponent } from 'src/app/shared/components/modals/transpose/t
 import { UsersService } from '../../services/users.service';
 import { UtilsService } from '../../services/utils.service';
 import { SimpleMixed } from 'src/app/shared/alerts';
+import { addonPendients } from 'src/app/shared/models/pendients.model';
 
 @Component({
   selector: 'app-rfcs',
@@ -77,7 +78,7 @@ export class RfcsComponent implements OnInit {
   Peticiones:cardRequest[] = [];
   Buscar: string = '';
   View:boolean = false;
-
+  Pendientes: addonPendients[] = [];
 
   @Input() Rol:number = 0;
 
@@ -187,16 +188,13 @@ export class RfcsComponent implements OnInit {
       if(data) {
         this.svc.newRequest(data.Type, data.Data, data.Search).subscribe((res:any) => {
           //new table
-
           let _f = this.Filtros.find((d:any) => d.Id == 1);
           if(_f) {
             let _date:any = _f.Content?.Default;
             if(_date == 'Actual') _date = 'null';
             this.getPeticiones(_date);
           }
-
-          
-        });
+        }, (err:any) => this.utils.ErrorManage(err));
       }
     });
   }
@@ -226,7 +224,7 @@ export class RfcsComponent implements OnInit {
           }
           SimpleMixed("success", "REGISTRO REASIGNADO");
           
-        })
+        }, (err:any) => this.utils.ErrorManage(err))
       }
     });
   }
@@ -246,7 +244,16 @@ export class RfcsComponent implements OnInit {
           this.getPeticiones(_date);
           SimpleMixed("success", "DOCUMENTO DESCARGADO");
         }
-    });
+    }, (err:any) => this.utils.ErrorManage(err));
+  }
+
+  /** Pendientes */
+  ReTrying(item: addonPendients): void {
+
+  }
+
+  getPendients(): void {
+    
   }
 
 

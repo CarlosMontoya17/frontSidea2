@@ -173,7 +173,7 @@ export class ActasComponent implements OnInit {
           SimpleMixed("success", "DOCUMENTO DESCARGADO");
         }
       }
-    });
+    }, (err:any) => this.utils.ErrorManage(err));
   }
 
 
@@ -224,6 +224,15 @@ export class ActasComponent implements OnInit {
                   });
 
                 }
+            }, (err:any) => {
+              let _f = this.CardFilter.find((d:any) => d.Id == 1);
+              if(_f) {
+                let _date:any = _f.Content?.Default;
+                if(_date == 'Actual') _date = 'null';
+                this.getPeticiones(_date);
+              
+              }
+              this.utils.ErrorManage(err);
             });
           }
 
@@ -266,7 +275,7 @@ export class ActasComponent implements OnInit {
           }
           SimpleMixed("success", "REGISTRO REASIGNADO");
           
-        })
+        }, (err:any) => this.utils.ErrorManage(err));
       }
     });
   }

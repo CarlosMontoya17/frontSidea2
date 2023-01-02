@@ -10,6 +10,10 @@ import { ManagmentModule } from 'src/app/features/components/managment/managment
 import { RfcsModule } from 'src/app/features/components/rfcs/rfcs.module';
 import { PaysModule } from 'src/app/features/components/pays/pays.module';
 import { DocsModule } from 'src/app/features/components/docs/docs.module';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+
+
+const config: SocketIoConfig = { url: 'http://localhost:3030', options: {} };
 
 @NgModule({
   declarations: [LayoutComponent],
@@ -22,7 +26,8 @@ import { DocsModule } from 'src/app/features/components/docs/docs.module';
     ManagmentModule,
     RfcsModule,
     PaysModule,
-    DocsModule
+    DocsModule,
+    SocketIoModule.forRoot(config)
   ],
   exports: [LayoutComponent],
   providers: [TokenInterceptorProv]

@@ -16,4 +16,9 @@ export class UsersService {
     return this.http.get(`${_api}/api/user/getFull/`);
   }
 
+
+  LogOut(): Observable<any> {
+    return this.http.put(`${_api}/api/user/CloseSession/`, {});
+  }
+
 }

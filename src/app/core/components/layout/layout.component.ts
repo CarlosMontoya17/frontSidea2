@@ -3,6 +3,8 @@ import { myInfo } from '../../models/auth.model';
 import { storageKeys } from '../../models/storageKeys.model';
 import { AuthService } from '../../services/auth.service';
 import { Roles } from 'src/app/core/models/roles.model';
+import { UtilsService } from 'src/app/features/services/utils.service';
+import { SocketService } from '../../services/socket.service';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
@@ -14,10 +16,11 @@ export class LayoutComponent implements OnInit {
   myUsername: string = '';
   myServices: string = '';
   View:number = 0;
-  
-  constructor(private auth: AuthService) { }
+
+  constructor(private auth: AuthService, private utils: UtilsService, private socket: SocketService) { }
 
   ngOnInit(): void {
+
     this.getView();
     this.auth.getInfo().subscribe((data:any) => {
       if(data as myInfo) {
@@ -25,8 +28,9 @@ export class LayoutComponent implements OnInit {
         this.myUsername = _info.username;
         this.myRol = findRol(_info.rol);
         this.myServices = _info.servicios;
+        this.socket.Join(this.myUsername);
       }
-    });
+    }, (err:any) => this.utils.ErrorManage(err));
   }
 
 

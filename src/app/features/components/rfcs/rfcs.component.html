@@ -4,7 +4,10 @@
         <label for="myTitle">RFC</label>
     </div>
 
-    <button  matTooltip="Nueva petición" matTooltipClass="tooltip" (click)="newRequest()" class="add" mat-mini-fab color="secundary">
+
+    <app-pendients (ReTry)="ReTrying($event)" ></app-pendients>
+
+    <button  matTooltip="Nueva petición" matTooltipClass="tooltip"  [matTooltipPosition]="'left'"  (click)="newRequest()" class="add" mat-mini-fab color="secundary">
         <mat-icon>add</mat-icon>
     </button>
       
