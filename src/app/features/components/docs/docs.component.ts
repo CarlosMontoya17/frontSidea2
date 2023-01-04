@@ -146,7 +146,7 @@ export class DocsComponent implements OnInit {
         this.svc.sendPDF(f.fileRaw!, f.fileName!).subscribe((data:any) => {
           CloseAlerts();
           if(data) {
-            const _pdfR = this.dialog.open(PdfResultComponent, {width: 'md'});
+            const _pdfR = this.dialog.open(PdfResultComponent);
           
             _pdfR.componentInstance.AllClients = _users;
             _pdfR.componentInstance.Data = data;
