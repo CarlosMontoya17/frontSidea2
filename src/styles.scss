@@ -3,6 +3,8 @@
   font-family: BigWhale;
   src: url("./assets/fonts/Bigwhale.otf") format("opentype");
 }
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 * {
   font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;

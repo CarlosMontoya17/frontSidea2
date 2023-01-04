@@ -1,0 +1,28 @@
+@import url(../../../styles/bootstrap.min.scss);
+
+.content {
+    width: 55rem;
+}
+
+// .col {
+//     input {
+//         font-weight: 600;
+//     }
+// }
+
+.list-group-item{
+    cursor: pointer;
+    color: rgb(24, 23, 23);
+
+}
+.selected:hover {
+    background-color: rgb(233, 232, 232);
+}
+
+.on {
+    background-color: #22ce70 !important;
+}
+
+app-action-button{
+    margin: 0 1rem;
+}

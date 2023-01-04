@@ -1,1 +1,59 @@
-<p>docs works!</p>
+<div class="myCard">
+    <div class="myTitle">
+        <label for="myTitle">DOCUMENTOS</label>
+    </div>
+
+    <button  matTooltip="Nuevo registro" matTooltipClass="tooltip" [matTooltipPosition]="'left'" (click)="newReg()" class="add" mat-mini-fab color="secundary" aria-label="Example icon button with a menu icon">
+        <mat-icon>add</mat-icon>
+    </button>
+
+    <app-card-information
+    [Cards]="CardInfo"
+    (onClicked)="onClick($event)"
+    ></app-card-information>
+
+    <div class="myHistory" *ngIf="View">
+        <div class="myControls">
+            <div class="myHeaderControl">
+                <h3>CONTROLES</h3>
+            </div>
+            <div class="myContentControls">
+                <div class="filter" style="width: 12rem;">
+                    <h4> Fecha de corte </h4>
+                    <div class="dropdown">
+                        <button mat-button class="btn" [matMenuTriggerFor]="beforeMenu"> {{ DateSelect }} </button>
+                        <mat-menu #beforeMenu="matMenu" xPosition="before">
+                            <ng-container *ngFor="let date of Dates">
+                                <button mat-menu-item (click)="selectDate(date?.corte)">{{ date.corte }}</button>
+                            </ng-container>
+                        </mat-menu>
+                    </div>
+                </div>
+                <div class="filter" style="border-left: 2px solid black;">
+                    <div class="selections">
+                        <label for="selections">Selección: {{DisplaySelect==''? '[NO HAY SELECCIONADOS]': DisplaySelect}}</label>
+                    </div>
+                    <div class="buttons" *ngIf="this.RowSelection">
+                        <button mat-button class="button primary" (click)="reAssign()"> <fa-icon [icon]="faPeopleArrowsLeftRight"></fa-icon> Re-Asignar</button>
+                        <button mat-button class="button primary"> <fa-icon [icon]="faCalendarDays"></fa-icon> Modificar Fecha</button>
+                        <button mat-button class="button primary" (click)="deleteRow()"> <fa-icon [icon]="faTrashCan"></fa-icon> Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table">
+            <ag-grid-angular
+            style="width: 100%; height: 100%;"
+            class="ag-theme-alpine-dark"
+            [columnDefs]="columns"
+            [rowData]="rowData"
+            [rowSelection]="rowSelection"
+            [defaultColDef]="defaultColDef"
+            (selectionChanged)="onSelectionRows($event)"
+            (gridReady)="onReadyGrid($event)"
+            ></ag-grid-angular>
+        </div>
+
+    </div>
+    
+</div>

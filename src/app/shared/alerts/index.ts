@@ -29,3 +29,25 @@ export function SimpleMixed(icon: any, text:string){
         title: text
       });
 }
+
+export function SimpleLoader() {
+  let timerInterval
+  Swal.fire({
+      title: 'Cargando',
+      text: 'Espere porfavor',
+      timerProgressBar: true,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading()
+      },
+      willClose: () => {
+        clearInterval(undefined);
+      }
+  }).then((result) => {
+
+  });
+}
+
+export function CloseAlerts() {
+  Swal.close();
+}

@@ -14,12 +14,7 @@ export class PendientsComponent implements OnInit {
   private VMenu = new BehaviorSubject<boolean>(false);
   VM$ = this.VMenu.asObservable();  
 
-  @Input() Pnds: addonPendients[] = [{
-    CURP: 'OORM570218MGRLYR07',
-    RFC: '',
-    Type: "FISICA",
-    Status: 1
-  }];
+  @Input() Pnds: addonPendients[] = [];
   @Output() ReTry: EventEmitter<addonPendients> = new EventEmitter();
 
   constructor(private render: Renderer2) { 

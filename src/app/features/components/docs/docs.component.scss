@@ -1,0 +1,114 @@
+@import url(../../../shared/styles/cards.scss);
+@import url(../../../shared/styles/filters.scss);
+
+.add {
+    width: 3rem;
+    height: 3rem;
+    position: fixed;
+    bottom:35px;
+    right:35px;
+    z-index: 9;
+}
+.mySubTitle{
+    text-align: center;
+}
+.filters {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    h6 {
+        margin: 0;
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
+}
+.btn{ 
+    align-items: center;
+    display: flex;
+}
+
+
+.table {
+    width: 90%;
+    height: 35rem;
+    
+}
+
+.myHistory{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+}
+
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    h4 { 
+        margin: 0 !important;
+        text-transform: uppercase;
+    }
+}
+
+.myControls {
+    background-color: rgb(219, 219, 219);
+    border-radius: 0.375rem;
+}
+
+.myContentControls {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+}
+
+.myHeaderControl {
+    width: 100%;
+    background-color: rgb(26, 25, 25);
+    color: white;
+    text-align: center;
+    border-radius: 0.375rem 0.375rem 0 0;
+    h3 {
+        margin: 0;
+    }
+}
+
+.selections {
+    font-size: 1rem;
+    padding: 0.375rem 0.5rem;
+    border-bottom: 2px solid black;
+    width: 50rem;
+}
+
+.primary {
+    background-color: #0b5ed7;
+    color: white;
+}
+
+.buttons {
+    margin: 0.5rem 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+@media (max-width: 1095px) {
+    .table{
+        width: 100%;
+    }
+}

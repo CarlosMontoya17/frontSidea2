@@ -1,0 +1,26 @@
+<div class="modal">
+    <h2>IMPORTAR ARCHIVO </h2>
+
+    <mat-dialog-content class="mat-typography">
+        <div class="form-group areaFile">
+            <input type="file" name="source" id="source" required="required" 
+            accept="{{acceptFile}}"
+            #file (change)="get($event)">
+    
+            <div class="dummy">
+                <span *ngIf="!FileTmp">Arrastra tu Documento o da click aqui para importarlo</span>
+                <span *ngIf="FileTmp" class="selected"> {{ FileTmp.fileName }} </span>
+            </div>
+    
+        </div>
+    
+    
+    
+    </mat-dialog-content>
+    
+    <mat-dialog-actions align="end">
+        <app-action-button *ngIf="FileTmp" [Icon]="faArrowRight" [Legend]="'Siguiente'" (onClick)="next()"></app-action-button>
+    
+        <app-action-button [Icon]="faXmark" [Legend]="'Cerrar'" (onClick)="close()"></app-action-button>
+    </mat-dialog-actions>
+</div>

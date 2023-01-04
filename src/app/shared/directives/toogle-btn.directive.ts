@@ -10,9 +10,6 @@ export class ToogleBtnDirective {
   constructor() { }
   @HostListener('click', ['$event']) onClick(e: any) {
     this.status = !this.status;
-    console.log(this.status);
-    
-    
   }
 
 

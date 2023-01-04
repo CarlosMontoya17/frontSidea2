@@ -1,0 +1,85 @@
+<div class="content">
+    <h3>RESULTADOS</h3>
+    <mat-dialog-content class="mat-typography">
+    
+        <div class="row">
+            <div class="col" *ngIf="Data.curp">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">CURP</span>
+                    <input [value]="Data.curp!"  type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                </div>
+            </div>
+    
+            <div class="col" *ngIf="Data.estado">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">ESTADO</span>
+                    <input [value]="Data.estado!"  type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col" *ngIf="Data.nombre">
+    
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">NOMBRE</span>
+                    <input [value]="Data.nombre!"  type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                </div>
+            
+            </div>
+            <div class="col" *ngIf="Data.tipo">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">TIPO</span>
+                    <input [value]="Data.tipo!"  type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col" *ngIf="Data.apellidos">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">APELLIDOS</span>
+                    <input [value]="Data.apellidos!"  type="text" class="form-control" placeholder="Nombre de archivo" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">ARCHIVO</span>
+                    <input [value]="Filename"  type="text" class="form-control" placeholder="Nombre de archivo" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"> {{ AsesorData? 'ASESOR': 'CLIENTE' }}</span>
+                    <input [(ngModel)]="Client" [value]="Client || ''"  type="text" class="form-control" placeholder="Nombre del Cliente" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="Client.length > 0">
+            <div class="col">
+                <ul class="list-group">
+                    <li class="list-group-item active" aria-current="true">CLIENTES</li>
+                    <ng-container *ngFor="let client of AllClients | userName: Client">
+                        <li class="list-group-item selected" [ngClass]="{'on' : AsesorData?.nombre == client.nombre }"  (click)="selectClient(client)">{{ client.nombre }} - {{ client.rol }}</li>
+                    </ng-container>
+
+                  </ul>
+            </div>
+
+        </div>
+    
+    
+    
+    
+    
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <app-action-button [Legend]="'SIGUIENTE'" *ngIf="AsesorData" (onClick)="next()"></app-action-button>
+        <app-action-button  [Legend]="'Cerrar'" mat-dialog-close></app-action-button>
+    </mat-dialog-actions>
+</div>

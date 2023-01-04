@@ -41,8 +41,6 @@ export class HomeComponent implements OnChanges {
   GiveMe_AllRobots() {
     this.robots.GetRobots_SID().subscribe((data: any) => {
       this.Robots = data;
-      console.log(this.Robots);
-      
     }, (err:any) => this.utils.ErrorManage(err));
   }
 
@@ -80,7 +78,6 @@ export class HomeComponent implements OnChanges {
     switch(this.instruction[0]){
       case "off":
         this.robots.UpNewInstruction(this.instruction[0], this.instruction[1].name).subscribe(data => {
-          console.log(data);
           this.instruction = [];
           document.getElementById("modal")?.setAttribute("style", "display: none;");
           document.getElementById("confirmRequest")?.setAttribute("style", "display: none;");
@@ -90,7 +87,6 @@ export class HomeComponent implements OnChanges {
         break;
       case "on":
         this.robots.UpNewInstruction( this.instruction[0],this.instruction[1].name).subscribe(data => {
-          console.log(data);
           this.instruction = [];
           document.getElementById("modal")?.setAttribute("style", "display: none;");
           document.getElementById("confirmRequest")?.setAttribute("style", "display: none;");
