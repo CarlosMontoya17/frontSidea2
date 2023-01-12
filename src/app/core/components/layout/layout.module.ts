@@ -13,7 +13,7 @@ import { DocsModule } from 'src/app/features/components/docs/docs.module';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
 
-const config: SocketIoConfig = { url: 'http://localhost:3030', options: {} };
+const config: SocketIoConfig = { url: 'https://actasalinstante.com:3030', options: {} };
 
 @NgModule({
   declarations: [LayoutComponent],

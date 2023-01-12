@@ -299,6 +299,8 @@ export class RfcsComponent implements OnInit, OnDestroy {
   PendientsResult(): void {
     this.socket.on("user_rfcrefresh", async (msg: any) => {
       try{
+        console.log(msg);
+        
         if(msg){
           this.svc.getRefreshing().subscribe((data: boolean) => {          
             if(data){
