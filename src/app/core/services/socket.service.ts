@@ -6,9 +6,29 @@ import { Socket } from 'ngx-socket-io';
 })
 export class SocketService {
 
-  constructor(private socket: Socket) { }
+  constructor(private socket: Socket) {  }
 
-  Join(name: any): void {
-    // this.socket.emit("user", name);
+  View(name: any, id: any, view:string): void{
+    this.socket.emit("user_view", name, id, view);
+  }
+
+  Close(id: any): void {
+    this.socket.emit("user_close", id);
+  }
+
+  Broadcast(): any {
+    this.socket.on("user_broadcast", async (msg:any)=> {
+      //{ to, data}
+      //console.log(msg);
+      
+      // try{
+      //   if(msg.to == id ){
+      //     //console.log(msg.data);
+      //   } 
+      // }
+      // catch{
+
+      // }
+    });
   }
 }
