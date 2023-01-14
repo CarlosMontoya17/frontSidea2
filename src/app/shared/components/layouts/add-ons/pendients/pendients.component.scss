@@ -8,10 +8,17 @@
     height: 3rem;
 }
 
+.cancel {
+    cursor: pointer;
+    font-size: 15px;
+    color: red;
+}
 
 
 .menu {
     height: fit-content;
+    max-height: 26rem;
+    overflow: auto;
     label {
         font-weight: 600;
     }
@@ -58,7 +65,7 @@ mat-icon {
     margin: 0 15px;
     vertical-align: middle;
     align-items: center;
-    background-color: rgb(206, 32, 32);
+    background-color: #ce6a20;
 
     width: fit-content;
     height: fit-content;

@@ -77,7 +77,7 @@ export class ActasComponent implements OnInit {
   Reqs: modalRequest = {
     Title: 'Solicitar Acta',
     TitleSearch: 'Busqueda por',
-    Searches: ['CURP'],
+    Searches: ['CURP', 'CADENA'],
     TitleType: 'Tipo de documento',
     Types: ['NACIMIENTO', 'MATRIMONIO', 'DIVORCIO', 'DEFUNCION'],
     Primary: 'Search',
@@ -210,8 +210,10 @@ export class ActasComponent implements OnInit {
                   let _f = this.CardFilter.find((d:any) => d.Id == 1);
                   if(_f) {
                     let _date:any = _f.Content?.Default;
-                    if(_date == 'Actual') _date = 'null';
-                    this.getPeticiones(_date);
+                    if(_date){
+                      if(_date == 'Actual') _date = 'null';
+                      this.getPeticiones(_date);
+                    }
                   }
                   const _result = this.dialog.open(TableModalComponent);
                   _result.componentInstance.Table.Data = [req];
@@ -270,11 +272,12 @@ export class ActasComponent implements OnInit {
           let _f = this.CardFilter.find((d:any) => d.Id == 1);
           if(_f) {
             let _date:any = _f.Content?.Default;
-            if(_date == 'Actual') _date = 'null';
-            this.getPeticiones(_date);
+            if(_date){
+              if(_date == 'Actual') _date = 'null';
+              this.getPeticiones(_date);
+            }
           }
           SimpleMixed("success", "REGISTRO REASIGNADO");
-          
         }, (err:any) => this.utils.ErrorManage(err));
       }
     });
