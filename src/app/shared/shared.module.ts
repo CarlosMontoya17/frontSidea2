@@ -7,6 +7,10 @@ import { DatingPipe } from './pipes/dating.pipe';
 import { SearchingPipe } from './pipes/searching.pipe';
 import { UserNamePipe } from './pipes/user-name.pipe';
 import { RfcValidationDirective } from './directives/rfc-validation.directive';
+import { FiltrarPipe } from './pipes/filtrar.pipe';
+
+//import { DetailsCorteComponent } from './components/layouts/details-corte/details-corte.component';
+//import { PaysFilterComponent } from './components/layouts/pays-filter/pays-filter.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +20,8 @@ import { RfcValidationDirective } from './directives/rfc-validation.directive';
     DatingPipe,
     SearchingPipe,
     UserNamePipe,
-    RfcValidationDirective
+    RfcValidationDirective,
+    FiltrarPipe
   ],
   imports: [CommonModule],
   exports: [
@@ -26,7 +31,8 @@ import { RfcValidationDirective } from './directives/rfc-validation.directive';
     DatingPipe,
     SearchingPipe,
     UserNamePipe,
-    RfcValidationDirective
+    RfcValidationDirective,
+    FiltrarPipe
   ]
 })
 export class SharedModule {}

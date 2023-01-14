@@ -6,6 +6,6 @@
     <app-managment *ngSwitchCase="1"></app-managment>
     <app-actas [Rol]="myRol" *ngSwitchCase="2"></app-actas>
     <app-rfcs [Rol]="myRol" *ngSwitchCase="3"></app-rfcs>
-    <app-pays *ngSwitchCase="4"></app-pays>
+    <app-pays [Username]="myUsername" *ngSwitchCase="4"></app-pays>
     <app-docs *ngSwitchCase="5"></app-docs>
 </div>

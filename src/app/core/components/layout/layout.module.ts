@@ -10,10 +10,10 @@ import { ManagmentModule } from 'src/app/features/components/managment/managment
 import { RfcsModule } from 'src/app/features/components/rfcs/rfcs.module';
 import { PaysModule } from 'src/app/features/components/pays/pays.module';
 import { DocsModule } from 'src/app/features/components/docs/docs.module';
-import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+//import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
 
-const config: SocketIoConfig = { url: 'http://localhost:3030', options: {} };
+//const config: SocketIoConfig = { url: 'http://localhost:3030', options: {} };
 
 @NgModule({
   declarations: [LayoutComponent],
@@ -27,7 +27,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3030', options: {} };
     RfcsModule,
     PaysModule,
     DocsModule,
-    SocketIoModule.forRoot(config)
+   // SocketIoModule.forRoot(config)
   ],
   exports: [LayoutComponent],
   providers: [TokenInterceptorProv]
