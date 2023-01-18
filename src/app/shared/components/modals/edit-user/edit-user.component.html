@@ -1,0 +1,319 @@
+<div>
+    <div class="mySubTitle">
+        <label for=mySubTitle>ACTAS AL INSTANTE</label>
+        <hr>
+        <label class="mySubTitle2">EDITAR USUARIO</label>
+    </div>
+    <div class="conteiner-c">
+        <mat-stepper #stepper>
+            <mat-step label="Datos generales">
+                <form [formGroup]="EditarDatosForm">
+                    <label class="">Nombre de usuario: </label>
+                    <div class="input-group2 mb-3">
+                        <input type="text" formControlName="username" class="form-control-edit" placeholder="Nuevo usuario" aria-label="Nuevo usuario" aria-describedby="basic-addon2">
+                        <span type="button" class="input-group-button" id="basic-addon2"><fa-icon [icon]="faPen"></fa-icon></span>
+                      </div>
+                  
+                    <div class="alert-danger"
+                        *ngIf="EditarDatosForm.get('username')?.touched && EditarDatosForm.get('username')?.errors?.['required']">
+                        <div class="container-error-message">
+                            Nombre requerido(a)
+                        </div>
+                    </div>
+
+                    <label class="">Nueva Contraseña:</label>
+                    <div class="input-group2 mb-3">
+                        <input type="text" formControlName="password" class="form-control-edit" placeholder="Click para una nueva contraseña">
+                        <button type="button" class="input-group-button" id="basic-addon2" (click)="newPassword()"><fa-icon [icon]="faPen"></fa-icon></button>
+                      </div>
+     
+                  
+                    <label class="">Rol actual:</label>
+                    
+                    <div class="input-group2 mb-3">
+                        <input type="text" class="form-control-edit"  aria-label="" aria-describedby="basic-addon2">
+                        <span type="button" class="input-group-button" id="basic-addon2"><fa-icon [icon]="faPen"></fa-icon></span>
+                      </div>
+                    
+                    <br>
+                    <div>
+                        <button type="button" class="btn" mat-dialog-close>Cancelar</button>
+
+                        <button type="submit" style="margin-left: 18rem" class="btn" mat-button
+                            matStepperNext>Siguiente</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step label="Precios requeridos">
+                <form [formGroup]="EditarCostosForm">
+                    <button class="btn2" id="btn2" (click)="change()" *ngIf="VUnit">Unitario</button>
+                    <button class="btn2" id="btn3" (click)="change2()" *ngIf="VEsta">Estados</button>
+                    <hr>
+                    <label class="">A.NACIMIENTO</label>
+                    <input type="number" class="input-group" id="nac" *ngIf="VUnit" [disabled]="isBloq"
+                        placeholder="Precio por estado">
+                    <input type="number" class="input-group" id="nac" *ngIf="VEsta" placeholder="Precio Unitario"
+                        formControlName="nac" min="1">
+                    <hr>
+                    <div class="row" *ngIf="!VUnit">
+                        <div class="col">
+                            <label class="" for="">BAJA CALIFORNIA: </label>
+                            <input formControlName="BAJACALIFORNIA" type="number" class="input-group" min="1">
+                            <label class="" for="">YUCATAN: </label>
+                            <input formControlName="YUCATAN" type="number" class="input-group" min="1">
+                            <label class="" for="">CALIFORNIA SUR:</label>
+                            <input formControlName="BAJACALIFORNIASUR" type="number" class="input-group" min="1">
+                            <label class="" for="">VERACRUZ: </label>
+                            <input formControlName="VERACRUZ" type="number" class="input-group" id="VERACRUZ" min="1">
+                            <label class="" for="">COAHUILA: </label>
+                            <input formControlName="COAHUILA" type="number" class="input-group" id="COAHUILA" min="1">
+                            <label class="" for="">MICHOACAN: </label>
+                            <input formControlName="MICHOACAN" type="number" class="input-group" id="MICHOACAN" min="1">
+                            <label class="" for="">TLAXCALA: </label>
+                            <input formControlName="TLAXCALA" type="number" class="input-group" id="TLAXCALA" min="1">
+                            <label class="" for="">GUANAJUATO: </label>
+                            <input formControlName="GUANAJUATO" type="number" class="input-group" id="GUANAJUATO"
+                                min="1">
+                            <label class="" for="">CDMX: </label>
+                            <input formControlName="CDMX" type="number" class="input-group" id="CDMX" min="1">
+                            <label class="" for="">CAMPECHE: </label>
+                            <input formControlName="CAMPECHE" type="number" class="input-group" id="CAMPECHE" min="1">
+                            <label class="" for="">NUEVOLEON: </label>
+                            <input formControlName="NUEVOLEON" type="number" class="input-group" id="NUEVOLEON" min="1">
+                        </div>
+                        <div class="col">
+                            <label class="" for="">DURANGO: </label>
+                            <input formControlName="DURANGO" type="number" class="input-group" id="DURANGO" min="1">
+                            <label class="" for="">AGUASCALIENTES: </label>
+                            <input formControlName="AGUASCALIENTES" type="number" class="input-group"
+                                id="AGUASCALIENTES" min="1">
+                            <label class="" for="">CHIAPAS: </label>
+                            <input formControlName="CHIAPAS" type="number" class="input-group" id="CHIAPAS" min="1">
+                            <label class="" for="">HIDALGO: </label>
+                            <input formControlName="HIDALGO" type="number" class="input-group" id="HIDALGO" min="1">
+                            <label class="" for="">PUEBLA: </label>
+                            <input formControlName="PUEBLA" type="number" class="input-group" id="PUEBLA" min="1">
+                            <label class="" for="">QUERETARO: </label>
+                            <input formControlName="QUERETARO" type="number" class="input-group" id="QUERETARO" min="1">
+                            <label class="" for="">CHIHUAHA: </label>
+                            <input formControlName="CHIHUAHA" type="number" class="input-group" id="CHIHUAHA" min="1">
+                            <label class="" for="">OAXACA: </label>
+                            <input formControlName="OAXACA" type="number" class="input-group" id="OAXACA" min="1">
+                            <label class="" for="">JALISCO: </label>
+                            <input formControlName="JALISCO" type="number" class="input-group" id="JALISCO" min="1">
+                            <label class="" for="">NAYARIT: </label>
+                            <input formControlName="NAYARIT" type="number" class="input-group" id="NAYARIT" min="1">
+                            <label class="" for="">MEXICO: </label>
+                            <input formControlName="MEXICO" type="number" class="input-group" id="MEXICO" min="1">
+                        </div>
+                        <div class="col">
+                            <label class="" for="">SONORA: </label>
+                            <input formControlName="SONORA" type="number" class="input-group" id="SONORA" min="1">
+                            <label class="" for="">SANLUISPOTOSI: </label>
+                            <input formControlName="SANLUISPOTOSI" type="number" class="input-group" id="SANLUISPOTOSI"
+                                min="1">
+                            <label class="" for="">SINALOA: </label>
+                            <input formControlName="SINALOA" type="number" class="input-group" id="SINALOA" min="1">
+                            <label class="" for="">GUERRERO: </label>
+                            <input formControlName="GUERRERO" type="number" class="input-group" id="GUERRERO" min="1">
+                            <label class="" for="">ZACATECAS: </label>
+                            <input formControlName="ZACATECAS" type="number" class="input-group" id="ZACATECAS" min="1">
+                            <label class="" for="">TAMAULIPAS: </label>
+                            <input formControlName="TAMAULIPAS" type="number" class="input-group" id="TAMAULIPAS"
+                                min="1">
+                            <label class="" for="">MORELOS: </label>
+                            <input formControlName="MORELOS" type="number" class="input-group" id="MORELOS" min="1">
+                            <label class="" for="">TABASCO: </label>
+                            <input formControlName="TABASCO" type="number" class="input-group" id="TABASCO" min="1">
+                            <label class="" for="">COLIMA: </label>
+                            <input formControlName="COLIMA" type="number" class="input-group" id="COLIMA" min="1">
+                            <label class="" for="">QUINTANAROO: </label>
+                            <input formControlName="QUINTANAROO" type="number" class="input-group" id="QUINTANAROO"
+                                min="1">
+                            <label class="" for="">EXTRANJERO: </label>
+                            <input formControlName="EXTRANJERO" type="number" class="input-group" id="EXTRANJERO"
+                                min="1">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <label class="" for="">A.Matrimonio: </label>
+                            <input formControlName="mat" type="number" class="input-group" id="mat" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('mat')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                            <label class="" for="">A.Defuncion: </label>
+                            <input formControlName="def" type="number" class="input-group" id="def" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('def')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                            <label class="" for="">Vijencia de derechos: </label>
+                            <input formControlName="der" type="number" class="input-group" id="der" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('ret')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                            <label class="" for="">RFC: </label>
+                            <input formControlName="rfc" type="number" class="input-group" id="rfc" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('der')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+
+                            <label class="" for="">A.Divorcio: </label>
+                            <input formControlName="div" type="number" class="input-group" id="div" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('div')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                            <label class="" for="">Semanas cotizadas: </label>
+                            <input formControlName="cot" type="number" class="input-group" id="cot" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('cot')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                            <label class="" for="">NSS: </label>
+                            <input formControlName="nss" type="number" class="input-group" id="nss" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('nss')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                            <label class="" for="">Const.Inhabilitación: </label>
+                            <input formControlName="inh" type="number" class="input-group" id="inh" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('inh')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <br>
+                    <label class="mySubTitle2">-----------------------Nuevos Servicios-----------------------</label>
+                    <div class="row">
+                        <div class="col">
+                            <label class="" for="">Aviso de retencion infonavit </label>
+                            <input formControlName="ret" type="number" class="input-group" id="ret" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('ret')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                            <label class="" for="">Estado de cuenta infonavit: </label>
+                            <input formControlName="ecu" type="number" class="input-group" id="ecu" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('ecu')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                            <label class="" for="">Alta de RFC por primerva vez: </label>
+                            <input formControlName="arfc" type="number" class="input-group" id="arfc">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('arfc')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                            <label class="" for="">Digitalizacion de actas: </label>
+                            <input formControlName="dnac" type="number" class="input-group" id="dnac" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('dnac')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label class="" for="">Aviso de suspension infonavit: </label>
+                            <input formControlName="sus" type="number" class="input-group" id="sus" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('sus')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                            <label class="" for="">Rastreo de "Mi cuenta infonavit": </label>
+                            <input formControlName="reset" type="number" class="input-group" id="reset" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('reset')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                            <label class="" for="">CURP: </label>
+                            <input formControlName="curp" type="number" class="input-group" id="curp" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('curp')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+                            <label class="" for="">CFE: </label>
+                            <input formControlName="cfe" type="number" class="input-group" id="cfe" min="1">
+                            <div class="alert-danger" *ngIf="EditarCostosForm.get('cfe')?.errors?.['required']">
+                                <div class="container-error-message">
+                                    Ingrese el costo
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div><br>
+
+                        <button class="btn" mat-button matStepperPrevious>Atras</button>
+                        <button style="margin-left: 20.248rem" class="btn" mat-button matStepperNext
+                            [disabled]="EditarCostosForm.invalid">Siguiente</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step label="Finalizar">
+                <form [formGroup]="FinForm">
+                    <mat-label class="">Nombre de negocio: </mat-label>
+                    <div class="input-group">
+                        <input formControlName="nombre" type="text" class="input-group-text"
+                            placeholder="Escribe el nombre del negocio">
+                        <span class="btn-mat" type="button" id="btn-edit">
+                            <fa-icon [icon]="faPen"></fa-icon>
+                        </span>
+                    </div>
+                    <div class="alert-danger"
+                        *ngIf="FinForm.get('nombre')?.touched && FinForm.get('nombre')?.errors?.['required']">
+                        <div class="container-error-message">
+                            Nombre de Negocio requerido(a)
+                        </div>
+                    </div>
+                    <mat-label class="">Tipo de negocio: </mat-label>
+                    <div class="input-group">
+                        <input formControlName="type" type="text" class="input-group-text"
+                            placeholder="Escribe el tipo de negocio">
+                        <span class="btn-mat" type="button" id="btn-edit">
+                            <fa-icon [icon]="faPen"></fa-icon>
+                        </span>
+                    </div>
+                    <div class="alert-danger"
+                        *ngIf="FinForm.get('type')?.touched && FinForm.get('type')?.errors?.['required']">
+                        <div class="container-error-message">
+                            Tipo de Negocio requerido(a)
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <button class="btn" mat-button matStepperPrevious>Atras</button>
+                        <button style="margin-left: 348px" class="btn" mat-button
+                            [disabled]="EditarDatosForm.invalid || EditarCostosForm.invalid || FinForm.invalid"
+                            (click)="actuUser()">Listo</button>
+                    </div>
+                </form>
+            </mat-step>
+        </mat-stepper>
+    </div>
+
+</div>

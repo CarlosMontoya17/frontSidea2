@@ -11,6 +11,7 @@ import { LoginModule } from './core/components/login/login.module';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, LoaderModule, CoreModule, BrowserAnimationsModule],

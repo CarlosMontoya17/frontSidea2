@@ -1,0 +1,104 @@
+<div>
+    <h2>AGREGAR USUARIO</h2>
+    <mat-dialog-content class="mat-typography">
+
+        <mat-stepper #stepper>
+            <mat-step label="Datos Generales">
+                <form [formGroup]="ProfileData" *ngIf="ProfileData">
+                    <div class="Row">
+                        <mat-label>Nombre de usuario: </mat-label>
+                        <input class="InputForm" formControlName="username" type="text"
+                            placeholder="Escribe el usuario">
+                        <div class="Danger"
+                            *ngIf="ProfileData.get('username')?.touched && ProfileData.get('username')?.errors?.['required']">
+                            <div class="container-error-message">
+                                Nombre requerido(a)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Row">
+                        <mat-label>Contraseña: </mat-label>
+                        <div class="InputGroup">
+                            <input class="InputForm" formControlName="password" type="text"
+                                placeholder="Escribe una contraseña">
+                            <span class="Legend">Generar</span>
+                        </div>
+
+                        <div class="Danger"
+                            *ngIf="ProfileData.get('password')?.touched && ProfileData.get('password')?.errors?.['required']">
+                            <div class="container-error-message">
+                                Nombre requerido(a)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Row">
+                        <mat-label>Rol: </mat-label>
+                        <select formControlName="rol" class="Selectable" placeholder="Elige un rol" required>
+                            <option value="Supervisor" *ngIf="myData?.rol== 'Admin'">Supervisor</option>
+                            <option value="Asesor" *ngIf="myData?.rol=='Supervisor' || myData?.rol=='Admin'">Asesor
+                            </option>
+                            <option value="Cliente"
+                                *ngIf="myData?.rol=='Supervisor' || myData?.rol=='Admin' || myData?.rol=='Asesor'">
+                                Cliente
+                            </option>
+                            <option value="Sucursal"
+                                *ngIf="myData?.rol=='Supervisor' || myData?.rol=='Admin' || myData?.rol=='Asesor' || myData?.rol=='Cliente'">
+                                Sucursal</option>
+                            <option value="Empleado">Empleado</option>
+                        </select>
+                    </div>
+                    <div class="Row">
+                        <mat-label>Responsable: </mat-label>
+                        <div class="Provider">
+                            <label for="container-provider" *ngIf="Provider"> {{ Provider?.nombre?Provider?.nombre: Provider?.username  + ' - ' + Provider?.rol }} </label>
+                            <label for="container-provider" *ngIf="!Provider"> Busca al responsable</label>
+                        </div>
+
+                        <div class="Danger"
+                            *ngIf="ProfileData.get('provider')?.touched && ProfileData.get('provider')?.errors?.['required']">
+                            <div class="container-error-message">
+                                Responsable requerido(a)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Buttons">
+                        <button type="submit" class="Button Dark">Cancelar</button>
+                        <button type="submit" class="Button" [disabled]="ProfileData.invalid" mat-button matStepperNext>Siguiente</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step label="Precios">
+                <form [formGroup]="PricesData" *ngIf="PricesData">
+                    <div class="Row">
+                        <mat-label>A. Nacimiento:</mat-label>
+                        <div class="InputGroup">
+                            <input class="InputForm" formControlName="nac" type="text"
+                                placeholder="Escribe una contraseña">
+                            <span class="Legend"> {{ Unit? 'ESTADOS': 'UNITARIO' }} </span>
+                        </div>
+    
+                        <div class="Danger"
+                            *ngIf="ProfileData.get('nac')?.touched && ProfileData.get('nac')?.errors?.['required']">
+                            <div class="container-error-message">
+                                Precio requerido(a)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="DRow">
+                        
+                    </div>
+
+                </form>
+            </mat-step>
+
+
+        </mat-stepper>
+
+
+
+    </mat-dialog-content>
+
+</div>

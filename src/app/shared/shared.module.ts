@@ -9,6 +9,10 @@ import { UserNamePipe } from './pipes/user-name.pipe';
 import { RfcValidationDirective } from './directives/rfc-validation.directive';
 import { FiltrarPipe } from './pipes/filtrar.pipe';
 import { CadenaValidationDirective } from './directives/cadena-validation.directive';
+import { BuscarciberPipe } from './pipes/buscarciber.pipe';
+
+
+
 
 @NgModule({
   declarations: [
@@ -20,7 +24,10 @@ import { CadenaValidationDirective } from './directives/cadena-validation.direct
     UserNamePipe,
     RfcValidationDirective,
     FiltrarPipe,
-    CadenaValidationDirective
+    CadenaValidationDirective,
+    BuscarciberPipe,
+  
+   
   ],
   imports: [CommonModule],
   exports: [
@@ -32,7 +39,10 @@ import { CadenaValidationDirective } from './directives/cadena-validation.direct
     UserNamePipe,
     RfcValidationDirective,
     FiltrarPipe,
-    CadenaValidationDirective
+    CadenaValidationDirective,
+    BuscarciberPipe,
+   
+   
   ]
 })
 export class SharedModule {}

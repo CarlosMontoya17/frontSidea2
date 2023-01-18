@@ -14,6 +14,7 @@ export class LayoutComponent implements OnInit {
 
   myId: number = 0;
   myRol: number = 0;
+  myId: number = 0;
   myUsername: string = '';
   myServices: string = '';
   View:number = 0;
@@ -30,6 +31,7 @@ export class LayoutComponent implements OnInit {
         this.myServices = _info.servicios;
         this.myId = _info.id;
         this.SocketView(this.View);
+       // this.socket.Join(this.myUsername);
       }
     }, (err:any) => this.utils.ErrorManage(err));
   }

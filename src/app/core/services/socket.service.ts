@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
 
-  constructor(private socket: Socket) {  }
+  constructor() {  }
 
   View(name: any, id: any, view:string): void{
     this.socket.emit("user_view", name, id, view);
