@@ -17,7 +17,7 @@ export class UsersService {
   }
 
   getOne(id: any): Observable<any> {
-    return this.http.get(`${_api}/api/user/getOne/${id}`);
+    return this.http.get(`${_api}/api/user/get/${id}`);
   }
 
 
