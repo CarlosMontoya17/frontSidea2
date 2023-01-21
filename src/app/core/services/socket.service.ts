@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Socket } from 'ngx-socket-io';
 
 
 @Injectable({
@@ -9,15 +10,15 @@ export class SocketService {
   constructor() {  }
 
   View(name: any, id: any, view:string): void{
-    this.socket.emit("user_view", name, id, view);
+    //this.socket.emit("user_view", name, id, view);
   }
 
   Close(id: any): void {
-    this.socket.emit("user_close", id);
+    //this.socket.emit("user_close", id);
   }
 
   Broadcast(): any {
-    this.socket.on("user_broadcast", async (msg:any)=> {
+    //this.socket.on("user_broadcast", async (msg:any)=> {
       //{ to, data}
       //console.log(msg);
       
@@ -29,6 +30,6 @@ export class SocketService {
       // catch{
 
       // }
-    });
+    //});
   }
 }

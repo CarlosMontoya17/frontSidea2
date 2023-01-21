@@ -1,360 +1,254 @@
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ManagmentService } from 'src/app/features/services/managment.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { myInfo, UserInfo } from 'src/app/core/models/auth.model';
+import { Roles } from 'src/app/core/models/roles.model';
 import { EstadosKeys } from 'src/app/features/models/prices.model';
-import { NewPasswordComponent } from '../new-password/new-password.component';
-import { type } from 'os';
-
+import { UtilsService } from 'src/app/features/services/utils.service';
+import { DefaultPrices } from 'src/app/shared/models/default-prices.model';
+import { CountdownService } from 'src/app/shared/services/countdown.service';
+import { SelectProviderComponent } from '../select-provider/select-provider.component';
 
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.scss'],
-  providers: [
-    {
-      provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { showError: true },
-    },
-  ],
+  styleUrls: ['./edit-user.component.scss']
 })
-
-
 export class EditUserComponent implements OnInit {
 
-  faPen = faPen;
-  cam2 = 0;
-  usernameLocal: any;
-  //VARIABLES PARA CAMBIO DE VISTA EN PRECIOS 
-  VUnit: boolean = false;
-  VEsta: boolean = true;
-  Vedit: boolean = true;
-  cam = 0;
-  isBloq: boolean = true;
-  //Lista de precios de actas
-  nac: number = 0;
-  mat: number = 150;
-  def: number = 160;
-  div: number = 160;
-  cot: number = 40;
-  der: number = 40;
-  nss: number = 50;
-  rfc: number = 100;
-  inh: number = 140;
-  //Nuevos servicios
-  ret: number = 0;
-  sus: number = 0;
-  ecu: number = 0;
-  reset: number = 0;
-  arfc: number = 0;
-  dnac: number = 0;
-  curp: number = 0;
-  cfe: number = 0;
-  //Others
-  myRol: any;
+  DataEdit: any;
+  TimeToView: number = 0;
+  myData!:myInfo;
+  
+  /** Enums */
+  EstadosKeys = EstadosKeys;
+  Roles = Roles;
 
-  //Lista de precios por estado
-  BAJACALIFORNIA: number = 140;
-  YUCATAN: number = 135;
-  BAJACALIFORNIASUR: number = 130;
-  VERACRUZ: number = 125;
-  COAHUILA: number = 110;
-  MICHOACAN: number = 100;
-  TLAXCALA: number = 100;
-  DURANGO: number = 95;
-  AGUASCALIENTES: number = 85;
-  CHIAPAS: number = 100;
-  HIDALGO: number = 85;
-  PUEBLA: number = 85;
-  QUERETARO: number = 85;
-  CHIHUAHA: number = 85;
-  OAXACA: number = 80;
-  SONORA: number = 80;
-  SANLUISPOTOSI: number = 80;
-  SINALOA: number = 75;
-  GUERRERO: number = 75;
-  ZACATECAS: number = 75;
-  TAMAULIPAS: number = 70;
-  MORELOS: number = 70;
-  TABASCO: number = 70;
-  GUANAJUATO: number = 70;
-  COLIMA: number = 70;
-  JALISCO: number = 70;
-  CDMX: number = 60;
-  NAYARIT: number = 55;
-  CAMPECHE: number = 50;
-  NUEVOLEON: number = 50;
-  MEXICO: number = 48;
-  QUINTANAROO: number = 50;
-  EXTRANJERO: number = 120;
+  /** FormGroups */
+  ProfileData!: FormGroup;
+  PricesData!: FormGroup;
+  MetaData!: FormGroup;
+  Provider: any;
+  Unit: boolean = false;
 
-  EditarDatosForm!: FormGroup;
-  EditarCostosForm!: FormGroup;
-  FinForm!: FormGroup;
-  /** NUEVOS CAMBIOS  */
-
-  EstadosKeys: any = EstadosKeys;
-  UsuariosKey: any | undefined;
-  id: any;
-
-  constructor(private svc: ManagmentService,
+  constructor(
+    private formBuilder: FormBuilder,
     private modal: MatDialogRef<EditUserComponent>,
-    private readonly formBuilder: FormBuilder,
     private dialog: MatDialog,
-  ) { }
-  change() {
-
-    if (this.cam == 0) {
-      this.isBloq = false;
-      this.VUnit = false;
-      this.VEsta = true;
-      this.cam = 1;
-
-    }
-  }
-  change2() {
-    if (this.cam == 1) {
-      this.isBloq = true;
-      this.VUnit = true;
-      this.VEsta = false;
-      this.cam = 0;
-    }
-  }
-
-  changeEdit() {
-    if (this.cam2 == 0) {
-      this.Vedit = false;
-      this.cam2 = 1;
-    }
-  }
+    private utils: UtilsService,
+    private Countdown: CountdownService
+  ) {
+    this.modal.disableClose = true;
+   }
 
   ngOnInit(): void {
-    this.initEditarDatos();
-    this.initEditarCostos();
-    this.initFinForm();
-    this.EditarDatosForm.get('username')?.setValue(this.usernameLocal.username);
-    this.EditarDatosForm.get('password')?.setValue(this.usernameLocal.password);
-    this.EditarDatosForm.get('rol')?.setValue(this.usernameLocal.rol);
-
-    if (typeof (this.usernameLocal.precios.nac) == 'string' || typeof (this.usernameLocal.precios.nac) == 'number') {
-      this.VUnit = true;
-      this.VEsta = false;
-      this.EditarCostosForm.get('nac')?.setValue(this.usernameLocal.precios.nac);
+    if(this.myData){
+      this.Provider = this.myData;
+      if(this.DataEdit){      
+        this.initMetadata();
+        this.initPrices(this.DataEdit.precios);
+        this.initProfile();        
+      }
     }
-    else {
 
-      //Estados
-      this.EditarCostosForm.get('bcn')?.setValue(this.usernameLocal.precios.bcn);
-      this.EditarCostosForm.get('yuca')?.setValue(this.usernameLocal.precios.yuca);
-      this.EditarCostosForm.get('bcs')?.setValue(this.usernameLocal.precios.bcs);
-      this.EditarCostosForm.get('vera')?.setValue(this.usernameLocal.precios.vera);
-      this.EditarCostosForm.get('coah')?.setValue(this.usernameLocal.precios.coah);
-      this.EditarCostosForm.get('mich')?.setValue(this.usernameLocal.precios.mich);
-      this.EditarCostosForm.get('tlax')?.setValue(this.usernameLocal.precios.tlax);
-      this.EditarCostosForm.get('dura')?.setValue(this.usernameLocal.precios.dura);
-      this.EditarCostosForm.get('agua')?.setValue(this.usernameLocal.precios.agua);
-      this.EditarCostosForm.get('chia')?.setValue(this.usernameLocal.precios.chia);
-      this.EditarCostosForm.get('hida')?.setValue(this.usernameLocal.precios.hida);
-      this.EditarCostosForm.get('pueb')?.setValue(this.usernameLocal.precios.pueb);
-      this.EditarCostosForm.get('quer')?.setValue(this.usernameLocal.precios.quer);
-      this.EditarCostosForm.get('chih')?.setValue(this.usernameLocal.precios.chih);
-      this.EditarCostosForm.get('oaxa')?.setValue(this.usernameLocal.precios.oaxa);
-      this.EditarCostosForm.get('sono')?.setValue(this.usernameLocal.precios.sono);
-      this.EditarCostosForm.get('slp')?.setValue(this.usernameLocal.precios.slp);
-      this.EditarCostosForm.get('sina')?.setValue(this.usernameLocal.precios.sina);
-      this.EditarCostosForm.get('guer')?.setValue(this.usernameLocal.precios.guer);
-      this.EditarCostosForm.get('zaca')?.setValue(this.usernameLocal.precios.zaca);
-      this.EditarCostosForm.get('tama')?.setValue(this.usernameLocal.precios.tama);
-      this.EditarCostosForm.get('more')?.setValue(this.usernameLocal.precios.more);
-      this.EditarCostosForm.get('taba')?.setValue(this.usernameLocal.precios.taba);
-      this.EditarCostosForm.get('guan')?.setValue(this.usernameLocal.precios.guan);
-      this.EditarCostosForm.get('coli')?.setValue(this.usernameLocal.precios.coli);
-      this.EditarCostosForm.get('jali')?.setValue(this.usernameLocal.precios.jali);
-      this.EditarCostosForm.get('cdmx')?.setValue(this.usernameLocal.precios.cdmx);
-      this.EditarCostosForm.get('naya')?.setValue(this.usernameLocal.precios.naya);
-      this.EditarCostosForm.get('camp')?.setValue(this.usernameLocal.precios.camp);
-      this.EditarCostosForm.get('nl')?.setValue(this.usernameLocal.precios.nl);
-      this.EditarCostosForm.get('mex')?.setValue(this.usernameLocal.precios.mex);
-      this.EditarCostosForm.get('qroo')?.setValue(this.usernameLocal.precios.qroo);
-      this.EditarCostosForm.get('ext')?.setValue(this.usernameLocal.precios.ext);
-    }
-    //Prices
-    this.EditarCostosForm.get('mat')?.setValue(this.usernameLocal.precios.mat);
-    this.EditarCostosForm.get('def')?.setValue(this.usernameLocal.precios.def);
-    this.EditarCostosForm.get('div')?.setValue(this.usernameLocal.precios.div);
-    this.EditarCostosForm.get('cot')?.setValue(this.usernameLocal.precios.cot);
-    this.EditarCostosForm.get('der')?.setValue(this.usernameLocal.precios.der);
-    this.EditarCostosForm.get('nss')?.setValue(this.usernameLocal.precios.nss);
-    this.EditarCostosForm.get('rfc')?.setValue(this.usernameLocal.precios.rfc);
-    this.EditarCostosForm.get('inh')?.setValue(this.usernameLocal.precios.inh);
-    this.EditarCostosForm.get('ret')?.setValue(this.usernameLocal.precios.ret);
-    this.EditarCostosForm.get('sus')?.setValue(this.usernameLocal.precios.sus);
-    this.EditarCostosForm.get('ecu')?.setValue(this.usernameLocal.precios.ecu);
-    this.EditarCostosForm.get('reset')?.setValue(this.usernameLocal.precios.reset);
-    this.EditarCostosForm.get('arfc')?.setValue(this.usernameLocal.precios.arfc);
-    this.EditarCostosForm.get('dnac')?.setValue(this.usernameLocal.precios.dnac);
-    this.EditarCostosForm.get('curp')?.setValue(this.usernameLocal.precios.curp);
-    this.EditarCostosForm.get('cfe')?.setValue(this.usernameLocal.precios.cfe);
 
-    this.FinForm.get('nombre')?.setValue(this.usernameLocal.nombre);
-    this.FinForm.get('type')?.setValue(this.usernameLocal.type);
   }
-  actuUser(): void {
-    let _prices = {
-      nac: this.VUnit ? this.EditarCostosForm.get('nac')?.value :
-        {
-          bcn: this.EditarCostosForm.get(EstadosKeys.BAJACALIFORNIA)?.value,
-          yuca: this.EditarCostosForm.get(EstadosKeys.YUCATAN)?.value,
-          bcs: this.EditarCostosForm.get(EstadosKeys.BAJACALIFORNIASUR)?.value,
-          vera: this.EditarCostosForm.get(EstadosKeys.VERACRUZ)?.value,
-          coah: this.EditarCostosForm.get(EstadosKeys.COAHUILA)?.value,
-          mich: this.EditarCostosForm.get(EstadosKeys.MICHOACAN)?.value,
-          tlax: this.EditarCostosForm.get(EstadosKeys.TLAXCALA)?.value,
-          dura: this.EditarCostosForm.get(EstadosKeys.DURANGO)?.value,
-          agua: this.EditarCostosForm.get(EstadosKeys.AGUASCALIENTES)?.value,
-          chia: this.EditarCostosForm.get(EstadosKeys.CHIAPAS)?.value,
-          hida: this.EditarCostosForm.get(EstadosKeys.HIDALGO)?.value,
-          pueb: this.EditarCostosForm.get(EstadosKeys.PUEBLA)?.value,
-          quer: this.EditarCostosForm.get(EstadosKeys.QUERETARO)?.value,
-          chih: this.EditarCostosForm.get(EstadosKeys.CHIHUAHA)?.value,
-          oaxa: this.EditarCostosForm.get(EstadosKeys.OAXACA)?.value,
-          sono: this.EditarCostosForm.get(EstadosKeys.SONORA)?.value,
-          slp: this.EditarCostosForm.get(EstadosKeys.SANLUISPOTOSI)?.value,
-          sina: this.EditarCostosForm.get(EstadosKeys.SINALOA)?.value,
-          guer: this.EditarCostosForm.get(EstadosKeys.GUERRERO)?.value,
-          zaca: this.EditarCostosForm.get(EstadosKeys.ZACATECAS)?.value,
-          tama: this.EditarCostosForm.get(EstadosKeys.TAMAULIPAS)?.value,
-          more: this.EditarCostosForm.get(EstadosKeys.MORELOS)?.value,
-          taba: this.EditarCostosForm.get(EstadosKeys.TABASCO)?.value,
-          guan: this.EditarCostosForm.get(EstadosKeys.GUANAJUATO)?.value,
-          coli: this.EditarCostosForm.get(EstadosKeys.COLIMA)?.value,
-          jali: this.EditarCostosForm.get(EstadosKeys.JALISCO)?.value,
-          cdmx: this.EditarCostosForm.get(EstadosKeys.CDMX)?.value,
-          naya: this.EditarCostosForm.get(EstadosKeys.NAYARIT)?.value,
-          camp: this.EditarCostosForm.get(EstadosKeys.CAMPECHE)?.value,
-          nl: this.EditarCostosForm.get(EstadosKeys.NUEVOLEON)?.value,
-          mex: this.EditarCostosForm.get(EstadosKeys.MEXICO)?.value,
-          qroo: this.EditarCostosForm.get(EstadosKeys.QUERETARO)?.value,
-          ext: this.EditarCostosForm.get(EstadosKeys.EXTRANJERO)?.value,
 
-        },
-      def: this.EditarCostosForm.get('def')?.value,
-      div: this.EditarCostosForm.get('div')?.value,
-      cot: this.EditarCostosForm.get('cot')?.value,
-      der: this.EditarCostosForm.get('der')?.value,
-      nss: this.EditarCostosForm.get('nss')?.value,
-      rfc: this.EditarCostosForm.get('rfc')?.value,
-      inh: this.EditarCostosForm.get('inh')?.value,
-      ret: this.EditarCostosForm.get('ret')?.value,
-      sus: this.EditarCostosForm.get('sus')?.value,
-      ecu: this.EditarCostosForm.get('ecu')?.value,
-      mat: this.EditarCostosForm.get('mat')?.value,
-      reset: this.EditarCostosForm.get('reset')?.value,
-      arfc: this.EditarCostosForm.get('arfc')?.value,
-      dnac: this.EditarCostosForm.get('dnac')?.value,
-      curp: this.EditarCostosForm.get('curp')?.value,
-      cfe: this.EditarCostosForm.get('cfe')?.value,
+  selectProvider(): void {
+    const _dialog = this.dialog.open(SelectProviderComponent, {width: 'md'});
+    _dialog.componentInstance.Rol = this.ProfileData.get('rol')?.value;
+
+    
+    _dialog.afterClosed().subscribe((data:any) => {
+      if(data){
+        this.Provider = data;
+        this.ProfileData.get('provider')?.setValue(data);
+      }
+    });
+  }
+
+  Save(): void {
+    let _prices: DefaultPrices = {
+      nac: this.Unit? this.PricesData.get('nac')?.value: {
+        agua: this.PricesData.get('agua')?.value,
+        bcn: this.PricesData.get('bcn')?.value,
+        bcs: this.PricesData.get('bcs')?.value,
+        camp: this.PricesData.get('camp')?.value,
+        cdmx: this.PricesData.get('cdmx')?.value,
+        chia: this.PricesData.get('chia')?.value,
+        chih: this.PricesData.get('chih')?.value,
+        coah: this.PricesData.get('coah')?.value,
+        coli: this.PricesData.get('coli')?.value,
+        dura: this.PricesData.get('dura')?.value,
+        ext: this.PricesData.get('ext')?.value,
+        guan: this.PricesData.get('guan')?.value,
+        guer: this.PricesData.get('guer')?.value,
+        hida: this.PricesData.get('hida')?.value,
+        jali: this.PricesData.get('jali')?.value,
+        mex: this.PricesData.get('mex')?.value,
+        mich: this.PricesData.get('mich')?.value,
+        more: this.PricesData.get('more')?.value,
+        naya: this.PricesData.get('naya')?.value,
+        nl: this.PricesData.get('nl')?.value,
+        oaxa: this.PricesData.get('oaxa')?.value,
+        pueb: this.PricesData.get('pueb')?.value,
+        qroo: this.PricesData.get('qroo')?.value,
+        quer: this.PricesData.get('quer')?.value,
+        sina: this.PricesData.get('sina')?.value,
+        slp: this.PricesData.get('slp')?.value,
+        sono: this.PricesData.get('sono')?.value,
+        taba: this.PricesData.get('taba')?.value,
+        tama: this.PricesData.get('tama')?.value,
+        tlax: this.PricesData.get('tlax')?.value,
+        vera: this.PricesData.get('vera')?.value,
+        yuca: this.PricesData.get('yuca')?.value,
+        zaca: this.PricesData.get('zaca')?.value,
+      },
+      arfc: this.PricesData.get('arfc')?.value,
+      cfe: this.PricesData.get('cfe')?.value,
+      cot: this.PricesData.get('cot')?.value,
+      curp: this.PricesData.get('curp')?.value,
+      def: this.PricesData.get('def')?.value,
+      der: this.PricesData.get('der')?.value,
+      div: this.PricesData.get('div')?.value,
+      dnac: this.PricesData.get('dnac')?.value,
+      ecu: this.PricesData.get('ecu')?.value,
+      inh: this.PricesData.get('inh')?.value,
+      mat: this.PricesData.get('mat')?.value,
+      nss: this.PricesData.get('nss')?.value,
+      reset: this.PricesData.get('reset')?.value,
+      ret: this.PricesData.get('ret')?.value,
+      rfc: this.PricesData.get('rfc')?.value,
+      sus: this.PricesData.get('sus')?.value
     };
 
-    let us: any = {
-      username: this.EditarDatosForm.value?.username,
-      password: this.EditarDatosForm.value?.password,
-      rol: this.EditarDatosForm.value?.rol,
-      idSuper: this.EditarDatosForm.value?.responsable?.id,
-      status: this.FinForm.value?.status == 'true' ? true : false,
-      type: this.FinForm.value?.type,
-      nombre: this.FinForm.value?.nombre,
+    let _new: UserInfo = {
+      username: this.ProfileData.get('username')?.value,
+      idSuper: this.ProfileData.get('provider')?.value.id,
+      password: this.ProfileData.get('password')?.value,
+      rol: this.ProfileData.get('rol')?.value,
+      nombre: this.MetaData.get('nombre')?.value,
+      type: this.MetaData.get('type')?.value,
+      status: Boolean(this.MetaData.get('status')?.value),
       precios: _prices
     };
-    this.modal.close(us);
+    this.modal.close(_new);    
+  }
+  /** */
+
+  AutoPassGen(): void {
+    let _password = this.utils.WordGen(10);
+    this.ProfileData.get("password")?.setValue(_password);
+    
+      if(this.TimeToView != 0) this.Countdown.countdown.unsubscribe();
+      this.Countdown.startTimer(10);
+      this.Countdown.getTimer().subscribe((data:any) => {
+          this.TimeToView = data;
+      });
   }
 
-  newPassword(){
-    const _pass = this.dialog.open(NewPasswordComponent, {width: 'md'})
-    _pass.componentInstance.pass = this.EditarDatosForm.get('password')?.value;
-    _pass.afterClosed().subscribe((d: any)=>{
+  SwitchUnit(): void {
+    this.Unit = !this.Unit;    
+    if(this.Unit){
+      this.PricesData.get('nac')?.enable();
+    }
+    else this.PricesData.get('nac')?.disable();
+  }
+
+    /** Init Forms */
+    initProfile(): void {
+      let _rol;
+      if(this.myData?.rol== 'Admin'){
+        _rol = "Supervisor";
+      }
+      else if(this.myData?.rol== 'Supervisor'){
+        _rol = "Asesor";
+      }
+      else if(this.myData?.rol== 'Asesor'){
+        _rol = "Cliente";
+      }
+      else if(this.myData?.rol== 'Cliente'){
+        _rol = "Sucursal";
+      }
+      else if(this.myData?.rol== 'Sucursal'){
+        _rol = "Empleado";
+      }
       
-    })
-  }
+      this.ProfileData = this.formBuilder.group({
+        username: [this.DataEdit.username, Validators.required],
+        rol:[this.DataEdit.rol, Validators.required],
+        provider: [this.myData, Validators.required]
+      });
+    }
 
-  initForm(): FormGroup {
-    return this.formBuilder.group({
-    })
-  }
+    initPrices(prices: DefaultPrices): void {
+      if(typeof(prices.nac)=="number"){
+        this.Unit = true;
+      }
+      else {
+        this.Unit = false;
+      }
+  
+      this.PricesData = this.formBuilder.group({
+        nac: [{value: typeof(prices.nac)=="number"? prices.nac: 0, disabled:typeof(prices.nac)=="number"? false: true}, Validators.required],
+        mat: [prices.mat, Validators.required],
+        def: [prices.def, Validators.required],
+        div: [prices.div, Validators.required],
+        cot: [prices.cot, Validators.required],
+        der: [prices.der, Validators.required],
+        nss: [prices.nss, Validators.required],
+        rfc: [prices.rfc, Validators.required],
+        inh: [prices.inh, Validators.required],
+        ret: [prices.ret, Validators.required],
+        sus: [prices.sus, Validators.required],
+        ecu: [prices.ecu, Validators.required],
+        reset: [prices.reset, Validators.required],
+        arfc: [prices.arfc, Validators.required],
+        dnac: [prices.dnac, Validators.required],
+        curp: [prices.curp, Validators.required],
+        cfe: [prices.cfe, Validators.required],
+        [this.EstadosKeys.BAJACALIFORNIA]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.BAJACALIFORNIA]: 0, Validators.required],
+        [this.EstadosKeys.YUCATAN]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.YUCATAN]: 0, Validators.required],
+        [this.EstadosKeys.BAJACALIFORNIASUR]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.BAJACALIFORNIASUR]: 0, Validators.required],
+        [this.EstadosKeys.VERACRUZ]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.VERACRUZ]: 0, Validators.required],
+        [this.EstadosKeys.COAHUILA]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.COAHUILA]: 0, Validators.required],
+        [this.EstadosKeys.MICHOACAN]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.MICHOACAN]: 0, Validators.required],
+        [this.EstadosKeys.TLAXCALA]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.TLAXCALA]: 0, Validators.required],
+        [this.EstadosKeys.DURANGO]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.DURANGO]: 0, Validators.required],
+        [this.EstadosKeys.AGUASCALIENTES]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.AGUASCALIENTES]: 0, Validators.required],
+        [this.EstadosKeys.CHIAPAS]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.CHIAPAS]: 0, Validators.required],
+        [this.EstadosKeys.HIDALGO]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.HIDALGO]: 0, Validators.required],
+        [this.EstadosKeys.PUEBLA]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.PUEBLA]: 0, Validators.required],
+        [this.EstadosKeys.QUERETARO]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.QUERETARO]: 0, Validators.required],
+        [this.EstadosKeys.CHIHUAHA]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.CHIHUAHA]: 0, Validators.required],
+        [this.EstadosKeys.OAXACA]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.OAXACA]: 0, Validators.required],
+        [this.EstadosKeys.SONORA]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.SONORA]: 0, Validators.required],
+        [this.EstadosKeys.SANLUISPOTOSI]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.SANLUISPOTOSI]: 0, Validators.required],
+        [this.EstadosKeys.SINALOA]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.SINALOA]: 0, Validators.required],
+        [this.EstadosKeys.GUERRERO]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.GUERRERO]: 0, Validators.required],
+        [this.EstadosKeys.ZACATECAS]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.ZACATECAS]: 0, Validators.required],
+        [this.EstadosKeys.TAMAULIPAS]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.TAMAULIPAS]: 0, Validators.required],
+        [this.EstadosKeys.MORELOS]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.MORELOS]: 0, Validators.required],
+        [this.EstadosKeys.TABASCO]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.TABASCO]: 0, Validators.required],
+        [this.EstadosKeys.GUANAJUATO]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.GUANAJUATO]: 0, Validators.required],
+        [this.EstadosKeys.COLIMA]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.COLIMA]: 0, Validators.required],
+        [this.EstadosKeys.JALISCO]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.JALISCO]: 0, Validators.required],
+        [this.EstadosKeys.CDMX]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.CDMX]: 0, Validators.required],
+        [this.EstadosKeys.NAYARIT]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.NAYARIT]: 0, Validators.required],
+        [this.EstadosKeys.CAMPECHE]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.CAMPECHE]: 0, Validators.required],
+        [this.EstadosKeys.NUEVOLEON]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.NUEVOLEON]: 0, Validators.required],
+        [this.EstadosKeys.MEXICO]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.MEXICO]: 0, Validators.required],
+        [this.EstadosKeys.QUINTANAROO]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.QUINTANAROO]: 0, Validators.required],
+        [this.EstadosKeys.EXTRANJERO]: [typeof(prices.nac)!="number"? prices.nac[this.EstadosKeys.EXTRANJERO]: 0, Validators.required]
+      });
+    }
 
-  initEditarDatos(): void {
-    this.EditarDatosForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      rol: ['', Validators.required],
-      responsable: [{}, Validators.required]
-    });
+    initMetadata(): void {
+      this.MetaData = this.formBuilder.group({
+        nombre: [this.DataEdit.nombre, Validators.required],
+        type: [this.DataEdit.type, Validators.required],
+        status: [ `${this.DataEdit.status}`,Validators.required]
+      });
+    }
 
-  }
-  initEditarCostos(): void {
-    this.EditarCostosForm = this.formBuilder.group({
-      nac: [this.nac, Validators.required],
-      mat: [this.mat, Validators.required],
-      def: [this.def, Validators.required],
-      div: [this.div, Validators.required],
-      cot: [this.cot, Validators.required],
-      der: [this.der, Validators.required],
-      nss: [this.nss, Validators.required],
-      rfc: [this.rfc, Validators.required],
-      inh: [this.inh, Validators.required],
-      ret: [this.ret, Validators.required],
-      sus: [this.sus, Validators.required],
-      ecu: [this.ecu, Validators.required],
-      reset: [this.reset, Validators.required],
-      arfc: [this.arfc, Validators.required],
-      dnac: [this.dnac, Validators.required],
-      curp: [this.curp, Validators.required],
-      cfe: [this.cfe, Validators.required],
-      BAJACALIFORNIA: [this.BAJACALIFORNIA, Validators.required],
-      YUCATAN: [this.YUCATAN, Validators.required],
-      BAJACALIFORNIASUR: [this.BAJACALIFORNIASUR, Validators.required],
-      VERACRUZ: [this.VERACRUZ, Validators.required],
-      COAHUILA: [this.COAHUILA, Validators.required],
-      MICHOACAN: [this.MICHOACAN, Validators.required],
-      TLAXCALA: [this.TLAXCALA, Validators.required],
-      DURANGO: [this.DURANGO, Validators.required],
-      AGUASCALIENTES: [this.AGUASCALIENTES, Validators.required],
-      CHIAPAS: [this.CHIAPAS, Validators.required],
-      HIDALGO: [this.HIDALGO, Validators.required],
-      PUEBLA: [this.PUEBLA, Validators.required],
-      QUERETARO: [this.QUERETARO, Validators.required],
-      CHIHUAHA: [this.CHIHUAHA, Validators.required],
-      OAXACA: [this.OAXACA, Validators.required],
-      SONORA: [this.SONORA, Validators.required],
-      SANLUISPOTOSI: [this.SANLUISPOTOSI, Validators.required],
-      SINALOA: [this.SINALOA, Validators.required],
-      GUERRERO: [this.GUERRERO, Validators.required],
-      ZACATECAS: [this.ZACATECAS, Validators.required],
-      TAMAULIPAS: [this.TAMAULIPAS, Validators.required],
-      MORELOS: [this.MORELOS, Validators.required],
-      TABASCO: [this.TABASCO, Validators.required],
-      GUANAJUATO: [this.GUANAJUATO, Validators.required],
-      COLIMA: [this.COLIMA, Validators.required],
-      JALISCO: [this.JALISCO, Validators.required],
-      CDMX: [this.CDMX, Validators.required],
-      NAYARIT: [this.NAYARIT, Validators.required],
-      CAMPECHE: [this.CAMPECHE, Validators.required],
-      NUEVOLEON: [this.NUEVOLEON, Validators.required],
-      MEXICO: [this.MEXICO, Validators.required],
-      QUINTANAROO: [this.QUINTANAROO, Validators.required],
-      EXTRANJERO: [this.EXTRANJERO, Validators.required]
-    })
-  }
-
-  initFinForm(): void {
-    this.FinForm = this.formBuilder.group({
-      nombre: ['', Validators.required],
-      type: ['', Validators.required],
-      status: ['',]
-    });
-  }
 }
-
-

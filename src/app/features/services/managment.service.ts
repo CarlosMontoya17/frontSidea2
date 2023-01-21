@@ -12,26 +12,26 @@ export class ManagmentService {
 
   constructor(private http: HttpClient) { }
 
-  getMyClient(id:any): Observable<any> {
-    return this.http.get(`${_api}/api/user/getMyClients/${id}`);
+  getMyClient(): Observable<any> {
+    return this.http.get(`${_api}/api/user/myClients/`);
   }
 
-  getMyPrices(id:any):Observable<any>{
-    return this.http.get(`${_api}/api/user/getUserPrices/${id}`);
+  getData(id:any):Observable<any>{
+    return this.http.get(`${_api}/api/user/get/${id}`);
   }
-  postUsers(user: UserInfo):Observable<any>{
-   return this.http.post(`${_api}/api/user/createOne/`, user);
+  addUser(user: UserInfo):Observable<any>{
+   return this.http.post(`${_api}/api/user/add/`, user);
   }
   
   getMySuper(rol: string):Observable<any>{
-    return this.http.get(`${_api}/api/user/getMySuperviser/${rol}`);
+    return this.http.get(`${_api}/api/user/mySuperviser/${rol}`);
   }
   deleteUser(user: any ):Observable<any>{
     return this.http.delete(`${_api}/api/user/delete/`+user);
  
   }
   editUser(user: UserInfo, id: any):Observable<any>{
-    return this.http.put(`${_api}/api/user/editPrice/${id}`, user);
+    return this.http.put(`${_api}/api/user/update/${id}`, user);
   }
 
 

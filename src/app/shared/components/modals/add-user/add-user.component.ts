@@ -9,6 +9,7 @@ import { EstadosKeys } from 'src/app/features/models/prices.model';
 import { UtilsService } from 'src/app/features/services/utils.service';
 import { DefaultPrices } from 'src/app/shared/models/default-prices.model';
 import { CountdownService } from 'src/app/shared/services/countdown.service';
+import { SelectProviderComponent } from '../select-provider/select-provider.component';
 
 @Component({
   selector: 'app-add-user',
@@ -21,14 +22,8 @@ import { CountdownService } from 'src/app/shared/services/countdown.service';
 })
 export class AddUserComponent implements OnInit {
 
-    //varaibles para el cambio de rol y de vista
-
     TimeToView: number = 0;
-
-
-
     myData!:myInfo;
-
 
     /** Enums */
     EstadosKeys = EstadosKeys;
@@ -47,7 +42,9 @@ export class AddUserComponent implements OnInit {
     private dialog: MatDialog,
     private utils: UtilsService,
     private Countdown: CountdownService
-  ) { }
+  ) {
+    this.modal.disableClose = true;
+   }
 
   async ngOnInit(): Promise<void> {
     if(this.myData){
@@ -57,12 +54,114 @@ export class AddUserComponent implements OnInit {
       if(_prices){
         this.initProfile();
         this.initPrices(_prices);
-        this.initMetadata();
-        
-        console.log(_prices);
-        
+        this.initMetadata();        
       }
     }
+  }
+
+  selectProvider(): void {
+    const _dialog = this.dialog.open(SelectProviderComponent, {width: 'md'});
+    _dialog.componentInstance.Rol = this.ProfileData.get('rol')?.value;
+
+    
+    _dialog.afterClosed().subscribe((data:any) => {
+      if(data){
+        this.Provider = data;
+        this.ProfileData.get('provider')?.setValue(data);
+      }
+    });
+  }
+
+    AutoPassGen(): void {
+      let _password = this.utils.WordGen(10);
+      this.ProfileData.get("password")?.setValue(_password);
+      
+        if(this.TimeToView != 0) this.Countdown.countdown.unsubscribe();
+        this.Countdown.startTimer(10);
+        this.Countdown.getTimer().subscribe((data:any) => {
+            this.TimeToView = data;
+        });
+    }
+  
+
+
+  Create(): void {
+
+    let _prices: DefaultPrices = {
+      nac: this.Unit? this.PricesData.get('nac')?.value: {
+        agua: this.PricesData.get('agua')?.value,
+        bcn: this.PricesData.get('bcn')?.value,
+        bcs: this.PricesData.get('bcs')?.value,
+        camp: this.PricesData.get('camp')?.value,
+        cdmx: this.PricesData.get('cdmx')?.value,
+        chia: this.PricesData.get('chia')?.value,
+        chih: this.PricesData.get('chih')?.value,
+        coah: this.PricesData.get('coah')?.value,
+        coli: this.PricesData.get('coli')?.value,
+        dura: this.PricesData.get('dura')?.value,
+        ext: this.PricesData.get('ext')?.value,
+        guan: this.PricesData.get('guan')?.value,
+        guer: this.PricesData.get('guer')?.value,
+        hida: this.PricesData.get('hida')?.value,
+        jali: this.PricesData.get('jali')?.value,
+        mex: this.PricesData.get('mex')?.value,
+        mich: this.PricesData.get('mich')?.value,
+        more: this.PricesData.get('more')?.value,
+        naya: this.PricesData.get('naya')?.value,
+        nl: this.PricesData.get('nl')?.value,
+        oaxa: this.PricesData.get('oaxa')?.value,
+        pueb: this.PricesData.get('pueb')?.value,
+        qroo: this.PricesData.get('qroo')?.value,
+        quer: this.PricesData.get('quer')?.value,
+        sina: this.PricesData.get('sina')?.value,
+        slp: this.PricesData.get('slp')?.value,
+        sono: this.PricesData.get('sono')?.value,
+        taba: this.PricesData.get('taba')?.value,
+        tama: this.PricesData.get('tama')?.value,
+        tlax: this.PricesData.get('tlax')?.value,
+        vera: this.PricesData.get('vera')?.value,
+        yuca: this.PricesData.get('yuca')?.value,
+        zaca: this.PricesData.get('zaca')?.value,
+      },
+      arfc: this.PricesData.get('arfc')?.value,
+      cfe: this.PricesData.get('cfe')?.value,
+      cot: this.PricesData.get('cot')?.value,
+      curp: this.PricesData.get('curp')?.value,
+      def: this.PricesData.get('def')?.value,
+      der: this.PricesData.get('der')?.value,
+      div: this.PricesData.get('div')?.value,
+      dnac: this.PricesData.get('dnac')?.value,
+      ecu: this.PricesData.get('ecu')?.value,
+      inh: this.PricesData.get('inh')?.value,
+      mat: this.PricesData.get('mat')?.value,
+      nss: this.PricesData.get('nss')?.value,
+      reset: this.PricesData.get('reset')?.value,
+      ret: this.PricesData.get('ret')?.value,
+      rfc: this.PricesData.get('rfc')?.value,
+      sus: this.PricesData.get('sus')?.value
+    };
+
+    let _new: UserInfo = {
+      username: this.ProfileData.get('username')?.value,
+      idSuper: this.ProfileData.get('provider')?.value.id,
+      password: this.ProfileData.get('password')?.value,
+      rol: this.ProfileData.get('rol')?.value,
+      nombre: this.MetaData.get('nombre')?.value,
+      type: this.MetaData.get('type')?.value,
+      status: Boolean(this.MetaData.get('status')?.value),
+      precios: _prices
+    };
+
+    this.modal.close(_new);    
+  }
+
+
+  SwitchUnit(): void {
+    this.Unit = !this.Unit;    
+    if(this.Unit){
+      this.PricesData.get('nac')?.enable();
+    }
+    else this.PricesData.get('nac')?.disable();
   }
 
   /** Init Forms */
@@ -87,7 +186,7 @@ export class AddUserComponent implements OnInit {
     this.ProfileData = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      rol:[_rol,Validators.required],
+      rol:[_rol, Validators.required],
       provider: [this.myData, Validators.required]
     });
   }

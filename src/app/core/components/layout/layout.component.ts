@@ -4,6 +4,7 @@ import { storageKeys } from '../../models/storageKeys.model';
 import { AuthService } from '../../services/auth.service';
 import { Roles } from 'src/app/core/models/roles.model';
 import { UtilsService } from 'src/app/features/services/utils.service';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'app-layout',
@@ -14,12 +15,11 @@ export class LayoutComponent implements OnInit {
 
   myId: number = 0;
   myRol: number = 0;
-  myId: number = 0;
   myUsername: string = '';
   myServices: string = '';
   View:number = 0;
 
-  constructor(private auth: AuthService, private utils: UtilsService) { }
+  constructor(private auth: AuthService, private utils: UtilsService, private socket: SocketService) { }
 
   ngOnInit(): void {
     this.getView();

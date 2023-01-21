@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EditUserComponent } from './edit-user.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {ActionButtonModule } from '../../layouts/action-button/action-button.module';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ActionButtonModule } from '../../layouts/action-button/action-button.module';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { SHARE_ENV } from 'worker_threads';
 import { MatDialogModule } from '@angular/material/dialog';
-import { NewPasswordModule } from '../new-password/new-password.module';
-
+import { SelectProviderModule } from '../select-provider/select-provider.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -28,8 +27,11 @@ import { NewPasswordModule } from '../new-password/new-password.module';
     MatButtonToggleModule,
     FontAwesomeModule,
     SharedModule,
+    FormsModule,
     MatDialogModule,
-    NewPasswordModule
-  ]
+    SelectProviderModule,
+    MatProgressBarModule
+  ],
+  exports: [EditUserComponent]
 })
 export class EditUserModule { }
