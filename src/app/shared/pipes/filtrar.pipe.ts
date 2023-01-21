@@ -6,15 +6,16 @@ import { cardCorte } from '../models/card-corte.model';
 })
 export class FiltrarPipe implements PipeTransform {
 
-  transform(value: any, filtro: string): any {
+  transform(value: any[], filtro: string): any {
+    if(!filtro) return value;
 
     let cliente: cardCorte[] = []; 
         
     for (let i = 0; i < value.length; i++) {
       let e:any = value[i];
-      let name = e.nombre;
-      name = name.toLocaleLowerCase();
-      if (name.includes(filtro)) {
+      let name = String(e.nombre);
+      name = name.toLowerCase();
+      if (name.includes(filtro.toLowerCase())) {
         cliente.push(value[i]);
       }
     }
