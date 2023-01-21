@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
 
-  constructor() {  }
+  constructor(private socket: Socket) {  }
 
   View(name: any, id: any, view:string): void{
     //this.socket.emit("user_view", name, id, view);
@@ -18,15 +17,8 @@ export class SocketService {
   }
 
   Broadcast(): any {
-    //this.socket.on("user_broadcast", async (msg:any)=> {
-      //{ to, data}
-      //console.log(msg);
-      
-      // try{
-      //   if(msg.to == id ){
-      //     //console.log(msg.data);
+    //this.socket.on("user_rfcrefresh", async (msg:any)=> {
       //   } 
-      // }
       // catch{
 
       // }

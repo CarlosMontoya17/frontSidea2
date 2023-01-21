@@ -172,6 +172,8 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
       }
     });
 
+    
+
     let _ws = utils.json_to_sheet(_rowData);
     const _wb = utils.book_new();
     utils.book_append_sheet(_wb, _ws, "Corte");
@@ -205,7 +207,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
 
     for (let i = 0; i < data.length; i++) {
       _total = _total + 1;
-      let s: any = data[i];
+      let s = data[i];
       if (s.Documento === "Acta de Nacimiento") {
         _nac = _nac + 1;
       } else if (s.Documento === "Acta de Defuncion") {
@@ -229,6 +231,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
       }
     }
 
+    this.Contador.forEach(e => e.Marked = false);
     this.Contador.find(d => d.Label == 'A. Nacimiento')!.Value = _nac;
     this.Contador.find(d => d.Label == 'A. Defunción')!.Value = _def;
     this.Contador.find(d => d.Label == 'A. Matrimonio')!.Value = _mat;

@@ -13,7 +13,7 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   getFull(): Observable<any>{
-    return this.http.get(`${_api}/api/user/getFull/`);
+    return this.http.get(`${_api}/api/user/full/`);
   }
 
   getOne(id: any): Observable<any> {
@@ -22,7 +22,7 @@ export class UsersService {
 
 
   LogOut(): Observable<any> {
-    return this.http.put(`${_api}/api/user/CloseSession/`, {});
+    return this.http.put(`${_api}/api/user/close/`, {});
   }
 
 }
