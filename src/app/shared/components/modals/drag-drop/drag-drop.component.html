@@ -20,7 +20,7 @@
     
     <mat-dialog-actions align="end">
         <app-action-button *ngIf="FileTmp" [Icon]="faArrowRight" [Legend]="'Siguiente'" (onClick)="next()"></app-action-button>
-    
+        <app-action-button [Icon]="faUser" [Legend]="'Manual'" (onClick)="manual()"></app-action-button>
         <app-action-button [Icon]="faXmark" [Legend]="'Cerrar'" (onClick)="close()"></app-action-button>
     </mat-dialog-actions>
 </div>

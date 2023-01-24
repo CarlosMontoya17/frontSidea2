@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { SimpleMixed } from 'src/app/shared/alerts';
 import { DefaultPrices } from 'src/app/shared/models/default-prices.model';
+import * as prices from 'src/assets/json/default-prices.json';
+import { EstadosKeys } from '../models/prices.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -244,11 +247,30 @@ export class UtilsService {
     return '';
   }
 
+  ConvertState(key: string): string {
+    let _estados = EstadosKeys;
+    let _key = Object.keys(_estados);
+    let _value = Object.values(_estados);
+    let _index: number = _key.findIndex(d => d == key);
+    console.log(_key);
+    
+    if(_index){
+      console.log(_value[0]);
+      return _value[_index];
+    }
+    else {
+      return "";
+    }
+  }
+
   async DefaultPrices(username: string): Promise<any> {
-    let _prices: any = await this.http.get<DefaultPrices>('assets/json/default-prices.json').toPromise();
+    let _prices: any = prices;
     try {
       if (_prices[username]) {
         return _prices[username];
+      }
+      else {
+        return _prices.all;
       }
     }
     catch {

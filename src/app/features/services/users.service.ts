@@ -20,6 +20,10 @@ export class UsersService {
     return this.http.get(`${_api}/api/user/get/${id}`);
   }
 
+  getPrice(id: any, tipo: any, estado: any): Observable<any> {
+    return this.http.put(`${_api}/api/clients/getPrice/${id}`, { tipo, estado });
+  }
+
 
   LogOut(): Observable<any> {
     return this.http.put(`${_api}/api/user/close/`, {});
