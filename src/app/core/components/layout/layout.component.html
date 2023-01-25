@@ -3,7 +3,7 @@
 
 <div class="content" [ngSwitch]="View">
     <app-home [Username]="myUsername" [Rol]="myRol" *ngSwitchCase="0"></app-home>
-    <app-managment [myRol]="myRol" [myId]="myId" [Username]="myUsername" *ngSwitchCase="1"></app-managment>
+    <app-managment [Rol]="myRol" [myRol]="myRol" [myId]="myId" [Username]="myUsername" *ngSwitchCase="1"></app-managment>
     <app-actas [Rol]="myRol" *ngSwitchCase="2"></app-actas>
     <app-rfcs [Id]="myId" [Rol]="myRol" *ngSwitchCase="3"></app-rfcs>
     <app-pays [Username]="myUsername" *ngSwitchCase="4"></app-pays>
