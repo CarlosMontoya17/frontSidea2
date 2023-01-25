@@ -35,7 +35,7 @@ export class ManagmentComponent implements OnInit, OnChanges {
       LegendBtn: 'AGREGAR',
       IconBtn: faUserPlus,
       Input: true,
-      HideBtn: (this.Rol==1 || this.Rol==2)? true: false
+      HideBtn: (this.Rol==1 || this.Rol==2)? false: true
     }
 
   ]
