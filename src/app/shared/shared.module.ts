@@ -7,12 +7,6 @@ import { DatingPipe } from './pipes/dating.pipe';
 import { SearchingPipe } from './pipes/searching.pipe';
 import { UserNamePipe } from './pipes/user-name.pipe';
 import { RfcValidationDirective } from './directives/rfc-validation.directive';
-import { FiltrarPipe } from './pipes/filtrar.pipe';
-import { CadenaValidationDirective } from './directives/cadena-validation.directive';
-import { BuscarciberPipe } from './pipes/buscarciber.pipe';
-
-
-
 
 @NgModule({
   declarations: [
@@ -22,12 +16,7 @@ import { BuscarciberPipe } from './pipes/buscarciber.pipe';
     DatingPipe,
     SearchingPipe,
     UserNamePipe,
-    RfcValidationDirective,
-    FiltrarPipe,
-    CadenaValidationDirective,
-    BuscarciberPipe,
-  
-   
+    RfcValidationDirective
   ],
   imports: [CommonModule],
   exports: [
@@ -37,12 +26,7 @@ import { BuscarciberPipe } from './pipes/buscarciber.pipe';
     DatingPipe,
     SearchingPipe,
     UserNamePipe,
-    RfcValidationDirective,
-    FiltrarPipe,
-    CadenaValidationDirective,
-    BuscarciberPipe,
-   
-   
+    RfcValidationDirective
   ]
 })
 export class SharedModule {}

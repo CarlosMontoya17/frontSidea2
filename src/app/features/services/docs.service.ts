@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ManualModel } from 'src/app/shared/models/manual.model';
 
 
 const _api = "https://actasalinstante.com:3030";

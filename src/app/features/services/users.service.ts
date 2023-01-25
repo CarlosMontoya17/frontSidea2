@@ -13,20 +13,16 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   getFull(): Observable<any>{
-    return this.http.get(`${_api}/api/user/full/`);
+    return this.http.get(`${_api}/api/user/getFull/`);
   }
 
   getOne(id: any): Observable<any> {
-    return this.http.get(`${_api}/api/user/get/${id}`);
-  }
-
-  getPrice(id: any, tipo: any, estado: any): Observable<any> {
-    return this.http.put(`${_api}/api/clients/getPrice/${id}`, { tipo, estado });
+    return this.http.get(`${_api}/api/user/getOne/${id}`);
   }
 
 
   LogOut(): Observable<any> {
-    return this.http.put(`${_api}/api/user/close/`, {});
+    return this.http.put(`${_api}/api/user/CloseSession/`, {});
   }
 
 }

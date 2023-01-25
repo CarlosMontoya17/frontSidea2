@@ -1,21 +1,17 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { SimpleMixed } from 'src/app/shared/alerts';
-import { DefaultPrices } from 'src/app/shared/models/default-prices.model';
-import * as prices from 'src/assets/json/default-prices.json';
-import { EstadosKeys } from '../models/prices.model';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router) { }
 
 
-  b64ToBlob(b64: any, contentType: string = 'application/pdf'): any {
+  b64ToBlob(b64:any, contentType: string = 'application/pdf'): any{
     contentType = contentType || '';
     let sliceSize = 512;
     var byteCharacters = atob(b64);
@@ -34,7 +30,7 @@ export class UtilsService {
   }
 
 
-  downloadPDF(b64: any, filename: string): void {
+  downloadPDF(b64:any, filename: string): void {
     let blob = this.b64ToBlob(b64);
     let a = document.createElement('a');
     var url = URL.createObjectURL(blob);
@@ -45,7 +41,7 @@ export class UtilsService {
     a.remove();
   }
 
-  downloadBlob(blob: any, filename: string): void {
+  downloadBlob(blob:any, filename: string): void{
     let a = document.createElement('a');
     var url = URL.createObjectURL(blob);
     a.href = url;
@@ -55,31 +51,14 @@ export class UtilsService {
     a.remove();
   }
 
-  downloadImage(data: any, filename: any): void {
-    var a = document.createElement('a');
-    a.href = data;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-  }
-
   ErrorManage(err: HttpErrorResponse): void {
-    if (err.status == 404) {
+    if(err.status == 404){
       SimpleMixed("warning", "NO ENCONTRADO");
     }
-    else if (err.status == 401) {
+    else if(err.status == 401){
       localStorage.clear();
       this.router.navigate(['/']);
     }
-  }
-
-  WordGen(length: number): string {
-    let _word = "";
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%&#';
-    for (let i = 0; i < length; i++) {
-      _word += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return _word;
   }
 
   SetState(CURP: string) {
@@ -220,61 +199,5 @@ export class UtilsService {
     }
   }
 
-
-  RolKey2Str(key: number): string {
-    switch (key) {
-      case 1:
-        return 'Admin';
-        break;
-      case 2:
-        return 'Supervisor';
-        break;
-      case 3:
-        return 'Asesor';
-        break;
-      case 4:
-        return 'Clientes';
-        break;
-      case 5:
-        return 'Sucursal';
-        break;
-      case 6:
-        return 'Empleado';
-        break;
-      default:
-        break;
-    }
-    return '';
-  }
-
-  ConvertState(key: string): string {
-    let _estados = EstadosKeys;
-    let _key = Object.keys(_estados);
-    let _value = Object.values(_estados);
-    let _index: number = _key.findIndex(d => d == key);
-    console.log(_key);
-    
-    if(_index){
-      console.log(_value[0]);
-      return _value[_index];
-    }
-    else {
-      return "";
-    }
-  }
-
-  async DefaultPrices(username: string): Promise<any> {
-    let _prices: any = prices;
-    try {
-      if (_prices[username]) {
-        return _prices[username];
-      }
-      else {
-        return _prices.all;
-      }
-    }
-    catch {
-    }
-  }
 
 }

@@ -8,6 +8,5 @@ export interface cardInfo {
     LegendBtn: string;
     IconBtn: IconDefinition;
     Input: boolean;
-    HideBtn: boolean;
 }
 

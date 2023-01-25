@@ -5,7 +5,6 @@ import { AuthService } from '../../services/auth.service';
 import { Roles } from 'src/app/core/models/roles.model';
 import { UtilsService } from 'src/app/features/services/utils.service';
 import { SocketService } from '../../services/socket.service';
-
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
@@ -13,7 +12,6 @@ import { SocketService } from '../../services/socket.service';
 })
 export class LayoutComponent implements OnInit {
 
-  myId: number = 0;
   myRol: number = 0;
   myUsername: string = '';
   myServices: string = '';
@@ -22,6 +20,7 @@ export class LayoutComponent implements OnInit {
   constructor(private auth: AuthService, private utils: UtilsService, private socket: SocketService) { }
 
   ngOnInit(): void {
+
     this.getView();
     this.auth.getInfo().subscribe((data:any) => {
       if(data as myInfo) {
@@ -29,9 +28,7 @@ export class LayoutComponent implements OnInit {
         this.myUsername = _info.username;
         this.myRol = findRol(_info.rol);
         this.myServices = _info.servicios;
-        this.myId = _info.id;
-        this.SocketView(this.View);
-       // this.socket.Join(this.myUsername);
+        this.socket.Join(this.myUsername);
       }
     }, (err:any) => this.utils.ErrorManage(err));
   }
@@ -40,16 +37,6 @@ export class LayoutComponent implements OnInit {
   setView(View: number): void {
     this.View = View;
     localStorage.setItem(storageKeys.View, String(View));
-    if(View == 6){
-      this.socket.Close(this.myId);
-    }
-    else {
-      this.SocketView(View);
-    }
-  }
-
-  SocketView(View: number): void {
-    this.socket.View(this.myUsername, this.myId, ViewString(View));
   }
 
   getView(): void {
@@ -86,29 +73,4 @@ function findRol(key: string): number{
       break;
   }
   return 0;
-}
-
-
-function ViewString(View: number): any {
-  switch(View){
-    case 0:
-      return "Inicio"
-      break;
-    case 1:
-      return "Administrar"
-      break;
-    case 2:
-      return "Actas"
-      break;
-    case 3:
-      return "Rfcs"
-      break;
-    case 4:
-      return "Corte"
-      break;
-    case 5:
-      return "Documentos"
-      break;
-      
-  }
 }

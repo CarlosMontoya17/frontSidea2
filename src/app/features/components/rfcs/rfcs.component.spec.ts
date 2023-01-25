@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import RfcsComponent from './rfcs.component';
+import { RfcsComponent } from './rfcs.component';
 
 describe('RfcsComponent', () => {
   let component: RfcsComponent;

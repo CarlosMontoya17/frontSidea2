@@ -22,28 +22,25 @@
             </tr>
         </thead>
 
-        <ng-container class="cont-table">
-            <tbody>
-                <tr *ngFor="let pnt of Pnds">
-                    <td> <mat-icon matTooltip="ELIMINAR" [matTooltipPosition]="'left'" class="cancel" (click)="delete(pnt)">close</mat-icon> {{ pnt.CURP }}</td>
-                    <td>{{ pnt.RFC }}</td>
-                    <td>{{ pnt.Type }}</td>
-                    <td> 
-                        <div class="row">
-                            <label [ngClass]="{'warning': pnt.Status==0}">{{ pnt.Status==0? 'PENDIENTE': 'SIN SISTEMA' }} </label>
-                            <div *ngIf="pnt.Status==1" class="btn" matTooltip="REINTENTAR" [matTooltipPosition]="'left'" (click)="reTry(pnt)">
-                                <mat-icon>autorenew</mat-icon>
-                            </div>
-        
+        <tbody>
+            <tr *ngFor="let pnt of Pnds">
+                <td>{{ pnt.CURP }}</td>
+                <td>{{ pnt.RFC }}</td>
+                <td>{{ pnt.Type }}</td>
+                <td> 
+                    <div class="row">
+                        <label [ngClass]="{'warning': pnt.Status==0}">{{ pnt.Status==0? 'PENDIENTE': 'SIN SISTEMA' }} </label>
+                        <div *ngIf="pnt.Status==1" class="btn" matTooltip="REINTENTAR" [matTooltipPosition]="'left'" (click)="reTry(pnt)">
+                            <mat-icon>autorenew</mat-icon>
                         </div>
     
-                    </td>
-                </tr>
-    
-    
-            </tbody>
-        </ng-container>
+                    </div>
 
+                </td>
+            </tr>
+
+
+        </tbody>
 
     </table>
 

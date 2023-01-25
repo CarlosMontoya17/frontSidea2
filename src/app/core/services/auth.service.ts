@@ -10,6 +10,9 @@ const _api = 'https://actasalinstante.com:3030';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
+  get(): Observable<any> {
+    return this.http.get(`${_api}/api/user/getFull/`);
+  }
 
   LogIn(username: string, password: string): Observable<any> {
     return this.http.post(`${_api}/api/user/signin/`, { username, password });

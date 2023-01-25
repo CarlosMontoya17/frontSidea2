@@ -12,7 +12,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TransposeModule } from 'src/app/shared/components/modals/transpose/transpose.module';
 import { YnSimpleModule } from 'src/app/shared/components/modals/yn-simple/yn-simple.module';
-import { ManualModule } from 'src/app/shared/components/modals/manual/manual.module';
 
 
 
@@ -32,8 +31,7 @@ import { ManualModule } from 'src/app/shared/components/modals/manual/manual.mod
     MatMenuModule,
     FontAwesomeModule,
     TransposeModule,
-    YnSimpleModule,
-    ManualModule
+    YnSimpleModule
   ],
   exports: [DocsComponent]
 })

@@ -9,7 +9,6 @@ import {
   faBook,
   faPersonWalkingArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
-import { SocketService } from 'src/app/core/services/socket.service';
 import { UsersService } from 'src/app/features/services/users.service';
 
 @Component({
@@ -29,7 +28,7 @@ export class SidebarComponent implements OnInit {
   @Input() Services: string = 'none';
   @Input() Rol: number = 0;
   @Output() View: EventEmitter<number> = new EventEmitter();
-  constructor(private router: Router, private user: UsersService, private socket: SocketService) {}
+  constructor(private router: Router, private user: UsersService) {}
 
   ngOnInit(): void {}
 
@@ -38,7 +37,6 @@ export class SidebarComponent implements OnInit {
   }
   
   LogOut(): void {
-    this.View.emit(6);
     localStorage.clear();
     this.router.navigate(['/']);
   }

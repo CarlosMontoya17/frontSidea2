@@ -18,7 +18,7 @@
                         </select>
                     </div>
     
-                    <div class="type" *ngIf="Search != 'CADENA'">
+                    <div class="type">
                         <label for="type"> {{ Req.TitleType }} </label>
                         <select (change)="SelectType($event)" class="form-select" aria-label="select example">
                             <ng-container *ngFor="let type of Req.Types">
@@ -29,7 +29,7 @@
                 </ng-container>
 
                 <ng-container *ngIf="Req.Primary == 'Types'">
-                    <div class="type" *ngIf="Search != 'CADENA'">
+                    <div class="type">
                         <label for="type"> {{ Req.TitleType }} </label>
                         <select (change)="SelectType($event)" class="form-select" aria-label="select example">
                             <ng-container *ngFor="let type of Req.Types">
@@ -57,10 +57,6 @@
                     aria-label="Recipient's username" aria-describedby="basic-addon2">
 
                 <input *ngIf="Search == 'CURP'" maxlength="18" appUpperText (appCurpValidation)="onKey($event)" type="text" class="form-control"
-                [(ngModel)]="Data" placeholder="{{ Search.toUpperCase() }} A BUSCAR"
-                aria-label="Recipient's username" aria-describedby="basic-addon2">
-
-                <input *ngIf="Search == 'CADENA'" maxlength="20" appUpperText (appCadenaValidation)="onKey($event)" type="text" class="form-control"
                 [(ngModel)]="Data" placeholder="{{ Search.toUpperCase() }} A BUSCAR"
                 aria-label="Recipient's username" aria-describedby="basic-addon2">
 

@@ -12,14 +12,3 @@ export interface myInfo{
   servicios: string;
   status: boolean;
 }
-
-export interface UserInfo {
-  username: string, 
-  password: string, 
-  rol: string, 
-  type:string, 
-  idSuper: number, 
-  precios: any, 
-  status: boolean, 
-  nombre: string
-}
