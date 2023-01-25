@@ -39,7 +39,8 @@ export class ActasComponent implements OnInit {
       Legend: 'PARA REVISAR O DESCARGAR TUS SOLICITUDES ENVIADAS, DA CLICK EN EL BÓTON.',
       LegendBtn: 'Ver',
       IconBtn: faBook,
-      Input: false
+      Input: false,
+      HideBtn: false
     },
     {
       Id: 1,
@@ -48,7 +49,8 @@ export class ActasComponent implements OnInit {
       Legend: 'PARA SOLICITAR UN ACTA DE NACIMIENTO, DEFUNCIÓN, DIVORCIO Y MATRIMONIO, DA CLICK EN EL BÓTON.',
       LegendBtn: 'Nuevo',
       IconBtn: faFileCirclePlus,
-      Input: false
+      Input: false,
+      HideBtn: false
     }
   ];
   CardFilter: cardFilter[] = [

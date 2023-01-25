@@ -22,6 +22,9 @@ export class ManagmentComponent implements OnInit, OnChanges {
   buscar: string = '';
   MyrolCliente: boolean = true;
 
+  // Rol
+  @Input() Rol: number = 0;
+
 
   CardInfo: cardInfo[] = [
     {
@@ -32,6 +35,7 @@ export class ManagmentComponent implements OnInit, OnChanges {
       LegendBtn: 'AGREGAR',
       IconBtn: faUserPlus,
       Input: true,
+      HideBtn: (this.Rol!=1 && this.Rol!=2)? true: false
     }
 
   ]

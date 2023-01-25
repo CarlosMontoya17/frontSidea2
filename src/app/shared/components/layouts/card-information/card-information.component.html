@@ -20,7 +20,7 @@
                         </span>
                     </div>
 
-                    <app-action-button (onClick)="pressButton(card)" [Legend]="card.LegendBtn"
+                    <app-action-button *ngIf="!card.HideBtn" (onClick)="pressButton(card)" [Legend]="card.LegendBtn"
                         [Icon]="card.IconBtn"></app-action-button>
                 </div>
             </div>

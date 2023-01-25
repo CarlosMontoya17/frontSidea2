@@ -15,8 +15,8 @@
                         <th scope="col">Usuario</th>
                         <th scope="col">Nombre Negocio</th>
                         <th scope="col">Rol</th>
-                        <th scope="col">Precios</th>
-                        <th scope="col">Otros</th>
+                        <th scope="col" *ngIf="Rol == 1 || Rol == 2">Precios</th>
+                        <th scope="col" *ngIf="Rol == 1 || Rol == 2">Otros</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,8 +25,8 @@
                         <td>{{req.username}}</td>
                         <td>{{req.nombre}}</td>
                         <td>{{req.rol}}</td>
-                        <td><button class="btn" (click)="editUser(req.id)">Editar usuario</button></td>
-                        <td><button class="btn2" (click)="deleteUser(req)">Eliminar usuario</button></td>
+                        <td *ngIf="Rol == 1 || Rol == 2"><button class="btn" (click)="editUser(req.id)">Editar usuario</button></td>
+                        <td *ngIf="Rol == 1 || Rol == 2"><button class="btn2" (click)="deleteUser(req)">Eliminar usuario</button></td>
                     </tr>
                 </tbody>
             </table>

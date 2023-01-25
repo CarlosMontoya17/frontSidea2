@@ -30,7 +30,8 @@ export class RfcsComponent implements OnInit, OnDestroy {
       Legend: "PARA REVISAR O DESCARGAR TUS SOLICITUDES ENVIADAS, DA CLICK EN EL BÓTON.",
       LegendBtn: "VER",
       Title: "SOLICITUDES",
-      Width: 35
+      Width: 35,
+      HideBtn: false
     },
     {
       Id: 1,
@@ -39,7 +40,8 @@ export class RfcsComponent implements OnInit, OnDestroy {
       Legend: "PARA SOLICITAR UN RFC DE PERSONA MORAL O FÍSICA, DA CLICK EN EL BÓTON.",
       LegendBtn: "NUEVO",
       Title: "NUEVO",
-      Width: 35
+      Width: 35,
+      HideBtn: false
     }
   ];
   Filtros: cardFilter[] = [
@@ -196,7 +198,7 @@ export class RfcsComponent implements OnInit, OnDestroy {
     _req.componentInstance.Req = this.Reqs;
     _req.afterClosed().subscribe((data:any) => {
       if(data) {
-        this.svc.newRequest(data.Type, data.Data, data.Search).subscribe((res:any) => {
+        this.svc.newRequest(data.Type, String(data.Data).toUpperCase(), data.Search).subscribe((res:any) => {
           //new table
           let _f = this.Filtros.find((d:any) => d.Id == 1);
           if(_f) {

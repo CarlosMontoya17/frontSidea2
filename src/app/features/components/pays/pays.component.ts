@@ -25,7 +25,8 @@ export class PaysComponent implements OnInit {
       Legend: "PARA REALIZAR CORTES GENERALES, DA CLICK EN EL BÓTON.",
       LegendBtn: "VER",
       Title: "CORTE GENERAL",
-      Width: 35
+      Width: 35,
+      HideBtn: false
     },
     {
       Id: 1,
@@ -34,7 +35,8 @@ export class PaysComponent implements OnInit {
       Legend: "PARA REALIZAR CORTES PERSONALES, DA CLICK EN EL BÓTON.",
       LegendBtn: "VER",
       Title: "CORTE PERSONAL",
-      Width: 35
+      Width: 35,
+      HideBtn: false
     }
   ];
 

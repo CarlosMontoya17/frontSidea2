@@ -42,6 +42,7 @@ export class DocsComponent implements OnInit {
       LegendBtn: 'VER',
       Title: 'HISTORIAL',
       Width: 35,
+      HideBtn: false
     },
     {
       Id: 0,
@@ -52,6 +53,7 @@ export class DocsComponent implements OnInit {
       LegendBtn: 'SUBIR',
       Title: 'AÑADIR',
       Width: 35,
+      HideBtn: false
     },
   ];
 
