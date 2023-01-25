@@ -1,0 +1,100 @@
+<div class="content">
+    <h3>CARGA MANUAL</h3>
+    <mat-dialog-content class="mat-typgraphy">
+
+        <div class="row">
+            <select [(ngModel)]="DocumentSelect" style="width: calc(50% - 1rem);" class="document" placeholder="Elige un documento" required>
+                <option value="Acta de Nacimiento" selected>Acta de Nacimiento</option>
+                <option value="Acta de Defunción">Acta de Defunción</option>
+                <option value="Acta de Matrimonio">Acta de Matrimonio</option>
+                <option value="Acta de Divorcio">Acta de Divorcio</option>
+                <option value="Constancia de Vigencia de Derechos">Constancia de Vigencia de Derechos</option>
+                <option value="Constancia de Semanas Cotizadas en el IMSS">Constancia de Semanas Cotizadas en el IMSS</option>
+                <option value="Registro Federal de Contribuyentes">Registro Federal de Contribuyentes</option>
+                <option value="CONSTANCIA DE NO INHABILITACIÓN">CONSTANCIA DE NO INHABILITACIÓN</option>
+                <option value="Estado de Cuenta Infonavit">Estado de Cuenta Infonavit</option>
+                <option value="Asignación de Número de Seguridad Social">Asignación de Número de Seguridad Social</option>
+                <option value="CFE">CFE</option>
+            </select>
+
+            <select [(ngModel)]="EstadoSelect" style="width: calc(50% - 1rem);" class="document" placeholder="Elige un estado" required>
+                <option value="AGUASCALIENTES">AGUASCALIENTES</option>
+                <option value="BAJA CALIFORNIA">BAJA CALIFORNIA</option>
+                <option value="BAJA CALIFORNIA SUR">BAJA CALIFORNIA SUR</option>
+                <option value="CAMPECHE">CAMPECHE</option>
+                <option value="CIUDAD DE MEXICO">CIUDAD DE MEXICO</option>
+                <option value="CDMX">CDMX</option>
+                <option value="CHIAPAS">CHIAPAS</option>
+                <option value="CHIHUAHUA">CHIHUAHUA</option>
+                <option value="COAHUILA">COAHUILA</option>
+                <option value="COLIMA">COLIMA</option>
+                <option value="DURANGO">DURANGO</option>
+                <option value="GUANAJUATO">GUANAJUATO</option>
+                <option value="GUERRERO">GUERRERO</option>
+                <option value="HIDALGO">HIDALGO</option>
+                <option value="JALISCO">JALISCO</option>
+                <option value="MEXICO">MEXICO</option>
+                <option value="MICHOACAN">MICHOACAN</option>
+                <option value="MORELOS">MORELOS</option>
+                <option value="NAYARIT">NAYARIT</option>
+                <option value="NUEVO LEON">NUEVO LEON</option>
+                <option value="OAXACA">OAXACA</option>
+                <option value="PUEBLA">PUEBLA</option>
+                <option value="QUERETARO">QUERETARO</option>
+                <option value="QUINTANA ROO">QUINTANA ROO</option>
+                <option value="SAN LUIS POTOSI">SAN LUIS POTOSI</option>
+                <option value="SINALOA">SINALOA</option>
+                <option value="SONORA">SONORA</option>
+                <option value="TABASCO">TABASCO</option>
+                <option value="TAMAULIPAS">TAMAULIPAS</option>
+                <option value="TLAXCALA">TLAXCALA</option>
+                <option value="VERACRUZ">VERACRUZ</option>
+                <option value="YUCATAN">YUCATAN</option>
+                <option value="ZACATECAS">ZACATECAS</option>
+                <option value="EXTRANJERO">EXTRANJERO</option>
+            </select>
+
+
+
+        </div>
+
+        <div class="row">
+
+            <input [(ngModel)]="CURP"  style="width: calc(33% - 1rem);" appUpperText class="input" type="text" placeholder="CURP/DATO" required>
+
+            <input [(ngModel)]="Nombres"  style="width: calc(33% - 1rem);" appUpperText class="input" type="text" placeholder="NOMBRES" required>
+
+            <input [(ngModel)]="Apellidos"  style="width: calc(33% - 1rem);" appUpperText class="input" type="text" placeholder="APELLIDOS" required>
+
+
+        </div>
+
+
+        <div class="row">
+            <input style="width: 100%;" class="input" type="text" placeholder="ASESOR" [(ngModel)]="Search" required *ngIf="!Price">
+            
+            <input style="width: 100%;" *ngIf="Price" class="input" type="number" placeholder="Precio" [(ngModel)]="Price" readonly>
+
+            <div class="lista-asesores" *ngIf="!Price && Search.length > 3">
+                <ul class="list-group">
+                    <li class="list-group-item active">Resultados:</li>
+                    <li class="list-group-item selectionable"
+                        style="cursor: pointer;" (click)="onUserSelect(user)"
+                        *ngFor="let user of Users | buscarciber : Search">
+                        {{ user.nombre }} - {{ user.rol }}
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <app-action-button 
+                [disabled]="CURP.length > 0 && Nombres.length > 0 && Apellidos.length > 0 && Price" 
+                [Legend]="'Enviar'"
+                (onClick)="onSave()">
+            </app-action-button>
+        </div>
+    </mat-dialog-content>
+</div>

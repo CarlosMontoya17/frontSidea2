@@ -13,11 +13,13 @@ import { DocsModule } from 'src/app/features/components/docs/docs.module';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
 
+
 const config: SocketIoConfig = { url: 'http://localhost:3030', options: {} };
 
 @NgModule({
   declarations: [LayoutComponent],
   imports: [
+    SocketIoModule.forRoot(config),
     CommonModule, 
     SidebarModule, 
     NavbarModule, 
@@ -26,8 +28,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3030', options: {} };
     ManagmentModule,
     RfcsModule,
     PaysModule,
-    DocsModule,
-    SocketIoModule.forRoot(config)
+    DocsModule
   ],
   exports: [LayoutComponent],
   providers: [TokenInterceptorProv]

@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { faAmbulance, faBook, faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {  faBook, faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { actionEmitter, cardFilter } from 'src/app/shared/models/card-filters.model';
 import { cardInfo } from 'src/app/shared/models/card-information.model';
 import { RfcService } from '../../services/rfc.service';
@@ -12,13 +12,15 @@ import { UsersService } from '../../services/users.service';
 import { UtilsService } from '../../services/utils.service';
 import { SimpleMixed } from 'src/app/shared/alerts';
 import { addonPendients } from 'src/app/shared/models/pendients.model';
+import { Socket } from 'ngx-socket-io';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-rfcs',
   templateUrl: './rfcs.component.html',
   styleUrls: ['./rfcs.component.scss']
 })
-export class RfcsComponent implements OnInit {
+export class RfcsComponent implements OnInit, OnDestroy {
 
   CardInfo: cardInfo[] = [
     {
@@ -28,7 +30,8 @@ export class RfcsComponent implements OnInit {
       Legend: "PARA REVISAR O DESCARGAR TUS SOLICITUDES ENVIADAS, DA CLICK EN EL BÓTON.",
       LegendBtn: "VER",
       Title: "SOLICITUDES",
-      Width: 35
+      Width: 35,
+      HideBtn: false
     },
     {
       Id: 1,
@@ -37,7 +40,8 @@ export class RfcsComponent implements OnInit {
       Legend: "PARA SOLICITAR UN RFC DE PERSONA MORAL O FÍSICA, DA CLICK EN EL BÓTON.",
       LegendBtn: "NUEVO",
       Title: "NUEVO",
-      Width: 35
+      Width: 35,
+      HideBtn: false
     }
   ];
   Filtros: cardFilter[] = [
@@ -81,16 +85,23 @@ export class RfcsComponent implements OnInit {
   Pendientes: addonPendients[] = [];
 
   @Input() Rol:number = 0;
-
+  @Input() Id:number = 0;
   constructor(
     private svc: RfcService,
     private dialog: MatDialog,
     private users: UsersService,
-    private utils: UtilsService
-  ) { }
+    private utils: UtilsService,
+    private socket: Socket
+  ) {
+
+    this.PendientsResult();
+   }
 
   ngOnInit(): void {
+  }
 
+  ngOnDestroy(): void {
+    this.socket.removeListener('user_rfcrefresh');
   }
 
 
@@ -102,6 +113,7 @@ export class RfcsComponent implements OnInit {
     if(e.Id == 0){
       this.View = !this.View;
       if(this.View){
+        this.svc.setRefreshing(true);
         this.getDates();
       }
     }
@@ -186,7 +198,7 @@ export class RfcsComponent implements OnInit {
     _req.componentInstance.Req = this.Reqs;
     _req.afterClosed().subscribe((data:any) => {
       if(data) {
-        this.svc.newRequest(data.Type, data.Data, data.Search).subscribe((res:any) => {
+        this.svc.newRequest(data.Type, String(data.Data).toUpperCase(), data.Search).subscribe((res:any) => {
           //new table
           let _f = this.Filtros.find((d:any) => d.Id == 1);
           if(_f) {
@@ -248,12 +260,70 @@ export class RfcsComponent implements OnInit {
   }
 
   /** Pendientes */
-  ReTrying(item: addonPendients): void {
 
+
+
+  ReTrying(item: addonPendients): void {
+    this.svc.updatePendient(item).subscribe((data:any) => {
+      this.getPendients();
+    });
   }
 
+  delete(item: addonPendients): void {
+    this.svc.deletePendient(item.Id).subscribe((data:any) => {
+      this.getPendients();
+    });
+  }
+
+
   getPendients(): void {
-    
+    this.svc.getPendients().subscribe((data:any) => {
+      if(data){
+
+        let _pendients: addonPendients[] = [];
+        data.forEach((element: any) => {
+           const _p: addonPendients = {
+            Id: element.Id,
+            CURP: element.CURP,
+            RFC: element.RFC,
+            Type: element.Type,
+            Status: element.Status
+           };
+           _pendients.push(_p);
+         });
+
+        this.Pendientes = _pendients;
+      }
+    });
+  }
+
+  /**Socket */
+  PendientsResult(): void {
+    this.socket.on("user_rfcrefresh", async (msg: any) => {
+      try{
+        console.log(msg);
+        
+        if(msg){
+          this.svc.getRefreshing().subscribe((data: boolean) => {          
+            if(data){
+              if(msg.to == this.Id){
+                this.getPendients();
+                let _f = this.Filtros.find((d:any) => d.Id == 1);
+                if(_f) {
+                  let _date:any = _f.Content?.Default;
+                  if(_date){
+                    if(_date == 'Actual') _date = 'null';
+                    this.getPeticiones(_date);
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+      catch{
+      }
+    });
   }
 
 

@@ -1,0 +1,6 @@
+<button class="btn" mat-button [matMenuTriggerFor]="beforeMenu"> {{ DataSelect }} </button>
+<mat-menu #beforeMenu="matMenu" xPosition="before">
+    <ng-container *ngFor="let data of Data">
+        <button mat-menu-item (click)="onSelect(data)"> {{ data[Key] }} </button>
+    </ng-container>
+</mat-menu>

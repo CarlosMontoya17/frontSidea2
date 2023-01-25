@@ -1,0 +1,44 @@
+
+<button  matTooltip="{{ (Show$ | async) ? 'OCULTAR': 'LISTA DE CLIENTES' }}" mat-mini-fab color="secundary" (click)="onShowHide()" *ngIf=" Draggable$ | async">
+    <mat-icon *ngIf="!(Show$ | async)">groups</mat-icon>
+    <mat-icon *ngIf="Show$ | async">close</mat-icon>
+</button>
+
+
+<button  matTooltip="LISTA DE CLIENTES" mat-mini-fab color="secundary" (click)="onShowHide()" *ngIf=" !(Show$ | async) && !(Draggable$ | async)">
+    <mat-icon>groups</mat-icon>
+</button>
+
+
+<div #myCard class="myCard" [ngStyle]="{'display': !(Show$ | async)? 'none': 'block'}" cdkDrag [cdkDragDisabled]="!(Draggable$ | async)" [cdkDragFreeDragPosition]="Position">
+            <!-- HIJO 1 -->
+            <div class="titleFiltro">
+                <label>FILTRO</label>
+                <mat-icon matTooltip="minimizar" [matTooltipPosition]="'above'"  class="minimize" (click)="onShowHide()">minimize</mat-icon>
+                <mat-icon matTooltip="Flotante" [matTooltipPosition]="'above'"  *ngIf="!(Draggable$ | async)" (click)="onDraggable()">open_in_full</mat-icon>
+                <mat-icon matTooltip="restaurar" [matTooltipPosition]="'above'"  *ngIf="(Draggable$ | async)" (click)="onDraggable()">close_fullscreen</mat-icon>
+            </div>
+            <div class="botones">
+                <!-- DROPDOWN -->
+                <app-dropdown [Data]="Fechas" [Key]="Key" [DataSelect]="FechaSelect"
+                    (Select)="selectDate($event)"></app-dropdown>
+                <button class="export" (click)="onSaveExcel()">Exportar Excel</button>
+            </div>
+            <!-- HIJO 2 -->
+            <div class="filtros">
+                <!-- INPUT -->
+                <app-search (Key)="onKey($event)"></app-search>
+            </div>
+            <!-- HIJO 3 -->
+            <div class="clientes">
+                <ul class="list-group">
+                    <li class="list-group-item active">CIBERS</li>
+                    <div class="lista-completa">
+                        <ng-container *ngFor="let client of Clientes | filtrar: Buscar">
+                            <li [ngClass]="{'selectabled': CiberSelect==client}" class="list-group-item selectable" (click)="selectCiber(client)"> {{ client.nombre }}
+                            </li>
+                        </ng-container>
+                    </div>
+                </ul>
+            </div>
+        </div>

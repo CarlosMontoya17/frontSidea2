@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { faArrowRight, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faUser, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-drag-drop',
@@ -11,6 +11,8 @@ export class DragDropComponent implements OnInit {
 
   faXmark = faXmark;
   faArrowRight = faArrowRight;
+  faUser = faUser;
+
   @Input() acceptFile = "application/pdf";
 
   FileTmp: any;
@@ -31,6 +33,10 @@ export class DragDropComponent implements OnInit {
 
   next(): void {
     this.dialog.close(this.FileTmp);
+  }
+
+  manual(): void {
+    this.dialog.close("manual");
   }
 
 

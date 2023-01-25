@@ -27,15 +27,6 @@ export class CurpValidationDirective {
         else this.appCurpValidation.emit(false);
       }
       else this.appCurpValidation.emit(false);
-
-
-
-
-
-
-      
-
-
     }
   }
 }
