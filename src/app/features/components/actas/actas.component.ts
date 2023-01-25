@@ -44,7 +44,7 @@ export class ActasComponent implements OnInit {
         'PARA REVISAR O DESCARGAR TUS SOLICITUDES ENVIADAS, DA CLICK EN EL BÓTON.',
       LegendBtn: 'Ver',
       IconBtn: faBook,
-      Input: false,
+      Input: false
     },
     {
       Id: 1,
@@ -54,8 +54,8 @@ export class ActasComponent implements OnInit {
         'PARA SOLICITAR UN ACTA DE NACIMIENTO, DEFUNCIÓN, DIVORCIO Y MATRIMONIO, DA CLICK EN EL BÓTON.',
       LegendBtn: 'Nuevo',
       IconBtn: faFileCirclePlus,
-      Input: false,
-    },
+      Input: false
+    }
   ];
   CardFilter: cardFilter[] = [
     {
@@ -83,7 +83,7 @@ export class ActasComponent implements OnInit {
   Reqs: modalRequest = {
     Title: 'Solicitar Acta',
     TitleSearch: 'Busqueda por',
-    Searches: ['CURP'],
+    Searches: ['CURP', 'CADENA'],
     TitleType: 'Tipo de documento',
     Types: ['NACIMIENTO', 'MATRIMONIO', 'DIVORCIO', 'DEFUNCION'],
     Primary: 'Search',
@@ -207,36 +207,25 @@ export class ActasComponent implements OnInit {
           width: 'md',
         });
         _pref.afterClosed().subscribe((pref: any) => {
-          if (pref) {
-            this.svc
-              .newRequest(data.Type, data.Search, data.Data, data.State, pref)
-              .subscribe(
-                (req: any) => {
-                  if (req) {
-                    let _f = this.CardFilter.find((d: any) => d.Id == 1);
-                    if (_f) {
-                      let _date: any = _f.Content?.Default;
-                      if (_date == 'Actual') _date = 'null';
-                      this.getPeticiones(_date);
-                    }
-                    const _result = this.dialog.open(TableModalComponent);
-                    _result.componentInstance.Table.Data = [req];
-
-                    _result.afterClosed().subscribe((id: any) => {
-                      if (id) {
-                        this.onDownloadActa(id, req.curp);
-                      }
-                    });
-                  }
-                },
-                (err: any) => {
-                  let _f = this.CardFilter.find((d: any) => d.Id == 1);
-                  if (_f) {
-                    let _date: any = _f.Content?.Default;
-                    if (_date == 'Actual') _date = 'null';
+          if(pref) {
+            this.svc.newRequest(data.Type, data.Search, data.Data, data.State, pref).subscribe((req:any) => {
+                if(req) {
+                  let _f = this.CardFilter.find((d:any) => d.Id == 1);
+                  if(_f) {
+                    let _date:any = _f.Content?.Default;
+                    if(_date == 'Actual') _date = 'null';
                     this.getPeticiones(_date);
                   }
-                  this.utils.ErrorManage(err);
+                  const _result = this.dialog.open(TableModalComponent);
+                  _result.componentInstance.Table.Data = [req];
+
+
+                  _result.afterClosed().subscribe((id: any) => {
+                    if(id){
+                      this.onDownloadActa(id, req.curp);
+                    }
+                  });
+
                 }
               );
           }
@@ -266,20 +255,18 @@ export class ActasComponent implements OnInit {
 
     _dialog.componentInstance.Users = _users;
 
-    _dialog.afterClosed().subscribe((data: any) => {
-      if (data) {
-        this.svc.reAssign(e.Id, data.id).subscribe(
-          (re: any) => {
-            let _f = this.CardFilter.find((d: any) => d.Id == 1);
-            if (_f) {
-              let _date: any = _f.Content?.Default;
-              if (_date == 'Actual') _date = 'null';
-              this.getPeticiones(_date);
-            }
-            SimpleMixed('success', 'REGISTRO REASIGNADO');
-          },
-          (err: any) => this.utils.ErrorManage(err)
-        );
+    _dialog.afterClosed().subscribe((data:any) => {
+      if(data) {
+        this.svc.reAssign(e.Id, data.id).subscribe((re: any) => {
+          let _f = this.CardFilter.find((d:any) => d.Id == 1);
+          if(_f) {
+            let _date:any = _f.Content?.Default;
+            if(_date == 'Actual') _date = 'null';
+            this.getPeticiones(_date);
+          }
+          SimpleMixed("success", "REGISTRO REASIGNADO");
+          
+        }, (err:any) => this.utils.ErrorManage(err));
       }
     });
   }

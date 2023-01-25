@@ -4,6 +4,7 @@
 .selects {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .search, .type {

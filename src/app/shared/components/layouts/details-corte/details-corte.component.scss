@@ -1,0 +1,140 @@
+@import url(../../../styles/bootstrap.min.scss);
+
+.table-data {
+    background-color: rgb(248, 248, 248);
+    border: 1px solid rgb(212, 212, 212);
+    padding: 1rem;
+    border-radius: 0 0 0.375rem 0.375rem;
+}
+
+.empty {
+    display: flex;
+    text-align: center;
+    background-color: #f8f8f8;
+    border: 1px solid #d4d4d4;
+    padding: 1rem;
+    border-radius: 0.375rem 0.375rem;
+    height: 100%;
+    align-content: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    label {
+        font-weight: 600;
+        font-size: 20px;
+    }
+}
+
+.tools {
+    position: sticky;
+    top: 0px;
+
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 0.5rem 1rem;
+    background-color: rgb(248, 248, 248);
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 0.375rem 0.375rem 0 0;
+
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        button {
+            height: 24px;
+            position: inherit;
+            margin: 0 1rem;
+            border-radius: 0.375rem;
+        }
+        .PickColor {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-content: center;
+            align-items: center;
+            justify-content: space-evenly;
+            border: 1px solid grey;
+            border-radius: 0.375rem;
+            background-color: #3b3b3b;
+            color: white;
+            button {
+                width: 100%;
+            }
+        }
+        .pColor {
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            align-content: center;
+            align-items: center;
+            justify-content: space-evenly;
+            padding: 5px;
+            label {
+                margin: 0;
+                margin: 0 0.5rem;
+            }
+            input {
+                margin-left: auto;
+            }
+        }
+    }
+    .primary {
+        background-color: rgb(59, 59, 59);
+    }
+    .primary:hover {
+        background-color: rgb(99, 99, 99);
+    }
+
+    .secundary {
+        background-color: #2b7820;
+    }
+
+    .secundary:hover {
+        background-color: #36912a;
+    }
+
+}
+
+.table{
+    width: 100%;
+    height:auto;
+    text-align: center;
+}
+
+.selected {
+    background-color: #FFC93C !important;
+    color: black !important;
+}
+
+.selected:hover {
+    color: black !important;
+} 
+
+.export{
+    margin-right: 4.3rem;
+}
+
+.header {
+    text-align: center;
+}
+
+
+@media (max-width: 1170px) {
+    .conteiner {
+        font-size: 12px;
+
+    }
+}
+
+@media (max-width: 909px) {
+    .conteiner {
+        font-size: 11px;
+        .table {
+            td {
+                padding: 0.2rem;
+            }
+        }
+    }
+}
