@@ -12,7 +12,6 @@ export class UserNamePipe implements PipeTransform {
 
     let _f = value.filter((i:any): any => {
       let _v = i.nombre.toString().toLowerCase();
-      let _u = i.username.toString().toLowerCase();
       // let _u = i.username.toString().toLowerCase();
       if(_v.includes(args)) return i;
     });
