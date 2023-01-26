@@ -27,20 +27,20 @@ export class RfcService {
 
 
   getDates(): Observable<any> {
-    return this.http.get(`${_api}/api/services/rfc/myDates`);
+    return this.http.get(`${_api}/api/rfc/requests/myDates/`);
   }
 
   obtenerPeticiones(fecha: any): Observable<any> {
-    return this.http.get(`${_api}/api/services/rfc/myReqs/${fecha}`);
+    return this.http.get(`${_api}/api/rfc/requests/myRequests/${fecha}`);
   }
 
 
   downloadRfc(id: any): Observable<any>{
-    return this.http.get(`${_api}/api/services/rfc/download/${id}`, { responseType: 'blob'});
+    return this.http.get(`${_api}/api/rfc/request/donwload/${id}`, { responseType: 'blob'});
   }
 
   newRequest(clasification: any, data: any, search: any): Observable<any> {
-    return this.http.post(`${_api}/api/services/rfcs/new`, {clasification, data, search});
+    return this.http.post(`${_api}/api/rfc/requests/news/`, {clasification, data, search});
   }
 
   reAssign(id: any, new_user_id:any): Observable<any> {

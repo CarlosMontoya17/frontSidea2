@@ -126,6 +126,8 @@ export class RfcsComponent implements OnInit, OnDestroy {
 
   getDates(): void {
     this.svc.getDates().subscribe((data:any) => {
+
+      
       let _actual = data.find((d:any) => d.deadline == null);
       if(_actual){
         _actual.deadline = "Actual";
@@ -173,12 +175,12 @@ export class RfcsComponent implements OnInit, OnDestroy {
         Comments: p[i].comments,
         Index: i+1,
         Downloaded: p[i].downloaded,
-        Filename: `${p[i].rfc}.pdf`,
+        Filename: `${p[i].data}.pdf`,
         ReAssigned: p[i].transposeId!=0? true:false,
         Rol: this.Rol,
         Type: p[i].type,
         Search: {
-          Type: p[i].search,
+          Type: p[i].data,
           CURP: p[i].search=="CURP"? p[i].curp: p[i].rfc,
           State: p[i].estado
         },
@@ -201,23 +203,23 @@ export class RfcsComponent implements OnInit, OnDestroy {
       if(data) {
         this.svc.newRequest(data.Type, String(data.Data).toUpperCase(), data.Search).subscribe((res:any) => {
           //new table
-          let _f = this.Filtros.find((d:any) => d.Id == 1);
-          if(_f) {
+          // let _f = this.Filtros.find((d:any) => d.Id == 1);
+          // if(_f) {
 
-            let _date:any = _f.Content?.Default;
-            if(_date == 'Actual') _date = 'null';
-            this.getPeticiones(_date);
-          }
+          //   let _date:any = _f.Content?.Default;
+          //   if(_date == 'Actual') _date = 'null';
+          //   this.getPeticiones(_date);
+          // }
 
-          const _result = this.dialog.open(TableModalComponent);
-          _result.componentInstance.Table.Data = [res];
+          // const _result = this.dialog.open(TableModalComponent);
+          // _result.componentInstance.Table.Data = [res];
 
 
-          _result.afterClosed().subscribe((id: any) => {
-            if(id){
-              this.onDownload(id, res.curp);
-            }
-          });
+          // _result.afterClosed().subscribe((id: any) => {
+          //   if(id){
+          //     this.onDownload(id, res.curp);
+          //   }
+          // });
 
         }, (err:any) => this.utils.ErrorManage(err));
       }
@@ -255,31 +257,35 @@ export class RfcsComponent implements OnInit, OnDestroy {
   }
 
   onDownloadRequest(item: cardRequest): void {
-    this.onDownload(item.Id, item.Search.CURP);
+    this.onDownload(item.Id, item.Search.Type);
+ 
+    
   }
 
 
   onDownload(Id:any, RFC: any): void {
+    console.log(RFC);
+    
     this.svc.downloadRfc(Id).subscribe((data:any) => {
-        // this.utils.downloadBlob(data, RFC);
-        // let _f = this.Filtros.find((d:any) => d.Id == 1);
-        // if(_f) {
-        //   let _date:any = _f.Content?.Default;
-        //   if(_date == 'Actual') _date = 'null';
-        //   this.getPeticiones(_date);
-        //   SimpleMixed("success", "DOCUMENTO DESCARGADO");
-        // }
-
-        if(data?.b64){
-          this.utils.downloadPDF(data?.b64, RFC);
-          let _f = this.Filtros.find((d:any) => d.Id == 1);
-          if(_f) {
-            let _date:any = _f.Content?.Default;
-            if(_date == 'Actual') _date = 'null';
-            this.getPeticiones(_date);
-            SimpleMixed("success", "DOCUMENTO DESCARGADO");
-          }
+        this.utils.downloadBlob(data, RFC);
+        let _f = this.Filtros.find((d:any) => d.Id == 1);
+        if(_f) {
+          let _date:any = _f.Content?.Default;
+          if(_date == 'Actual') _date = 'null';
+          this.getPeticiones(_date);
+          SimpleMixed("success", "DOCUMENTO DESCARGADO");
         }
+
+        // if(data?.b64){
+        //   this.utils.downloadPDF(data?.b64, RFC);
+        //   let _f = this.Filtros.find((d:any) => d.Id == 1);
+        //   if(_f) {
+        //     let _date:any = _f.Content?.Default;
+        //     if(_date == 'Actual') _date = 'null';
+        //     this.getPeticiones(_date);
+        //     SimpleMixed("success", "DOCUMENTO DESCARGADO");
+        //   }
+        // }
     }, (err:any) => this.utils.ErrorManage(err));
   }
 
