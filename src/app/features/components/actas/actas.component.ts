@@ -205,6 +205,11 @@ export class ActasComponent implements OnInit {
         const _pref = this.dialog.open(PreferencesComponent, {
           width: 'md'
         }); 
+
+        if(data.State.includes("EXTRANJERO")){
+          _pref.componentInstance.Preferences = [1];
+        }
+
         _pref.afterClosed().subscribe((pref: any) => {
           if(pref) {
             this.svc.newRequest(data.Type, data.Search, data.Data, data.State, pref).subscribe((req:any) => {

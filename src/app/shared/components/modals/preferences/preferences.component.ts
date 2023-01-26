@@ -10,6 +10,8 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 export class PreferencesComponent implements OnInit {
  
   faXmark = faXmark;
+
+  Preferences = [1, 2, 3];
   
   constructor(private ref: MatDialogRef<PreferencesComponent>) { }
 
