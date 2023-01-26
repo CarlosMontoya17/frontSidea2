@@ -20,7 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="scope" *ngFor="let req of Request |  userName: buscar | paginate:{ itemsPerPage: 5, currentPage: page, totalItems: totalLenght} ">
+                    <tr class="scope" *ngFor="let req of Request |  userName: buscar | paginate:{ itemsPerPage: 15, currentPage: page, totalItems: totalLenght} ">
                         <td>{{req.id}}</td>
                         <td>{{req.username}}</td>
                         <td>{{req.nombre}}</td>
