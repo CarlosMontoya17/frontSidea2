@@ -176,7 +176,7 @@ export class RfcsComponent implements OnInit, OnDestroy {
         Index: i+1,
         Downloaded: p[i].downloaded,
         Filename: `${p[i].data}.pdf`,
-        ReAssigned: p[i].transposeId!=0? true:false,
+        ReAssigned: p[i].idtranspose? true:false,
         Rol: this.Rol,
         Type: p[i].type,
         Search: {
@@ -241,6 +241,8 @@ export class RfcsComponent implements OnInit, OnDestroy {
     _dialog.componentInstance.Users = _users;
 
     _dialog.afterClosed().subscribe((data:any) => {
+      console.log(data);
+      
       if(data) {
         this.svc.reAssign(e.Id, data.id).subscribe((re: any) => {
           let _f = this.Filtros.find((d:any) => d.Id == 1);
