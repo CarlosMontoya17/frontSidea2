@@ -171,7 +171,7 @@ export class RfcsComponent implements OnInit, OnDestroy {
         Id: p[i].id,
         Background: '/assets/images/icons/rfc.png',
         Available: p[i].comments=="Descargado"? true: false,
-        Date: p[i].createdAt,
+        Date: String(p[i].createdAt).substring(0, p[i].createdAt.length - 1),
         Comments: p[i].comments,
         Index: i+1,
         Downloaded: p[i].downloaded,

@@ -139,7 +139,7 @@ export class ActasComponent implements OnInit {
             Index: i+1,
             Id: e.id,
             Background: `/assets/images/icons/${String(e.type).toLowerCase()}.png`,
-            Date: e.createdAt,
+            Date: String(e.createdAt).substring(0, e.createdAt.length - 3),
             Downloaded: e.downloaded,
             Filename: `${e.curp}.pdf`,
             Search: _s,

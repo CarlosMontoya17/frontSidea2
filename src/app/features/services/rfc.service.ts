@@ -44,9 +44,7 @@ export class RfcService {
   }
 
   reAssign(id: any, new_user_id:any): Observable<any> {
-    return this.http.put(`${_api}/api/actas/reg/transpose/${id}`, { newciber: new_user_id ,service
-      : 
-      "rfc"});
+    return this.http.put(`${_api}/api/actas/reg/transpose/${id}`, { newciber: new_user_id , service :  "rfc"});
   } 
 
   getPendients(): Observable<any> {
