@@ -152,6 +152,32 @@ export class ActasComponent implements OnInit {
           
           _date.push(_d);
         }
+        else if(e.search == "CADENA"){
+          const _s: searchCURP = {
+            CURP: e.cadena,
+            Type: e.search,
+            State: e.estado
+          };
+
+          const _d: cardRequest = {
+            ReAssignedLeyend: "Acta",
+            Rol: this.Rol,
+            Index: i+1,
+            Id: e.id,
+            Background: `/assets/images/icons/${String(e.type).toLowerCase()}.png`,
+            Date: String(e.createdAt).substring(0, e.createdAt.length - 3),
+            Downloaded: e.downloaded,
+            Filename: `${e.curp}.pdf`,
+            Search: _s,
+            Title: `ACTA DE ${e.type}`,
+            Type: e.type,
+            Available: e.comments=="Descargado"? true: false,
+            Comments: e.comments,
+            ReAssigned: e.transposeId != null? true: false
+          };
+          
+          _date.push(_d);
+        }
       }
 
 

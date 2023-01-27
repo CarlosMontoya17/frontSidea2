@@ -166,7 +166,7 @@ export class RfcsComponent implements OnInit, OnDestroy {
 
   transformarPeticiones(p: any): void {
     let info: cardRequest[] = [];
-    for (let i = 0; i < p.length; i++) {      
+    for (let i = 0; i < p.length; i++) {            
       let peticion: cardRequest = {
         Id: p[i].id,
         Background: '/assets/images/icons/rfc.png',
@@ -207,7 +207,6 @@ export class RfcsComponent implements OnInit, OnDestroy {
         
         
         this.svc.newRequest(_type, _curp, _rfc).subscribe((res:any) => {
-          console.log(typeof(res));
           
           if(typeof(res) == "object") {
             //new table
@@ -242,7 +241,16 @@ export class RfcsComponent implements OnInit, OnDestroy {
           else {
             SimpleMixed("error", "VUELVE A INTENTAR POR FAVOR");
           }         
-        }, (err:any) => this.utils.ErrorManage(err));
+        }, (err:any) =>{ 
+          this.utils.ErrorManage(err); 
+          let _f = this.Filtros.find((d:any) => d.Id == 1);
+          if(_f) {
+
+            let _date:any = _f.Content?.Default;
+            if(_date == 'Actual') _date = 'null';
+            this.getPeticiones(_date);
+          }
+        });
       }
     });
   }
