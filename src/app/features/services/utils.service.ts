@@ -67,10 +67,14 @@ export class UtilsService {
     if (err.status == 404) {
       SimpleMixed("warning", "NO ENCONTRADO");
     }
+    else if (err.status == 500) {
+      SimpleMixed("error", "ERROR FAVOR DE INFORMARLO");
+    }
     else if (err.status == 401) {
       localStorage.clear();
       this.router.navigate(['/']);
     }
+
   }
 
   WordGen(length: number): string {
