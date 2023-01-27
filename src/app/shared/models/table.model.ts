@@ -4,6 +4,6 @@ export interface tableModal {
 }
 
 export interface tableColumn {
-    Key: string | boolean,
+    Key: string ,
     Display: string
 }

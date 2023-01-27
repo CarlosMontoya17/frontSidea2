@@ -19,7 +19,7 @@ export class TableModalComponent implements OnInit {
       { Display: 'Apellidos', Key: 'apellidos' },
       { Display: 'Estado', Key: 'estado' },
       { Display: 'Fecha', Key: 'fechaNac' },
-      { Display: 'Acciones', Key: true }
+      { Display: 'Acciones', Key: 'true' }
     ],
     Data: []
   };

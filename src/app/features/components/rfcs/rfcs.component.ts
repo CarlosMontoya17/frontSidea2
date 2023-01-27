@@ -202,25 +202,26 @@ export class RfcsComponent implements OnInit, OnDestroy {
     _req.afterClosed().subscribe((data:any) => {
       if(data) {
         this.svc.newRequest(data.Type, String(data.Data).toUpperCase(), data.Search).subscribe((res:any) => {
-          //new table
-          // let _f = this.Filtros.find((d:any) => d.Id == 1);
-          // if(_f) {
+          if(res) {
+            //new table
+            let _f = this.Filtros.find((d:any) => d.Id == 1);
+            if(_f) {
 
-          //   let _date:any = _f.Content?.Default;
-          //   if(_date == 'Actual') _date = 'null';
-          //   this.getPeticiones(_date);
-          // }
+              let _date:any = _f.Content?.Default;
+              if(_date == 'Actual') _date = 'null';
+              this.getPeticiones(_date);
+            }
 
-          // const _result = this.dialog.open(TableModalComponent);
-          // _result.componentInstance.Table.Data = [res];
+              // const _result = this.dialog.open(TableModalComponent);
+              // _result.componentInstance.Table.Data = [res];
 
 
-          // _result.afterClosed().subscribe((id: any) => {
-          //   if(id){
-          //     this.onDownload(id, res.curp);
-          //   }
-          // });
-
+              // _result.afterClosed().subscribe((id: any) => {
+              //   if(id){
+              //     this.onDownload(id, res.curp);
+              //   }
+              // });
+          }          
         }, (err:any) => this.utils.ErrorManage(err));
       }
     });

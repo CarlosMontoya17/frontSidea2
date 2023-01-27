@@ -14,7 +14,7 @@ export class RfcValidationDirective {
       const _both = /^[A-Z0-9]*$/g;
 
       
-      if(_i.value.length == 12){
+      if(_i.value.length == 13){
         if(_both.test(_i.value)) {
           this.appRfcValidation.emit(true);
         }
