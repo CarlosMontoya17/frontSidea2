@@ -27,24 +27,24 @@ export class RfcService {
 
 
   getDates(): Observable<any> {
-    return this.http.get(`${_api}/api/rfc/requests/myDates/`);
+    return this.http.get(`${_api}/api/services/rfc/myDates`);
   }
 
   obtenerPeticiones(fecha: any): Observable<any> {
-    return this.http.get(`${_api}/api/rfc/requests/myRequests/${fecha}`);
+    return this.http.get(`${_api}/api/services/rfc/myReqs/${fecha}`);
   }
 
 
   downloadRfc(id: any): Observable<any>{
-    return this.http.get(`${_api}/api/rfc/request/donwload/${id}`, { responseType: 'blob'});
+    return this.http.get(`${_api}/api/services/rfc/download/${id}`);
   }
 
-  newRequest(clasification: any, data: any, search: any): Observable<any> {
-    return this.http.post(`${_api}/api/rfc/requests/news/`, {clasification, data, search});
+  newRequest(type: any, curp: any, rfc: any): Observable<any> {
+    return this.http.post(`${_api}/api/services/rfcs/new`, {type, curp, rfc});
   }
 
   reAssign(id: any, new_user_id:any): Observable<any> {
-    return this.http.put(`${_api}/api/actas/reg/transpose/${id}`, { newciber: new_user_id , service :  "rfc"});
+    return this.http.put(`${_api}/api/rfc/reg/reassign/${id}`, { reassignId: new_user_id });
   } 
 
   getPendients(): Observable<any> {

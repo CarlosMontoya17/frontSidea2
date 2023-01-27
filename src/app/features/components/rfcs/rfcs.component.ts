@@ -13,8 +13,8 @@ import { UtilsService } from '../../services/utils.service';
 import { SimpleMixed } from 'src/app/shared/alerts';
 import { addonPendients } from 'src/app/shared/models/pendients.model';
 import { Socket } from 'ngx-socket-io';
-import { map } from 'rxjs';
 import { TableModalComponent } from 'src/app/shared/components/modals/table-modal/table-modal.component';
+import { tableModal } from 'src/app/shared/models/table.model';
 
 @Component({
   selector: 'app-rfcs',
@@ -171,16 +171,16 @@ export class RfcsComponent implements OnInit, OnDestroy {
         Id: p[i].id,
         Background: '/assets/images/icons/rfc.png',
         Available: p[i].comments=="Descargado"? true: false,
-        Date: String(p[i].createdAt).substring(0, p[i].createdAt.length - 1),
+        Date: String(p[i].createdAt).substring(0, p[i].createdAt.length - 3),
         Comments: p[i].comments,
         Index: i+1,
         Downloaded: p[i].downloaded,
-        Filename: `${p[i].data}.pdf`,
+        Filename: `${p[i].search=="CURP"? p[i].curp: p[i].rfc}.pdf`,
         ReAssigned: p[i].idtranspose? true:false,
         Rol: this.Rol,
         Type: p[i].type,
         Search: {
-          Type: p[i].data,
+          Type: p[i].search,
           CURP: p[i].search=="CURP"? p[i].curp: p[i].rfc,
           State: p[i].estado
         },
@@ -201,8 +201,15 @@ export class RfcsComponent implements OnInit, OnDestroy {
     _req.componentInstance.Req = this.Reqs;
     _req.afterClosed().subscribe((data:any) => {
       if(data) {
-        this.svc.newRequest(data.Type, String(data.Data).toUpperCase(), data.Search).subscribe((res:any) => {
-          if(res) {
+        var _type = data.Type;
+        var _curp = data.Search=="CURP"? data.Data: ''; 
+        var _rfc = data.Search=="RFC"? data.Data:'';
+        
+        
+        this.svc.newRequest(_type, _curp, _rfc).subscribe((res:any) => {
+          console.log(typeof(res));
+          
+          if(typeof(res) == "object") {
             //new table
             let _f = this.Filtros.find((d:any) => d.Id == 1);
             if(_f) {
@@ -212,16 +219,29 @@ export class RfcsComponent implements OnInit, OnDestroy {
               this.getPeticiones(_date);
             }
 
-              // const _result = this.dialog.open(TableModalComponent);
-              // _result.componentInstance.Table.Data = [res];
+            const _table: tableModal = {
+              Columns: [ 
+                { Display: "Nombres", Key: "nombres" },
+                { Display: "Apellidos", Key: "apellidos" },
+                { Display: "RFC", Key: "rfc" },
+                { Display: "Ciudad", Key: "ciudad" }
+              ],
+              Data: [res]
+            } 
+            
+              const _result = this.dialog.open(TableModalComponent);
+              _result.componentInstance.Table = _table;
 
 
-              // _result.afterClosed().subscribe((id: any) => {
-              //   if(id){
-              //     this.onDownload(id, res.curp);
-              //   }
-              // });
-          }          
+              _result.afterClosed().subscribe((id: any) => {
+                if(id){
+                  this.onDownload(id, res.rfc);
+                }
+              });
+          } 
+          else {
+            SimpleMixed("error", "VUELVE A INTENTAR POR FAVOR");
+          }         
         }, (err:any) => this.utils.ErrorManage(err));
       }
     });
@@ -260,17 +280,19 @@ export class RfcsComponent implements OnInit, OnDestroy {
   }
 
   onDownloadRequest(item: cardRequest): void {
-    this.onDownload(item.Id, item.Search.Type);
+    this.onDownload(item.Id, item.Search.CURP);
  
     
   }
 
 
   onDownload(Id:any, RFC: any): void {
-    console.log(RFC);
-    
+
     this.svc.downloadRfc(Id).subscribe((data:any) => {
-        this.utils.downloadBlob(data, RFC);
+      if(data?.b64){
+        console.log(data);
+        
+        this.utils.downloadPDF(data?.b64, RFC);
         let _f = this.Filtros.find((d:any) => d.Id == 1);
         if(_f) {
           let _date:any = _f.Content?.Default;
@@ -278,7 +300,8 @@ export class RfcsComponent implements OnInit, OnDestroy {
           this.getPeticiones(_date);
           SimpleMixed("success", "DOCUMENTO DESCARGADO");
         }
-
+      }
+    }, (err:any) => this.utils.ErrorManage(err));
         // if(data?.b64){
         //   this.utils.downloadPDF(data?.b64, RFC);
         //   let _f = this.Filtros.find((d:any) => d.Id == 1);
@@ -289,7 +312,6 @@ export class RfcsComponent implements OnInit, OnDestroy {
         //     SimpleMixed("success", "DOCUMENTO DESCARGADO");
         //   }
         // }
-    }, (err:any) => this.utils.ErrorManage(err));
   }
 
   /** Pendientes */
