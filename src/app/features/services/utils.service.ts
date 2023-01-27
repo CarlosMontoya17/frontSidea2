@@ -88,6 +88,7 @@ export class UtilsService {
 
   SetState(CURP: string) {
     let res = CURP.charAt(11) + CURP.charAt(12);
+    res = res.toUpperCase();
     switch (res) {
       case 'AS': {
         return 'AGUASCALIENTES';

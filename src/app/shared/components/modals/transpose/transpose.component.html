@@ -17,14 +17,14 @@
     </div>
 
 
-    <ul class="list-group" *ngIf="Search?.length >= 5">
+    <ul class="list-group" *ngIf="Search?.length >= 3">
         <li class="list-group-item selected">SELECCIONA UN USUARIO</li>
         <li *ngFor="let user of Users | userName: Search" class="list-group-item" (click)="sendInfo(user)">
             {{ user.nombre }} - {{ user.rol }}
         </li>
       </ul>
 
-      <ul class="list-group" *ngIf="Search?.length < 5">
+      <ul class="list-group" *ngIf="Search?.length < 3">
         <li class="list-group-item selected">ESCRIBA AL MENOS 5 DIGITOS DEL NOMBRE DEL USUARIO A BUSCAR</li>
       </ul>
 
