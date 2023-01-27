@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import html2canvas from 'html2canvas';
 import { of } from 'rxjs';
@@ -17,6 +17,7 @@ import { utils, writeFileXLSX } from 'xlsx';
 })
 export class DetailsCorteComponent implements OnInit, OnChanges {
   page: number = 1;
+  @ViewChild('nameClient') nameClient!: ElementRef;
 
   //collection = {count:30,data:[]};
 
@@ -168,7 +169,8 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
         Dato: d.Curp,
         Fecha: new Date(d.Fecha).toLocaleString(),
         Estado: d.Estado,
-        Precio: d.Precio
+        Precio: d.Precio,
+        Cliente: d.Cliente
       }
     });
 
@@ -181,13 +183,16 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
   }
 
   exportPng(): void {
-
+    this.nameClient.nativeElement.style.setProperty("position", "relative"); 
+    this.nameClient.nativeElement.style.setProperty("top", "0"); 
     html2canvas(document.querySelector("#data-table")!).then((data:any) => {
         let a = document.createElement('a');
         a.href =  data.toDataURL('image/png');
         a.download = `${this.nombreNegocio}.png`;
         a.click();
         a.remove();
+        this.nameClient.nativeElement.style.setProperty("position", "sticky"); 
+        this.nameClient.nativeElement.style.setProperty("top", "79px"); 
     }); 
   }
 

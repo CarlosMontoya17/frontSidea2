@@ -1,14 +1,14 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Directive({
   selector: '[appCurpValidation]'
 })
-export class CurpValidationDirective {
+export class CurpValidationDirective{
   
 
   @Output() appCurpValidation: EventEmitter<boolean> = new EventEmitter(); 
 
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef)   { }
   @HostListener('keyup', ['$event']) onKey(e: any){
     let _i = this.el.nativeElement;
     if(_i){

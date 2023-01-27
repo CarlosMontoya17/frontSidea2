@@ -28,7 +28,7 @@
 .tools {
     position: sticky;
     top: 0px;
-
+    z-index: 1;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -118,6 +118,8 @@
 
 .header {
     text-align: center;
+    position: sticky;
+    top: 79px;
 }
 
 

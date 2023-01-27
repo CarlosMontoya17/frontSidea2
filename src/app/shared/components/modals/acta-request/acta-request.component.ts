@@ -79,7 +79,7 @@ export class ActaRequestComponent implements OnInit, OnChanges {
 
   onKey(e: any): void {
     this.Valid = e;
-    if(e) {
+    if(e && this.Data) {      
       if(this.Search == 'CURP') this.State = this.utils.SetState(this.Data);
     }
   }

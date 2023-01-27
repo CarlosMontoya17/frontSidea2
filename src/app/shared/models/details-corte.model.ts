@@ -6,5 +6,6 @@ export interface detailsCorte {
     Nombres: string,
     Curp: string,
     Precio: number,
-    Marked: boolean
+    Marked: boolean,
+    Cliente: string
 }

@@ -34,8 +34,10 @@
                 <ul class="list-group">
                     <li class="list-group-item active">CIBERS</li>
                     <div class="lista-completa">
-                        <ng-container *ngFor="let client of Clientes | filtrar: Buscar">
-                            <li [ngClass]="{'selectabled': CiberSelect==client}" class="list-group-item selectable" (click)="selectCiber(client)"> {{ client.nombre }}
+                        <ng-container *ngFor="let client of Clientes | filtrar: Buscar; let i = index">
+                            <li [ngClass]="{'selectabled': CiberSelect==client}" class="list-group-item selectable" (click)="selectCiber(client)"> 
+                               <label for="ciber" class="count">{{ i+1 }}.</label>
+                                {{ client.nombre }}
                             </li>
                         </ng-container>
                     </div>

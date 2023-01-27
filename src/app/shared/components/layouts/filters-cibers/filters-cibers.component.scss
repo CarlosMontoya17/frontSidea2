@@ -65,6 +65,19 @@
     min-height: 3rem;
 }
 
+.count {
+    // position: absolute;
+    // top: 4px;
+    // left: 9px;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .export {
     color: #fff;
     background-color: #28a745;

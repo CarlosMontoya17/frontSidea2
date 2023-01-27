@@ -134,7 +134,8 @@ export class PaysComponent implements OnInit {
             Fecha: String(e.createdAt).substring(0, String(e.createdAt).length - 1),
             Nombres: e.nameinside,
             Precio: e.price0,
-            Marked: false
+            Marked: false,
+            Cliente: this.Username
           });
         }
         this.rowData = _rowData;
@@ -158,7 +159,8 @@ export class PaysComponent implements OnInit {
           Fecha: String(e.createdAt).substring(0, String(e.createdAt).length - 1),
           Nombres: e.nameinside,
           Precio: e.price,
-          Marked: false
+          Marked: false,
+          Cliente: e.client.nombre
         });
       }
       this.rowData = _rowData;
