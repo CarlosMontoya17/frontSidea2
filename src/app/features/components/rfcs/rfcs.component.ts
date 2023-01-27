@@ -166,7 +166,7 @@ export class RfcsComponent implements OnInit, OnDestroy {
 
   transformarPeticiones(p: any): void {
     let info: cardRequest[] = [];
-    for (let i = 0; i < p.length; i++) {
+    for (let i = 0; i < p.length; i++) {      
       let peticion: cardRequest = {
         Id: p[i].id,
         Background: '/assets/images/icons/rfc.png',
@@ -176,7 +176,7 @@ export class RfcsComponent implements OnInit, OnDestroy {
         Index: i+1,
         Downloaded: p[i].downloaded,
         Filename: `${p[i].search=="CURP"? p[i].curp: p[i].rfc}.pdf`,
-        ReAssigned: p[i].idtranspose? true:false,
+        ReAssigned: p[i].transposeId==null? false:true,
         Rol: this.Rol,
         Type: p[i].type,
         Search: {
@@ -262,7 +262,7 @@ export class RfcsComponent implements OnInit, OnDestroy {
     _dialog.componentInstance.Users = _users;
 
     _dialog.afterClosed().subscribe((data:any) => {
-      console.log(data);
+      // console.log(data);
       
       if(data) {
         this.svc.reAssign(e.Id, data.id).subscribe((re: any) => {
