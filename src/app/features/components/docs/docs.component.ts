@@ -102,22 +102,8 @@ export class DocsComponent implements OnInit {
       editable: true,
     },
     {
-      field: 'sellerprice',
-      headerName: 'Precio Vendedor',
-      filter: 'agMultiColumnFilter',
-      cellStyle: { fontSize: '12px' },
-      editable: true,
-    },
-    {
       field: 'bought',
       headerName: 'Comprador',
-      filter: 'agMultiColumnFilter',
-      cellStyle: { fontSize: '12px' },
-      editable: true,
-    },
-    {
-      field: 'buyerprice',
-      headerName: 'Precio Comprador',
       filter: 'agMultiColumnFilter',
       cellStyle: { fontSize: '12px' },
       editable: true,
