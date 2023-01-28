@@ -150,7 +150,7 @@ export class PaysComponent implements OnInit {
     this.svc.getCorte(id, _date).subscribe((data:any) => {
       let _rowData:detailsCorte[] = [];
       for (let i = 0; i < data.length; i++) {
-        const e = data[i];
+        const e = data[i];        
         _rowData.push({
           Index: i+1,
           Curp: e.dataset,
@@ -160,7 +160,7 @@ export class PaysComponent implements OnInit {
           Nombres: e.nameinside,
           Precio: e.price,
           Marked: false,
-          Cliente: e.client.nombre
+          Cliente: e.client
         });
       }
       this.rowData = _rowData;
