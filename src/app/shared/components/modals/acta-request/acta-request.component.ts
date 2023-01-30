@@ -33,7 +33,10 @@ export class ActaRequestComponent implements OnInit, OnChanges {
   };
   
 
-  constructor(private ref: MatDialogRef<ActaRequestComponent>, private utils: UtilsService) { }
+  constructor(
+    private ref: MatDialogRef<ActaRequestComponent>, 
+    private utils: UtilsService
+    ) { }
 
   ngOnInit(): void {
     this.InitForm();
@@ -41,7 +44,6 @@ export class ActaRequestComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     this.InitForm();
-
   }
 
 
@@ -50,7 +52,7 @@ export class ActaRequestComponent implements OnInit, OnChanges {
     this.Searches = this.Req.Searches;
     this.Type = this.Req.Types[0]!;
     this.Data = '';
-    this.Valid = false;    
+    this.Valid = false;
   }
 
   SelectSearch(e: any): void {
@@ -78,8 +80,15 @@ export class ActaRequestComponent implements OnInit, OnChanges {
   }
 
   onKey(e: any): void {
-    this.Valid = e;
+    this.Valid = e;     
     if(e && this.Data) {      
+      if(this.Search == 'CURP') this.State = this.utils.SetState(this.Data);
+    }
+  }
+
+  onPaste(e: any): void {
+    this.Data = e;
+    if(e) {      
       if(this.Search == 'CURP') this.State = this.utils.SetState(this.Data);
     }
   }

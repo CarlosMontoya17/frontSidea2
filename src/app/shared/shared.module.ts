@@ -10,6 +10,7 @@ import { RfcValidationDirective } from './directives/rfc-validation.directive';
 import { FiltrarPipe } from './pipes/filtrar.pipe';
 import { CadenaValidationDirective } from './directives/cadena-validation.directive';
 import { BuscarciberPipe } from './pipes/buscarciber.pipe';
+import { RfcmValidationDirective } from './directives/rfcm-validation.directive';
 
 
 
@@ -26,6 +27,7 @@ import { BuscarciberPipe } from './pipes/buscarciber.pipe';
     FiltrarPipe,
     CadenaValidationDirective,
     BuscarciberPipe,
+    RfcmValidationDirective,
   
    
   ],
@@ -41,7 +43,7 @@ import { BuscarciberPipe } from './pipes/buscarciber.pipe';
     FiltrarPipe,
     CadenaValidationDirective,
     BuscarciberPipe,
-   
+    RfcmValidationDirective
    
   ]
 })
