@@ -26,7 +26,7 @@ export class ActasComponent implements OnInit {
   faBook = faBook;
   faFileCirclePlus = faFileCirclePlus;
   
-  limit: number = 20;
+  limit: number = 50;
 
 
   @Input() Rol: number = 0;
@@ -247,7 +247,7 @@ export class ActasComponent implements OnInit {
       if(!this.View){
         await this.getDates();
         this.View = true;
-        this.limit = 20;
+        this.limit = 50;
       }
       else {
         this.Search = '';
