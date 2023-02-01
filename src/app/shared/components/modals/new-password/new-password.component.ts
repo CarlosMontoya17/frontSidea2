@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ManagmentService } from 'src/app/features/services/managment.service';
+import { UtilsService } from 'src/app/features/services/utils.service';
+import { CountdownService } from 'src/app/shared/services/countdown.service';
 
 @Component({
   selector: 'app-new-password',
@@ -9,52 +12,37 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class NewPasswordComponent implements OnInit {
 
-  passwordForm!: FormGroup;
-  pass: any;
+  Id: any;
 
-  constructor( private formBuilder: FormBuilder,
+  TimeToView: number = 0;
+  pass: string = '';
+
+
+  constructor(
+               private Countdown: CountdownService,
+               private utils: UtilsService,
+               private svc: ManagmentService,
                private modal: MatDialogRef<NewPasswordComponent>
     ) { }
 
   ngOnInit(): void {
-  this.initEditarDatos();
-
   
   }
 
-  generaNss() {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const char = 10; 
-    for (let i = 0; i < char; i++) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
+  AutoPassGen(): void {
+    let _password = this.utils.WordGen(10);
+    this.pass = _password;
+    if(this.TimeToView != 0) this.Countdown.countdown.unsubscribe();
+    this.Countdown.startTimer(10);
+    this.Countdown.getTimer().subscribe((data:any) => {
+        this.TimeToView = data;
+    });
+  }
 
-    this.passwordForm.get('newPass')?.setValue(this.pass);
-    this.passwordForm.get('confPass')?.setValue(this.pass);
-    
-    this.pass = result;
-    return result;
-
-}
-
-newPasswor(newp: any):void{
-   this.modal.close(newp);
-}
-
-
-initEditarDatos(): void {
-  this.passwordForm = this.formBuilder.group({
-    newPass: ['', Validators.required],
-    confPass: ['', Validators.required]
-  });
-
-}
-
-
-
-
-
-
+  changePassword(): void {
+    this.svc.changePassword(this.pass, this.Id).subscribe((data:any) => {
+      this.modal.close();
+    });
+  }
 
 }

@@ -7,12 +7,18 @@
     padding: 0 5rem;
 }
 
+.col {
+    padding: 1rem;
+    width: 95%;
+}
+
 .add {
     width: 3rem;
     height: 3rem;
     position: fixed;
     bottom:35px;
     right:35px;
+    z-index: 1;
 }
 
 .tooltip {

@@ -34,6 +34,11 @@ export class ManagmentService {
     return this.http.put(`${_api}/api/user/update/${id}`, user);
   }
 
+  changePassword(password: string, id: any): Observable<any> {
+    return this.http.put(`${_api}/api/user/password/edit/${id}`, { password });
+
+  }
+
 
 
 

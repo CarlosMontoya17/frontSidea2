@@ -160,7 +160,7 @@ export class PaysComponent implements OnInit {
           Nombres: e.nameinside,
           Precio: e.price,
           Marked: false,
-          Cliente: e.client.nombre
+          Cliente: e.client
         });
       }
       this.rowData = _rowData;

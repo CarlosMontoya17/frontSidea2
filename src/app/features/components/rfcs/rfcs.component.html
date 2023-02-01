@@ -1,4 +1,4 @@
-<div class="myCard">
+<div class="myCard" (scroll)="onScroll($event)">
 
     <div class="myTitle">
         <label for="myTitle">RFC</label>
@@ -22,13 +22,18 @@
     <ng-container *ngIf="View">
         <app-card-filter
         [Filters]="Filtros"
+        [ModeView]="ModeView"
+        [Rol]="Rol"
         (onClicked)="selectDate($event)"
         (onKey)="onKey($event)"
+        (onModeView)="modeView($event)"
+        (noDownloaded)="noDownload($event)"
+        (noAssigned)="noAssigned($event)"
         ></app-card-filter>
     
-        <div class="row">
-            <ng-container *ngIf="Peticiones | searching: Buscar as search">
-                <div *ngFor="let peticion of Peticiones | searching: Buscar">
+        <div class="row"  *ngIf=" ModeView == 'Tarjeta' ">
+            <ng-container *ngIf="(((Peticiones | searching: Buscar) | noAssign : noAssign) | noDownload: noDownloaded) as search">
+                <div *ngFor="let peticion of (((Peticiones | searching: Buscar) | noAssign : noAssign) | noDownload: noDownloaded) | limit: limit">
                     <app-card-requests
                     class="animate__animated"
                     [ngClass]="{'animate__fadeInUp' : !View }"
@@ -41,7 +46,25 @@
             </ng-container>
 
         </div>
+
+        <div class="col" *ngIf=" ModeView == 'Lista' ">
+            <ng-container *ngIf="(((Peticiones | searching: Buscar) | noAssign : noAssign) | noDownload: noDownloaded) as search">
+                <div *ngFor="let peticion of (((Peticiones | searching: Buscar) | noAssign : noAssign) | noDownload: noDownloaded) | limit: limit">
+                    <app-item-requests
+                    class="animate__animated"
+                    [ngClass]="{'animate__fadeInUp' : !View }"
+                    [Info]="peticion"
+                    (ReAsign)="reAssing($event)"
+                    (Download)="onDownloadRequest($event)"
+                    ></app-item-requests>
+                </div>
+                <app-empty-state *ngIf="search.length == 0"></app-empty-state>
+            </ng-container>
+
+        </div>
     </ng-container>
+
+    
 
 
 

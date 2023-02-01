@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { TransposeModule } from 'src/app/shared/components/modals/transpose/transpose.module';
 import { PendientsModule } from 'src/app/shared/components/layouts/add-ons/pendients/pendients.module';
 import { TableModalModule } from 'src/app/shared/components/modals/table-modal/table-modal.module';
+import { ItemRequestsModule } from 'src/app/shared/components/layouts/item-requests/item-requests.module';
 
 
 
@@ -35,7 +36,8 @@ import { TableModalModule } from 'src/app/shared/components/modals/table-modal/t
     MatDialogModule,
     TransposeModule,
     PendientsModule,
-    TableModalModule
+    TableModalModule,
+    ItemRequestsModule
   ],
   exports: [RfcsComponent]
 })

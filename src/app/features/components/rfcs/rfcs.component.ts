@@ -87,6 +87,13 @@ export class RfcsComponent implements OnInit, OnDestroy {
 
   @Input() Rol:number = 0;
   @Input() Id:number = 0;
+
+  // Filters
+  ModeView: string = "Tarjeta";
+  noDownloaded: boolean = false;
+  noAssign: boolean = false;
+  limit: number = 20;
+
   constructor(
     private svc: RfcService,
     private dialog: MatDialog,
@@ -99,12 +106,38 @@ export class RfcsComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit(): void {
+    
+    if(localStorage.getItem("mv")){
+      this.ModeView = localStorage.getItem("mv")!;
+    }
   }
 
   ngOnDestroy(): void {
     this.socket.removeListener('user_rfcrefresh');
   }
 
+  modeView(e: string): void {
+    this.ModeView = e;
+    localStorage.setItem("mv", e);
+  }
+
+
+  noDownload(e: boolean): void {
+    this.noDownloaded = e;
+  }
+
+  noAssigned(e: boolean): void{
+    this.noAssign = e;
+  }
+
+
+  onScroll(event: any) {
+    let pos = event.srcElement.scrollTop;
+    let max = event.srcElement.scrollHeight - event.srcElement.offsetHeight;      
+    if(pos == max) {
+      this.limit += 10;
+    }
+   }
 
   onClick(e: any): void {
     /**

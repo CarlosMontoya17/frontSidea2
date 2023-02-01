@@ -11,11 +11,21 @@ export class CardFilterComponent implements OnChanges {
 
   faMagnifyingGlass = faMagnifyingGlass;
 
+
+  noDownload: boolean = false;
+  noAssign: boolean = false;
+
   @Input() Title: string = 'Filtros';
   @Input() Filters: cardFilter[] = [];
+  @Input() Rol: number = 0;
+  @Input() ModeView: string = "Tarjeta";
 
   @Output() onClicked:EventEmitter<actionEmitter> = new EventEmitter();
   @Output() onKey:EventEmitter<actionEmitter> = new EventEmitter();
+  @Output() noDownloaded: EventEmitter<boolean> = new EventEmitter();
+  @Output() noAssigned: EventEmitter<boolean> = new EventEmitter();
+  @Output() onModeView: EventEmitter<string> = new EventEmitter();
+  
   constructor() { }
 
   ngOnChanges(): void {
@@ -29,6 +39,25 @@ export class CardFilterComponent implements OnChanges {
         this.onClicked.emit({Source: item.Id, Value: select});
       }
     }
+  }
+
+  onFilterDwn(): void {
+      this.noDownload = !this.noDownload;
+      this.noDownloaded.emit(this.noDownload);
+  }
+  onFilterAssgn(): void {
+    this.noAssign = !this.noAssign;
+    this.noAssigned.emit(this.noAssign);
+  }
+
+  onChangeView(): void {
+      if(this.ModeView == "Tarjeta"){
+        this.ModeView = "Lista"
+      }
+      else if(this.ModeView == "Lista"){
+        this.ModeView = "Tarjeta"
+      }
+      this.onModeView.emit(this.ModeView);
   }
 
   onKeySearcher(item:any, word: any): void{

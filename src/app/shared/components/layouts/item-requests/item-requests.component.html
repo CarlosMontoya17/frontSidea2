@@ -1,0 +1,56 @@
+<div class="ItemReques" *ngIf="Info">
+    
+
+    <div class="i">
+        {{ Info.Index }}
+    </div>
+
+    <div class="info">
+
+        <div class="title">
+            <fa-icon [icon]="faPaperclip" style="margin-right: 5px;"></fa-icon>
+            <label for="">{{ Info.Type.substring(0, 3)! }} </label>
+        </div>
+
+        <div class="data">
+            <fa-icon [icon]="faPerson" style="margin-right: 5px;"></fa-icon>
+            <label for="data">{{ Info.Search.Type }}: {{ Info.Search.CURP }} </label>
+        </div>
+
+        <div class="state">
+            <fa-icon [icon]="faCity"></fa-icon>
+            <label for="state"> {{ Info.Search.State }} </label>
+        </div>
+
+
+        <div class="time">
+            <fa-icon [icon]="faClock" style="margin-right: 5px;"></fa-icon>
+            <label for="time">{{ Info.Date! | dating }}</label>
+        </div>
+
+    </div>
+
+    <div class="actions">
+        <button (click)="onDownload(Info)" *ngIf="Info.Available && Info.Comments" matTooltip="Descargar documento" [matTooltipPosition]="'left'" [ngClass]="{'backgroud-disabled': Info.Downloaded, 'backgroud-success' : !Info.Downloaded }">
+            <fa-icon [icon]="faFileArrowDown" *ngIf="!Info.Downloaded"></fa-icon>    
+            <fa-icon [icon]="faCheckToSlot" *ngIf="Info.Downloaded"></fa-icon>
+            {{ Info.Downloaded? 'Descargado': 'Descargar'  }} 
+        </button>
+
+        <button (click)="onError(Info)"  matTooltip="ver error" [matTooltipPosition]="'left'" [matTooltipPosition]="'left'" *ngIf="!Info.Available && Info.Comments"  class="backgroud-danger">
+            <fa-icon [icon]="faCircleXmark"></fa-icon>
+            Detalles
+        </button>
+
+        <button (click)="onReasign(Info)"  matTooltip="Re-Asignar registro" [matTooltipPosition]="'left'" [ngClass]="{'backgroud-primary': !Info.ReAssigned, 'backgroud-disabled' : Info.ReAssigned }"  *ngIf="Info.Available && (Info.Rol == 1 || Info.Rol == 2)">
+            <fa-icon [icon]="faPeopleArrowsLeftRight"></fa-icon> 
+            {{ !Info.ReAssigned? 'Re-Asignar '+Info.ReAssignedLeyend: Info.ReAssignedLeyend+' Re-Asignada' }}
+        </button>
+
+
+    </div>
+
+
+
+
+</div>

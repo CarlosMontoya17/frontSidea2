@@ -15,6 +15,8 @@ import { TableModalModule } from 'src/app/shared/components/modals/table-modal/t
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EmptyStateModule } from 'src/app/shared/components/layouts/empty-state/empty-state.module';
 import { TransposeModule } from 'src/app/shared/components/modals/transpose/transpose.module';
+import { ItemRequestsModule } from 'src/app/shared/components/layouts/item-requests/item-requests.module';
+import { NgxPaginationModule } from 'ngx-pagination'; 
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { TransposeModule } from 'src/app/shared/components/modals/transpose/tran
     TableModalModule,
     SharedModule,
     EmptyStateModule,
-    TransposeModule
+    TransposeModule,
+    ItemRequestsModule,
+    NgxPaginationModule
   ],
   exports: [ActasComponent]
 })

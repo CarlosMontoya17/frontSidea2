@@ -1,4 +1,4 @@
-<div class="myCard">
+<div class="myCard" (scroll)="onScroll($event)">
     <div class="myTitle">
         <label for="myTitle">ACTAS</label>
     </div>
@@ -16,22 +16,38 @@
     <div *ngIf="View">
         <app-card-filter
         [Filters]="CardFilter"
+        [ModeView]="ModeView"
+        [Rol]="Rol"
         (onClicked)="selectDate($event)"
         (onKey)="searchDoc($event)"
+        (onModeView)="modeView($event)"
+        (noDownloaded)="noDownload($event)"
+        (noAssigned)="noAssigned($event)"
         ></app-card-filter>
-        
-        <div  class="row">
-            <ng-container *ngIf="Peticiones | searching: Search as search">
-                <div *ngFor="let req of Peticiones | searching: Search">
+
+        <div  class="row" *ngIf=" ModeView == 'Tarjeta' ">
+            <ng-container *ngIf="(((Peticiones | searching: Search) | noAssign : noAssign) | noDownload: noDownloaded) as search">
+                <div *ngFor="let req of (((Peticiones | searching: Search) | noAssign : noAssign) | noDownload: noDownloaded) | limit: limit">
                     <app-card-requests class="animate__animated animate__fadeInUp" [Info]="req" (ReAsign)="reAssign($event)" (Download)="onDownloadRequest($event)"></app-card-requests>
                 </div>
-
                 <app-empty-state *ngIf="search.length == 0"></app-empty-state>
-                
             </ng-container>
-
-
         </div>
+
+
+        <div class="col" *ngIf=" ModeView == 'Lista' ">
+            <ng-container *ngIf="(((Peticiones | searching: Search) | noAssign : noAssign) | noDownload: noDownloaded) as search">
+                <div *ngFor="let req of (((Peticiones | searching: Search) | noAssign : noAssign) | noDownload: noDownloaded) | limit: limit">
+                    <app-item-requests class="animate__animated animate__fadeInUp" [Info]="req" (ReAsign)="reAssign($event)" (Download)="onDownloadRequest($event)"></app-item-requests>
+                </div>
+                <app-empty-state *ngIf="search.length == 0"></app-empty-state>
+            </ng-container>
+        </div>
+
+
+
+
+
     </div>
 
 </div>

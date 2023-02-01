@@ -11,6 +11,9 @@ import { FiltrarPipe } from './pipes/filtrar.pipe';
 import { CadenaValidationDirective } from './directives/cadena-validation.directive';
 import { BuscarciberPipe } from './pipes/buscarciber.pipe';
 import { RfcmValidationDirective } from './directives/rfcm-validation.directive';
+import { LimitPipe } from './pipes/limit.pipe';
+import { NoDownloadPipe } from './pipes/no-download.pipe';
+import { NoAssignPipe } from './pipes/no-assign.pipe';
 
 
 
@@ -28,8 +31,9 @@ import { RfcmValidationDirective } from './directives/rfcm-validation.directive'
     CadenaValidationDirective,
     BuscarciberPipe,
     RfcmValidationDirective,
-  
-   
+    LimitPipe,
+    NoDownloadPipe,
+    NoAssignPipe, 
   ],
   imports: [CommonModule],
   exports: [
@@ -43,8 +47,10 @@ import { RfcmValidationDirective } from './directives/rfcm-validation.directive'
     FiltrarPipe,
     CadenaValidationDirective,
     BuscarciberPipe,
-    RfcmValidationDirective
-   
+    RfcmValidationDirective,
+    LimitPipe,
+    NoDownloadPipe,
+    NoAssignPipe
   ]
 })
 export class SharedModule {}

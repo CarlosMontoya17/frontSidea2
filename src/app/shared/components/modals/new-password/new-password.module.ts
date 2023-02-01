@@ -5,6 +5,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ActionButtonModule } from '../../layouts/action-button/action-button.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ActionButtonModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressBarModule,
+    MatFormFieldModule
   ],
   exports: [NewPasswordComponent]
 })

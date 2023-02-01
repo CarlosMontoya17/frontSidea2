@@ -4,6 +4,24 @@
             <label for="mySubTitle">{{ Title }}</label>
         </div>
 
+        <div class="options" [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </div>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onChangeView()"> 
+                <mat-icon *ngIf="ModeView == 'Lista'">more_vert</mat-icon>
+                <mat-icon *ngIf="ModeView == 'Tarjeta'">more_horiz</mat-icon> 
+                {{ ModeView }} 
+            </button>
+            <button mat-menu-item (click)="onFilterDwn()">
+                <mat-icon *ngIf="noDownload">done</mat-icon>
+                No Descargadas
+            </button>
+            <button mat-menu-item *ngIf="Rol == 1 || Rol == 2" (click)="onFilterAssgn()">
+                <mat-icon *ngIf="noAssign">done</mat-icon>
+                No Asignadas
+            </button>
+        </mat-menu>
         
         <div class="filters">
             <ng-container *ngFor="let filter of Filters">

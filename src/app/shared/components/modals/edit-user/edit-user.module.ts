@@ -11,6 +11,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SelectProviderModule } from '../select-provider/select-provider.module';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { NewPasswordModule } from '../new-password/new-password.module';
 
 
 
@@ -30,7 +31,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     FormsModule,
     MatDialogModule,
     SelectProviderModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    NewPasswordModule
   ],
   exports: [EditUserComponent]
 })

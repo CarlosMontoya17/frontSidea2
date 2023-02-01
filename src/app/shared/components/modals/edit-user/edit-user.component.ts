@@ -7,6 +7,7 @@ import { EstadosKeys } from 'src/app/features/models/prices.model';
 import { UtilsService } from 'src/app/features/services/utils.service';
 import { DefaultPrices } from 'src/app/shared/models/default-prices.model';
 import { CountdownService } from 'src/app/shared/services/countdown.service';
+import { NewPasswordComponent } from '../new-password/new-password.component';
 import { SelectProviderComponent } from '../select-provider/select-provider.component';
 
 @Component({
@@ -52,6 +53,12 @@ export class EditUserComponent implements OnInit {
     }
 
 
+  }
+
+
+  changePassword(): void {
+    const _dialog = this.dialog.open(NewPasswordComponent);
+    _dialog.componentInstance.Id = this.myData.id;
   }
 
   selectProvider(): void {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { faBook, faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { actionEmitter, cardFilter } from 'src/app/shared/models/card-filters.model';
 import { cardInfo } from 'src/app/shared/models/card-information.model';
@@ -13,6 +13,8 @@ import { TableModalComponent } from 'src/app/shared/components/modals/table-moda
 import { TransposeComponent } from 'src/app/shared/components/modals/transpose/transpose.component';
 import { UsersService } from '../../services/users.service';
 import { SimpleMixed } from 'src/app/shared/alerts';
+import { DOCUMENT } from '@angular/common';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-actas',
@@ -24,6 +26,8 @@ export class ActasComponent implements OnInit {
   faBook = faBook;
   faFileCirclePlus = faFileCirclePlus;
   
+  limit: number = 20;
+
 
   @Input() Rol: number = 0;
 
@@ -86,16 +90,49 @@ export class ActasComponent implements OnInit {
     DependencySearch: null
   }
 
+  // Filters
+  ModeView: string = "Tarjeta";
+  noDownloaded: boolean = false;
+  noAssign: boolean = false;
+
   constructor(
     private svc: ActasService, 
     private utils: UtilsService, 
     private dialog: MatDialog,
     private users: UsersService
-  ) { }
+  ) { 
+  }
 
   async ngOnInit(): Promise<void> {
-    
+    if(localStorage.getItem("mv") != undefined){
+      this.ModeView = localStorage.getItem("mv")!;
+    }
   }
+
+
+  modeView(e: string): void {
+    this.ModeView = e;
+    localStorage.setItem("mv", e);
+
+  }
+
+
+  noDownload(e: boolean): void {
+    this.noDownloaded = e;
+  }
+
+  noAssigned(e: boolean): void{
+    this.noAssign = e;
+  }
+
+
+  onScroll(event: any) {
+    let pos = event.srcElement.scrollTop;
+    let max = event.srcElement.scrollHeight - event.srcElement.offsetHeight;      
+    if(pos == max) {
+      this.limit += 10;
+    }
+   }
 
   async getDates(): Promise<void> {
     let _dates: any = await this.svc.getDates().toPromise();
@@ -210,6 +247,7 @@ export class ActasComponent implements OnInit {
       if(!this.View){
         await this.getDates();
         this.View = true;
+        this.limit = 20;
       }
       else {
         this.Search = '';
