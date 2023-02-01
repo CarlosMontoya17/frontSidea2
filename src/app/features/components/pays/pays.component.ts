@@ -8,39 +8,35 @@ import { ciber } from 'src/app/shared/models/ciber.model';
 import { utils, writeFileXLSX } from 'xlsx';
 import { UtilsService } from '../../services/utils.service';
 
-
 @Component({
   selector: 'app-pays',
   templateUrl: './pays.component.html',
-  styleUrls: ['./pays.component.scss']
+  styleUrls: ['./pays.component.scss'],
 })
 export class PaysComponent implements OnInit {
-
   @Input() Username: string = '';
   CardInfo: cardInfo[] = [
     {
       Id: 0,
       IconBtn: faMagnifyingGlass,
       Input: false,
-      Legend: "PARA REALIZAR CORTES GENERALES, DA CLICK EN EL BÓTON.",
-      LegendBtn: "VER",
-      Title: "CORTE GENERAL",
+      Legend: 'PARA REALIZAR CORTES GENERALES, DA CLICK EN EL BÓTON.',
+      LegendBtn: 'VER',
+      Title: 'CORTE GENERAL',
       Width: 35,
-      HideBtn: false
+      HideBtn: false,
     },
     {
       Id: 1,
       IconBtn: faMagnifyingGlass,
       Input: false,
-      Legend: "PARA REALIZAR CORTES PERSONALES, DA CLICK EN EL BÓTON.",
-      LegendBtn: "VER",
-      Title: "CORTE PERSONAL",
+      Legend: 'PARA REALIZAR CORTES PERSONALES, DA CLICK EN EL BÓTON.',
+      LegendBtn: 'VER',
+      Title: 'CORTE PERSONAL',
       Width: 35,
-      HideBtn: false
-    }
+      HideBtn: false,
+    },
   ];
-
-
 
   Cibers: ciber[] = [];
 
@@ -48,7 +44,6 @@ export class PaysComponent implements OnInit {
   ShowFiltersP: boolean = false;
 
   ActiveFilter: number = 0;
-
 
   /** News */
   Floating: boolean = false;
@@ -66,47 +61,48 @@ export class PaysComponent implements OnInit {
 
   /** Table Data */
   showTable = false;
-  rowData:detailsCorte[] = [];
+  rowData: detailsCorte[] = [];
 
-  constructor(
-    private svc: PaysService,
-    private utils: UtilsService
-  ) { }
+  constructor(private svc: PaysService, private utils: UtilsService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   /**New */
   getMyDates(): void {
-    this.svc.getMyDates().subscribe((data: any) => {
-      if (data) {
-        if (data[0].corte == null) {
-          data[0].corte = 'Actual';
+    this.svc.getMyDates().subscribe(
+      (data: any) => {
+        if (data) {
+          if (data[0].corte == null) {
+            data[0].corte = 'Actual';
+          }
+          this.MyDates = data;
+          this.DateSelect = data[0].corte;
+          this.getMyCorte(data[0]);
         }
-        this.MyDates = data;
-        this.DateSelect = data[0].corte;        
-        this.getMyCorte(data[0]);
+      },
+      (err: any) => {
+        this.utils.ErrorManage(err);
       }
-    }, (err: any) => {
-      this.utils.ErrorManage(err);
-    });
+    );
   }
 
   getClientDates(): void {
-    this.svc.getDates().subscribe((data: any) => {
-      if (data) {
-        if (data[0].corte == null) {
-          data[0].corte = 'Actual';
+    this.svc.getDates().subscribe(
+      (data: any) => {
+        if (data) {
+          if (data[0].corte == null) {
+            data[0].corte = 'Actual';
+          }
+          this.CDates = data;
+          this.DateSelect = data[0].corte;
+          this.getClientsOnDate(this.DateSelect);
         }
-        this.CDates = data;
-        this.DateSelect = data[0].corte;
-        this.getClientsOnDate(this.DateSelect);
+      },
+      (err: any) => {
+        this.utils.ErrorManage(err);
       }
-    }, (err: any) => {
-      this.utils.ErrorManage(err);
-    })
+    );
   }
-
 
   getClientsOnDate(date: any): void {
     let _date: any;
@@ -114,53 +110,63 @@ export class PaysComponent implements OnInit {
     else _date = date;
     this.svc.getClientsOnDate(_date).subscribe((data: any) => {
       this.Clientes = data;
+      console.log(data);
     });
   }
-
 
   getMyCorte(date: any): void {
     let _date: any;
     if (date.corte == 'Actual') _date = null;
     else _date = date.corte;
     this.svc.getMyCorte(_date).subscribe((data: any) => {
-        let _rowData:detailsCorte[] = [];
-        for (let i = 0; i < data.length; i++) {
-          const e = data[i];
-          _rowData.push({
-            Index: i+1,
-            Curp: e.dataset,
-            Documento: e.document,
-            Estado: e.state,
-            Fecha: String(e.createdAt).substring(0, String(e.createdAt).length - 1),
-            Nombres: e.nameinside,
-            Precio: e.price0,
-            Marked: false,
-            Cliente: this.Username
-          });
-        }
-        this.rowData = _rowData;
-        this.NameSelect = this.Username;
-    });
-  }
-
-  getCorteClient(id:any, name:any, date: any): void {
-    let _date: any;
-    if (date == 'Actual') _date = null;
-    else _date = date;
-    this.svc.getCorte(id, _date).subscribe((data:any) => {
-      let _rowData:detailsCorte[] = [];
+      let _rowData: detailsCorte[] = [];
+    
       for (let i = 0; i < data.length; i++) {
         const e = data[i];
         _rowData.push({
-          Index: i+1,
+          Index: i + 1,
           Curp: e.dataset,
           Documento: e.document,
           Estado: e.state,
-          Fecha: String(e.createdAt).substring(0, String(e.createdAt).length - 1),
+          Fecha: String(e.createdAt).substring(
+            0,
+            String(e.createdAt).length - 1
+          ),
+          Nombres: e.nameinside,
+          Precio: e.price0,
+          Marked: false,
+          Cliente: this.Username,
+        });
+      }
+      this.rowData = _rowData;
+      this.NameSelect = this.Username;
+    });
+  }
+
+  getCorteClient(id: any, name: any, date: any): void {
+    let _date: any;
+    if (date == 'Actual') _date = null;
+    else _date = date;
+    this.svc.getCorte(id, _date).subscribe((data: any) => {
+      let _rowData: detailsCorte[] = [];
+this.showTable = true;
+
+
+      for (let i = 0; i < data.length; i++) {
+        const e = data[i];
+        _rowData.push({
+          Index: i + 1,
+          Curp: e.dataset,
+          Documento: e.document,
+          Estado: e.state,
+          Fecha: String(e.createdAt).substring(
+            0,
+            String(e.createdAt).length - 1
+          ),
           Nombres: e.nameinside,
           Precio: e.price,
           Marked: false,
-          Cliente: e.client
+          Cliente: e.client,
         });
       }
       this.rowData = _rowData;
@@ -170,6 +176,7 @@ export class PaysComponent implements OnInit {
 
   selectClient(e: any): void {
     this.getCorteClient(e.client.id, e.client.nombre, e.corte);
+      this.showTable = false;
   }
 
   selectDate(e: any): void {
@@ -185,8 +192,7 @@ export class PaysComponent implements OnInit {
       this.getClientDates();
       this.CPropio = false;
       this.showTable = true;
-    }
-    else {
+    } else {
       this.showTable = false;
       this.DateSelect = '';
     }
@@ -194,14 +200,13 @@ export class PaysComponent implements OnInit {
 
   cortePersonal(): void {
     this.CPropio = !this.CPropio;
-    if(this.CPropio){
+    if (this.CPropio) {
       this.rowData = [];
       this.NameSelect = '';
       this.getMyDates();
       this.CClientes = false;
       this.showTable = true;
-    }    
-    else {
+    } else {
       this.showTable = false;
       this.DateSelect = '';
     }
@@ -210,20 +215,15 @@ export class PaysComponent implements OnInit {
   onClick(e: any): void {
     if (e.Id == 0) {
       this.corteGeneral();
-    }
-    else if (e.Id == 1) {
+    } else if (e.Id == 1) {
       this.cortePersonal();
     }
   }
 
-
   onSave(): void {
     const ws = utils.json_to_sheet(this.Cibers);
     const wb = utils.book_new();
-    utils.book_append_sheet(wb, ws, "Data");
-    writeFileXLSX(wb, "ListaDeCibers.xlsx");
+    utils.book_append_sheet(wb, ws, 'Data');
+    writeFileXLSX(wb, 'ListaDeCibers.xlsx');
   }
-
-
-
 }

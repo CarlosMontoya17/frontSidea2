@@ -6,6 +6,7 @@ import { UtilsService } from 'src/app/features/services/utils.service';
 import { contadorCorte, ContadorTable } from 'src/app/shared/models/corte-contador.model';
 import { detailsCorte } from 'src/app/shared/models/details-corte.model';
 import { InputColors } from 'src/app/shared/models/input-colors.model';
+import Swal from 'sweetalert2';
 import { utils, writeFileXLSX } from 'xlsx';
 
 
@@ -17,6 +18,9 @@ import { utils, writeFileXLSX } from 'xlsx';
 })
 export class DetailsCorteComponent implements OnInit, OnChanges {
   page: number = 1;
+  itemPerPage: number = 10;
+  items: any;
+  indexOfItems: any;
   @ViewChild('nameClient') nameClient!: ElementRef;
 
   //collection = {count:30,data:[]};
@@ -115,10 +119,80 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.scanDocs(this.rowData);
     this.sumaTotal(this.rowData);
+  
   }
 
-  onTableDataChange(event: any) {
+  async onTableDataChange(event: any) {
     this.page = event;
+
+    console.log(this.page);
+    
+  }
+  async paginacionCorte() {
+    let _data = this.rowData;
+    let _rowData = _data.map(d => {
+      return {
+        Indice: d.Index,
+        Documento: d.Documento,
+        Nombres: d.Nombres,
+        Dato: d.Curp,
+        Fecha: new Date(d.Fecha).toLocaleString(),
+        Estado: d.Estado,
+        Precio: d.Precio,
+        Cliente: d.Cliente
+      }
+    });
+
+    this.page;
+    let backup = _rowData;
+    let itemsTotal: number = _rowData.length;
+    let divide: number = Math.floor(itemsTotal / this.itemPerPage);
+    let res: number = itemsTotal % this.itemPerPage;
+
+    let pages: number = divide;
+
+    if (res != 0) {
+      pages += 1;
+    }
+
+    let currentPageData = _rowData;
+    let index = 0;
+    for (let a = 0; a < pages + 1; a++) {
+      let pageData = [];
+      let indexes = [];
+      this.indexOfItems = [];
+      for (let b = 0; b < this.itemPerPage; b++) {
+        if (currentPageData[currentPageData.length - 1] != undefined) {
+          pageData.push(currentPageData[currentPageData.length - 1]);
+          currentPageData.pop();
+          index += 1;
+          indexes.push(index);
+        }
+
+
+        this.indexOfItems.push(indexes);
+        this.items = await pageData;
+        this.nameClient.nativeElement.style.setProperty("position", "relative"); 
+    this.nameClient.nativeElement.style.setProperty("top", "0"); 
+    html2canvas(document.querySelector("#data-table")!).then((data:any) => {
+      if ( a > 0){
+
+  let a = document.createElement('a');
+        a.href =  data.toDataURL('image/png');
+        a.download = `${this.nombreNegocio}.png`;
+        a.click();
+        a.remove();
+        this.nameClient.nativeElement.style.setProperty("position", "sticky"); 
+        this.nameClient.nativeElement.style.setProperty("top", "79px"); 
+      }
+      
+    }); 
+      }
+
+   
+    }
+    _rowData = backup;
+    this.indexOfItems = [];
   }
 
   onSelectColor(): void {
@@ -140,8 +214,14 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
   onPaint(): void {
     this.Painting = !this.Painting;
   }
+  OnClean():void{
+    this.Inputs[0].Value = this.bgColor;
+    this.Inputs[1].Value = this.fgColor;
+
+  }
 
   SelectRow(item: detailsCorte): void {
+
     let _e = this.rowData.find(d => d == item);
     if (this.Painting) {
       if (_e) {
@@ -183,17 +263,75 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
   }
 
   exportPng(): void {
-    this.nameClient.nativeElement.style.setProperty("position", "relative"); 
-    this.nameClient.nativeElement.style.setProperty("top", "0"); 
-    html2canvas(document.querySelector("#data-table")!).then((data:any) => {
-        let a = document.createElement('a');
-        a.href =  data.toDataURL('image/png');
-        a.download = `${this.nombreNegocio}.png`;
-        a.click();
-        a.remove();
-        this.nameClient.nativeElement.style.setProperty("position", "sticky"); 
-        this.nameClient.nativeElement.style.setProperty("top", "79px"); 
-    }); 
+
+    let _data = this.rowData;
+    let _rowData = _data.map(d => {
+      return {
+        Indice: d.Index,
+        Documento: d.Documento,
+        Nombres: d.Nombres,
+        Dato: d.Curp,
+        Fecha: new Date(d.Fecha).toLocaleString(),
+        Estado: d.Estado,
+        Precio: d.Precio,
+        Cliente: d.Cliente
+      }
+    });
+if(_rowData.length <= 10 ){
+  this.nameClient.nativeElement.style.setProperty("position", "relative"); 
+  this.nameClient.nativeElement.style.setProperty("top", "0"); 
+  html2canvas(document.querySelector("#data-table")!).then((data:any) => {
+      let a = document.createElement('a');
+      a.href =  data.toDataURL('image/png');
+      a.download = `${this.nombreNegocio}.png`;
+      a.click();
+      a.remove();
+      this.nameClient.nativeElement.style.setProperty("position", "sticky"); 
+      this.nameClient.nativeElement.style.setProperty("top", "79px"); 
+  }); 
+  this.page;
+
+}
+else if (_rowData.length > 10) {
+  console.log(_rowData.length);
+  Swal.fire({
+    title: 'Aviso',
+    text: 'Tienes mas de 10 elementos, ¿Deseas descargarlo por partes?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si',
+    cancelButtonText: 'No, en una sola imagen',
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      this.paginacionCorte() .then((data) => {
+        console.log(data);
+        
+     this.page;
+    })
+    .catch((err) => {
+      this.page;
+    });
+    } else {
+      this.page;
+      this.nameClient.nativeElement.style.setProperty("position", "relative"); 
+      this.nameClient.nativeElement.style.setProperty("top", "0"); 
+      html2canvas(document.querySelector("#data-table")!).then((data:any) => {
+          let a = document.createElement('a');
+          a.href =  data.toDataURL('image/png');
+          a.download = `${this.nombreNegocio}.png`;
+          a.click();
+          a.remove();
+          this.nameClient.nativeElement.style.setProperty("position", "sticky"); 
+          this.nameClient.nativeElement.style.setProperty("top", "79px"); 
+      }); 
+ 
+   
+    }
+  });
+}
+   
   }
 
 

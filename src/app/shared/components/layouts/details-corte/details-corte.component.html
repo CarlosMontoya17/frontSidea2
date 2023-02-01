@@ -6,6 +6,8 @@
             <button (click)="onPaint()" [ngClass]="{'primary': !Painting, 'secundary': Painting }" mat-flat-button
                 [disableRipple]="true"><mat-icon>imagesearch_roller</mat-icon> {{ Painting? 'DEJAR DE PINTAR': 'PINTAR'
                 }} </button>
+                <button (click)="OnClean()" mat-flat-button [disableRipple]="true"><mat-icon>clean</mat-icon>
+                    LIMPIAR</button>
             <button *ngIf="!ChangeColor" (click)="onSelectColor()" class="primary" mat-flat-button
                 [disableRipple]="true"><mat-icon>format_color_fill</mat-icon> CAMBIAR COLOR </button>
             <div class="PickColor" *ngIf="ChangeColor">
