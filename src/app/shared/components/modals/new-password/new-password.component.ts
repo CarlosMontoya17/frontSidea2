@@ -26,6 +26,7 @@ export class NewPasswordComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+  console.log(this.Id);
   
   }
 
@@ -38,7 +39,7 @@ export class NewPasswordComponent implements OnInit {
         this.TimeToView = data;
     });
   }
-
+  //Cambio de contraseña
   changePassword(): void {
     this.svc.changePassword(this.pass, this.Id).subscribe((data:any) => {
       this.modal.close();

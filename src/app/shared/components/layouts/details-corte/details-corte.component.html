@@ -36,10 +36,10 @@
 
     <div id="data-table" class="table-data" *ngIf="rowData.length>0"
         [ngStyle]="{'background-color': Inputs[0].Value, 'color': Inputs[1].Value}">
-        <div class="header" #nameClient [ngStyle]="{'background-color': Inputs[0].Value}">
+        <div class="header" #nameClient [ngStyle]="{'background-color': Inputs[0].Value}" *ngIf="paginacion == false">
             <h4 class="d-inline-block titulo" >{{nombreNegocio}}</h4>
         </div>
-        <table class="table table-striped table-dark table-hover">
+        <table class="table table-striped table-dark table-hover" >
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
@@ -52,10 +52,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let rows of rowData  |
+                <tr  *ngFor="let rows of rowData  |
                     paginate : { itemsPerPage: 15, currentPage: page }"
                     [ngStyle]="{'cursor': Painting? 'cell': 'auto'}" (click)="SelectRow(rows)"
-                    [ngClass]="{'selected': rows.Marked }">
+                    [ngClass]="{'selected': rows.Marked }" >
                     <td>{{rows.Index}}</td>
                     <td>{{rows.Documento}}</td>
                     <td>{{rows.Fecha | date:'dd/MM/yyyy hh:mm:ss' }}</td>
@@ -104,6 +104,6 @@
 
 
 
-
+  
 
 </div>

@@ -21,8 +21,11 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
   itemPerPage: number = 10;
   items: any;
   indexOfItems: any;
+  paginacion: boolean = false;
   @ViewChild('nameClient') nameClient!: ElementRef;
-
+  @ViewChild('screen') screen!: ElementRef;
+  @ViewChild('canvas') canvas!: ElementRef;
+  @ViewChild('downloadLink') downloadLink!: ElementRef;
   //collection = {count:30,data:[]};
 
   Contador: ContadorTable[] = [
@@ -128,7 +131,79 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
     console.log(this.page);
     
   }
+
+  async paginacionCorte2(corteDelUsuario:any) {
+    this.paginacion = true;
+    let backup = corteDelUsuario;
+    let itemsTotal: number = corteDelUsuario.length;
+    let divide: number = Math.floor(itemsTotal / this.itemPerPage);
+    let res: number = itemsTotal % this.itemPerPage;
+
+    let pages: number = divide;
+
+    if (res != 0) {
+      pages += 1;
+    }
+
+    let currentPageData = corteDelUsuario;
+    let index = 0;
+    for (let a = 0; a < pages + 1; a++) {
+      let pageData = [];
+      let indexes = [];
+      this.indexOfItems = [];
+      for (let b = 0; b < this.itemPerPage; b++) {
+        if (currentPageData[currentPageData.length - 1] != undefined) {
+          pageData.push(currentPageData[currentPageData.length - 1]);
+          currentPageData.pop();
+          index += 1;
+          indexes.push(index);
+        }
+      }
+
+      this.indexOfItems.push(indexes);
+      this.items = await pageData;
+
+      this.nameClient.nativeElement.style.setProperty("position", "relative"); 
+      this.nameClient.nativeElement.style.setProperty("top", "0"); 
+      html2canvas(document.querySelector("#data-table")!).then((data:any) => {
+        if (this.paginacion == true && a > 0){
+  let a = document.createElement('a');
+          a.href =  data.toDataURL('image/png');
+          a.download = `${this.nombreNegocio}.png`;
+          a.click();
+          a.remove();
+          this.nameClient.nativeElement.style.setProperty("position", "sticky"); 
+          this.nameClient.nativeElement.style.setProperty("top", "79px"); 
+
+        }
+        
+      }); 
+      
+      await html2canvas(this.screen.nativeElement).then((canvas) => {
+        if (this.paginacion == true && a > 0) {
+          this.canvas.nativeElement.src = canvas.toDataURL();
+          this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
+          let pagina = a;
+          this.downloadLink.nativeElement.download =
+            'Corte -' +
+            this.nombreNegocio +
+            '-Pag:' +
+            pagina +
+            '-' +
+            pages +
+            ' .png';
+          this.downloadLink.nativeElement.click();
+        }
+      });
+    }
+    corteDelUsuario = backup;
+    this.indexOfItems = [];
+    console.log(corteDelUsuario);
+    
+  }
+
   async paginacionCorte() {
+    this.paginacion = true;
     let _data = this.rowData;
     let _rowData = _data.map(d => {
       return {
@@ -143,7 +218,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
       }
     });
 
-    this.page;
+ 
     let backup = _rowData;
     let itemsTotal: number = _rowData.length;
     let divide: number = Math.floor(itemsTotal / this.itemPerPage);
@@ -175,7 +250,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
         this.nameClient.nativeElement.style.setProperty("position", "relative"); 
     this.nameClient.nativeElement.style.setProperty("top", "0"); 
     html2canvas(document.querySelector("#data-table")!).then((data:any) => {
-      if ( a > 0){
+      if (  this.paginacion = true&& a > 0){
 
   let a = document.createElement('a');
         a.href =  data.toDataURL('image/png');
@@ -289,7 +364,7 @@ if(_rowData.length <= 10 ){
       this.nameClient.nativeElement.style.setProperty("position", "sticky"); 
       this.nameClient.nativeElement.style.setProperty("top", "79px"); 
   }); 
-  this.page;
+
 
 }
 else if (_rowData.length > 10) {
@@ -305,16 +380,13 @@ else if (_rowData.length > 10) {
     cancelButtonText: 'No, en una sola imagen',
   }).then(async (result) => {
     if (result.isConfirmed) {
-      this.paginacionCorte() .then((data) => {
-        console.log(data);
-        
-     this.page;
-    })
-    .catch((err) => {
-      this.page;
-    });
+    
+       
+this.paginacionCorte2(_rowData);
+    
     } else {
-      this.page;
+      this.paginacion = false;
+
       this.nameClient.nativeElement.style.setProperty("position", "relative"); 
       this.nameClient.nativeElement.style.setProperty("top", "0"); 
       html2canvas(document.querySelector("#data-table")!).then((data:any) => {

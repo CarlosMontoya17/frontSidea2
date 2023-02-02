@@ -31,6 +31,8 @@ export class LayoutComponent implements OnInit {
         this.myServices = _info.servicios;
         this.myId = _info.id;
         this.SocketView(this.View);
+        console.log(this.myId);
+        
        // this.socket.Join(this.myUsername);
       }
     }, (err:any) => this.utils.ErrorManage(err));

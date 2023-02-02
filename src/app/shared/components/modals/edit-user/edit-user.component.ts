@@ -53,12 +53,15 @@ export class EditUserComponent implements OnInit {
     }
 
 
+
   }
 
 
   changePassword(): void {
     const _dialog = this.dialog.open(NewPasswordComponent);
-    _dialog.componentInstance.Id = this.myData.id;
+    _dialog.componentInstance.Id = this.DataEdit.id
+ 
+    
   }
 
   selectProvider(): void {
