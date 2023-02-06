@@ -39,6 +39,10 @@ export class ManagmentService {
 
   }
 
+ changeservicios(id:any, newService:any){
+  return this.http.put(`${_api}/api/update/services/`+id, { "servicios": newService });
+  
+ }
 
 
 

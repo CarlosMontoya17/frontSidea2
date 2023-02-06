@@ -21,7 +21,7 @@ export class ManagmentComponent implements OnInit, OnChanges {
   totalLenght: any;
   buscar: string = '';
   MyrolCliente: boolean = true;
-
+  ModeView: string = "Tarjeta";
   // Rol
   @Input() Rol: number = 0;
 
@@ -39,13 +39,18 @@ export class ManagmentComponent implements OnInit, OnChanges {
     }
 
   ]
+  
 
   @Input() Username: string = '';
   @Input() myRol: any;
   @Input() myId: any;
 
   Request: any;
-
+  tipodeservicio: any = 'Seleccione el servicio';
+  roles:any;
+  
+  userToUpdateServices: any = [];
+  showEditServicesModal: boolean = false;
   constructor(
     private dialog: MatDialog,
     private svc: ManagmentService,
@@ -65,6 +70,17 @@ export class ManagmentComponent implements OnInit, OnChanges {
   getMyUsers(): void {
     this.svc.getMyClient().subscribe(data => {
       this.Request = data;
+      console.log(this.Request);
+      console.log(this.roles);
+      if (this.roles = "Admin") {
+     //   this.Request.rol;
+      //  this.getMyUsers();
+      }
+      else if (this.roles =='Asesor') {
+      //  this.Request.rol;
+       // this.getMyUsers();
+      }
+      
     })
   }
 
@@ -156,6 +172,66 @@ export class ManagmentComponent implements OnInit, OnChanges {
 
       }
     });
+  }
+
+  async servicios(id:any,username:any,servicios:any){
+    this.userToUpdateServices = [id, username, servicios];
+    console.log(this.userToUpdateServices);
+    
+    this.showEditServicesModal = true;
+
+
+  }
+
+  updateservicios() {
+    if (this.tipodeservicio == 'Seleccione el servicio') {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Seleccione el nuevo servicio',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      let newService = '';
+
+      switch (this.tipodeservicio) {
+        case 'all':
+          newService = 'Todos';
+          break;
+        case 'actas':
+          newService = 'Sólo Actas';
+          break;
+        case 'rfc':
+          newService = 'Sólo RFC';
+          break;
+        case 'none':
+          newService = 'Ninguno';
+          break;
+        default:
+          newService = '';
+          break;
+      }
+
+      this.svc
+        .changeservicios(this.userToUpdateServices[0], this.tipodeservicio)
+        .subscribe((data: any) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: `Se actualizó el servicio para ${this.userToUpdateServices[1]} a ${newService}`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+       //   this.reloadCurrentRoute();
+        });
+    }
+
+    //this.reloadCurrentRoute();
+  }
+  closeServiceModal() {
+    this.showEditServicesModal = false;
   }
 
   onKey(e: any): void {
