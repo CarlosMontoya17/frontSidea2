@@ -26,6 +26,9 @@ export class ManagmentService {
   getMySuper(rol: string):Observable<any>{
     return this.http.get(`${_api}/api/user/mySuperviser/${rol}`);
   }
+  getUsreGet(rol: string):Observable<any>{
+    return this.http.get(`${_api}/api/user/get/byRol/${rol}`);
+  }
   deleteUser(user: any ):Observable<any>{
     return this.http.delete(`${_api}/api/user/delete/`+user);
  

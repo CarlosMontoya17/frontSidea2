@@ -11,7 +11,7 @@ import { AddUserComponent } from 'src/app/shared/components/modals/add-user/add-
 @Component({
   selector: 'app-managment',
   templateUrl: './managment.component.html',
-  styleUrls: ['./managment.component.scss']
+  styleUrls: ['./managment.component.scss'],
 })
 export class ManagmentComponent implements OnInit, OnChanges {
   //variables
@@ -21,10 +21,13 @@ export class ManagmentComponent implements OnInit, OnChanges {
   totalLenght: any;
   buscar: string = '';
   MyrolCliente: boolean = true;
-  ModeView: string = "Tarjeta";
+  ModeView: string = 'Tarjeta';
+  view: boolean = false;
+  Rol_Request: string = 'Todos';
+  Services_Request: any;
+  showtable = false;
   // Rol
   @Input() Rol: number = 0;
-
 
   CardInfo: cardInfo[] = [
     {
@@ -35,61 +38,104 @@ export class ManagmentComponent implements OnInit, OnChanges {
       LegendBtn: 'AGREGAR',
       IconBtn: faUserPlus,
       Input: true,
-      HideBtn: true
-    }
-
-  ]
-  
+      HideBtn: true,
+    },
+  ];
 
   @Input() Username: string = '';
   @Input() myRol: any;
   @Input() myId: any;
-
+  datos: any;
+  // Seleccionamos o iniciamos el valor '0' del <select>
+  opcionSeleccionado: string = '0';
+  verSeleccion: string = '';
   Request: any;
   tipodeservicio: any = 'Seleccione el servicio';
-  roles:any;
-  
+  roles: any;
+  servicios_rol: any;
   userToUpdateServices: any = [];
   showEditServicesModal: boolean = false;
+  
   constructor(
     private dialog: MatDialog,
     private svc: ManagmentService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    //this.getMyUsers();
-    this.CreateBtn();
-  }
-
-  ngOnChanges(): void {
     this.getMyUsers();
     this.CreateBtn();
+    this.datos = ['Todos', 'Asesor', 'Supervisor','Sucursal', 'Cliente', 'Empleado'];
+   
+  }
+  capturar() {
+    
+    // Pasamos el valor seleccionado a la variable verSeleccion
+    this.verSeleccion = this.Rol_Request;
+    console.log(this.verSeleccion);
+
+    if (this.verSeleccion == 'Todos') {
+      this.showtable = false;
+      this.getMyUsers();
+      
+    }
+    else if (this.verSeleccion == 'Asesor') {
+      this.showtable = false;
+      this.GetUserByRol(this.verSeleccion);
+
+
+    }
+    else if (this.verSeleccion == 'Supervisor') {
+      this.showtable = false;
+      this.GetUserByRol(this.verSeleccion);
+  
+      
+    }
+    else if (this.verSeleccion == 'Cliente') {
+      this.showtable = false;
+      this.GetUserByRol(this.verSeleccion);
+ 
+      
+    }
+    else if (this.verSeleccion == 'Sucursal') {
+      this.showtable = false;
+      this.GetUserByRol(this.verSeleccion);
+
+      
+    }
+    else if (this.verSeleccion == 'Empleado') {
+      this.showtable = false;
+      this.GetUserByRol(this.verSeleccion);
+  
+      
+    }
+  }
+  ngOnChanges(): void {
+    //this.getMyUsers();
+    this.CreateBtn();
+    this.capturar();
   }
 
   getMyUsers(): void {
-    this.svc.getMyClient().subscribe(data => {
+    this.svc.getMyClient().subscribe((data) => {
       this.Request = data;
-      console.log(this.Request);
-      console.log(this.roles);
-      if (this.roles = "Admin") {
-     //   this.Request.rol;
-      //  this.getMyUsers();
-      }
-      else if (this.roles =='Asesor') {
-      //  this.Request.rol;
-       // this.getMyUsers();
-      }
-      
-    })
+      this.view = true;
+      this.showtable = true;
+    });
   }
+GetUserByRol(rol:any){
 
+  this.svc.getUsreGet(rol).subscribe((data) => {
+    this.Request = data;
+    this.view = true;
+    this.showtable = true;
+  });
+}
   CreateBtn(): void {
-    if(this.myRol == 1 || this.myRol == 2){
-      this.CardInfo.find(d => d.Id == 0)!.HideBtn = false;
+    if (this.myRol == 1 || this.myRol == 2) {
+      this.CardInfo.find((d) => d.Id == 0)!.HideBtn = false;
     }
   }
-
 
   async cardsButtons(item: cardInfo): Promise<void> {
     if (item.Id == 0) {
@@ -99,11 +145,11 @@ export class ManagmentComponent implements OnInit, OnChanges {
         username: this.Username,
         id: this.myId,
         servicios: '',
-        status: true
+        status: true,
       };
 
-      _dialog.afterClosed().subscribe((data:any) => {
-        if(data){
+      _dialog.afterClosed().subscribe((data: any) => {
+        if (data) {
           this.svc.addUser(data).subscribe(() => {
             this.getMyUsers();
           });
@@ -114,25 +160,26 @@ export class ManagmentComponent implements OnInit, OnChanges {
 
   editUser(id: any) {
     this.svc.getData(id).subscribe(async (data: any) => {
-        if(data){
-          let _super = await this.svc.getData(data.idSuper).toPromise();        const _edit = this.dialog.open(EditUserComponent, {width: 'md'});
-          _edit.componentInstance.DataEdit = data;
-          _edit.componentInstance.myData = {
-            rol: _super.rol,
-            username: _super.username,
-            id: _super.id,
-            servicios: '',
-            status: _super.status
-          };
+      if (data) {
+        let _super = await this.svc.getData(data.idSuper).toPromise();
+        const _edit = this.dialog.open(EditUserComponent, { width: 'md' });
+        _edit.componentInstance.DataEdit = data;
+        _edit.componentInstance.myData = {
+          rol: _super.rol,
+          username: _super.username,
+          id: _super.id,
+          servicios: '',
+          status: _super.status,
+        };
 
-          _edit.afterClosed().subscribe((save:any) => {
-            if(save) {
-              this.svc.editUser(save, data.id).subscribe(() => {
-                this.getMyUsers();
-              });
-            }
-          })
-        }
+        _edit.afterClosed().subscribe((save: any) => {
+          if (save) {
+            this.svc.editUser(save, data.id).subscribe(() => {
+              this.getMyUsers();
+            });
+          }
+        });
+      }
     });
   }
 
@@ -162,25 +209,28 @@ export class ManagmentComponent implements OnInit, OnChanges {
               "Se eliminó al usuario '" + user.username + "'",
               'success'
             );
-
           },
           (error) => {
             Swal.fire('Error', 'No tienes los permisos suficientes', 'error');
           }
-
         );
-
       }
     });
   }
 
-  async servicios(id:any,username:any,servicios:any){
+  async servicios(id: any, username: any, servicios: any) {
     this.userToUpdateServices = [id, username, servicios];
     console.log(this.userToUpdateServices);
-    
+    if (this.userToUpdateServices[2] == 'none') {
+      this.servicios_rol = 'Ninguno';
+    } else if (this.userToUpdateServices[2] == 'all') {
+      this.servicios_rol = 'Todos';
+    } else if (this.userToUpdateServices[2] == 'actas') {
+      this.servicios_rol = 'Solo Actas';
+    } else if (this.userToUpdateServices[2] == 'rfc') {
+      this.servicios_rol = ' Solo RFC';
+    }
     this.showEditServicesModal = true;
-
-
   }
 
   updateservicios() {
@@ -213,19 +263,49 @@ export class ManagmentComponent implements OnInit, OnChanges {
           break;
       }
 
-      this.svc
-        .changeservicios(this.userToUpdateServices[0], this.tipodeservicio)
-        .subscribe((data: any) => {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: `Se actualizó el servicio para ${this.userToUpdateServices[1]} a ${newService}`,
-            showConfirmButton: false,
-            timer: 1500,
-          });
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text:
+          "Se cambiaran los servicios al usuario '" +
+          this.userToUpdateServices[1] +
+          ' De: ' +
+          this.servicios_rol +
+          ' a ' +
+          newService,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Cambiar',
+        cancelButtonText: 'No, cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.svc
+            .changeservicios(this.userToUpdateServices[0], this.tipodeservicio)
+            .subscribe(
+              (data: any) => {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: `Se actualizó el servicio para ${this.userToUpdateServices[1]} a ${newService}`,
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              },
+              (error) => {
+                Swal.fire(
+                  'Error',
+                  'No tienes los permisos suficientes',
+                  'error'
+                );
+              }
+            );
+        }
+      });
 
-       //   this.reloadCurrentRoute();
-        });
+      //   this.reloadCurrentRoute();
+
+      this.showEditServicesModal = false;
     }
 
     //this.reloadCurrentRoute();
@@ -237,5 +317,4 @@ export class ManagmentComponent implements OnInit, OnChanges {
   onKey(e: any): void {
     this.buscar = e;
   }
-
 }
