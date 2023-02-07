@@ -158,7 +158,7 @@
     "cfe": 20,
     "curp": 20
   },
-  "Nelly Olan": {
+  "Nelly OlanZA": {
     "nac": {
       "bcn": 130,
       "yuca": 125,
@@ -206,10 +206,13 @@
     "sus": 100,
     "ecu": 200,
     "reset": 650,
-    "arfc": 1700,
-    "dnac": 1700,
+    "arfc": 2500,
+    "dnac": 2000,
     "curp": 20,
     "cfe": 20
+  },
+  "Ne_ci_8745lly": {
+    "nac":{"agua":75,"bcn":130,"bcs":120,"camp":40,"cdmx":50,"chia":90,"chih":75,"coah":100,"coli":60,"dura":85,"ext":100,"guan":60,"guer":65,"hida":75,"jali":60,"mex":38,"mich":90,"more":60,"naya":45,"nl":40,"oaxa":70,"pueb":75,"qroo":40,"quer":75,"sina":65,"slp":70,"sono":70,"taba":60,"tama":60,"tlax":90,"vera":125,"yuca":125,"zaca":65},"arfc":1700,"cfe":20,"cot":40,"curp":20,"def":150,"der":40,"div":150,"dnac":1700,"ecu":200,"inh":130,"mat":150,"nss":50,"reset":650,"ret":100,"rfc":100,"sus":100
   },
   "all": {
     "nac": {

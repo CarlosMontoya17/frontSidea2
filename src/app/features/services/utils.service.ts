@@ -269,9 +269,15 @@ export class UtilsService {
   }
 
   async DefaultPrices(username: string): Promise<any> {
+    console.log(username);
+    
     let _prices: any = prices;
+    console.log(_prices);
+    
     try {
       if (_prices[username]) {
+        console.log(_prices[username]);
+        
         return _prices[username];
       }
       else {
