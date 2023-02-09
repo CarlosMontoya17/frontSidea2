@@ -55,7 +55,7 @@ export class ManagmentComponent implements OnInit, OnChanges {
   servicios_rol: any;
   userToUpdateServices: any = [];
   showEditServicesModal: boolean = false;
-  
+
   constructor(
     private dialog: MatDialog,
     private svc: ManagmentService,
@@ -65,11 +65,16 @@ export class ManagmentComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.getMyUsers();
     this.CreateBtn();
-    this.datos = ['Todos', 'Asesor', 'Supervisor','Sucursal', 'Cliente', 'Empleado'];
-   
+    this.datos = [
+      'Todos',
+      'Asesor',
+      'Supervisor',
+      'Sucursal',
+      'Cliente',
+      'Empleado',
+    ];
   }
   capturar() {
-    
     // Pasamos el valor seleccionado a la variable verSeleccion
     this.verSeleccion = this.Rol_Request;
     console.log(this.verSeleccion);
@@ -77,37 +82,21 @@ export class ManagmentComponent implements OnInit, OnChanges {
     if (this.verSeleccion == 'Todos') {
       this.showtable = false;
       this.getMyUsers();
-      
-    }
-    else if (this.verSeleccion == 'Asesor') {
+    } else if (this.verSeleccion == 'Asesor') {
       this.showtable = false;
       this.GetUserByRol(this.verSeleccion);
-
-
-    }
-    else if (this.verSeleccion == 'Supervisor') {
+    } else if (this.verSeleccion == 'Supervisor') {
       this.showtable = false;
       this.GetUserByRol(this.verSeleccion);
-  
-      
-    }
-    else if (this.verSeleccion == 'Cliente') {
+    } else if (this.verSeleccion == 'Cliente') {
       this.showtable = false;
       this.GetUserByRol(this.verSeleccion);
- 
-      
-    }
-    else if (this.verSeleccion == 'Sucursal') {
+    } else if (this.verSeleccion == 'Sucursal') {
       this.showtable = false;
       this.GetUserByRol(this.verSeleccion);
-
-      
-    }
-    else if (this.verSeleccion == 'Empleado') {
+    } else if (this.verSeleccion == 'Empleado') {
       this.showtable = false;
       this.GetUserByRol(this.verSeleccion);
-  
-      
     }
   }
   ngOnChanges(): void {
@@ -123,14 +112,14 @@ export class ManagmentComponent implements OnInit, OnChanges {
       this.showtable = true;
     });
   }
-GetUserByRol(rol:any){
+  GetUserByRol(rol: any) {
+    this.svc.getUsreGet(rol).subscribe((data) => {
+      this.Request = data;
 
-  this.svc.getUsreGet(rol).subscribe((data) => {
-    this.Request = data;
-    this.view = true;
-    this.showtable = true;
-  });
-}
+      this.view = true;
+      this.showtable = true;
+    });
+  }
   CreateBtn(): void {
     if (this.myRol == 1 || this.myRol == 2) {
       this.CardInfo.find((d) => d.Id == 0)!.HideBtn = false;

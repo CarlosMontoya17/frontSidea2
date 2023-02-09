@@ -117,6 +117,26 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.scanDocs(this.rowData);
     this.sumaTotal(this.rowData);
+    this.getfecha();
+  }
+
+  getfecha(){
+    let _data = this.rowData;
+    let _rowData = _data.map(d => {
+      return {
+        Indice: d.Index,
+        Documento: d.Documento,
+        Nombres: d.Nombres,
+        Dato: d.Curp,
+        Fecha: new Date(d.Fecha).toLocaleTimeString(),
+        Estado: d.Estado,
+        Precio: d.Precio,
+        Cliente: d.Cliente
+      }
+    });
+
+    console.log();
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
