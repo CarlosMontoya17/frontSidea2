@@ -118,6 +118,8 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
     this.scanDocs(this.rowData);
     this.sumaTotal(this.rowData);
     this.getfecha();
+
+    
   }
 
   getfecha(){
@@ -310,6 +312,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
     this.Painting = !this.Painting;
   }
   OnClean():void{
+
     this.Inputs[0].Value = this.bgColor;
     this.Inputs[1].Value = this.fgColor;
 

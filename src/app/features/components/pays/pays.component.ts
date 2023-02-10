@@ -120,7 +120,7 @@ export class PaysComponent implements OnInit {
     else _date = date.corte;
     this.svc.getMyCorte(_date).subscribe((data: any) => {
       let _rowData: detailsCorte[] = [];
-    
+
       for (let i = 0; i < data.length; i++) {
         const e = data[i];
         _rowData.push({
@@ -128,10 +128,7 @@ export class PaysComponent implements OnInit {
           Curp: e.dataset,
           Documento: e.document,
           Estado: e.state,
-          Fecha: String(e.createdAt).substring(
-            0,
-            String(e.createdAt).length - 1
-          ),
+          Fecha: e.createdAt,
           Nombres: e.nameinside,
           Precio: e.price0,
           Marked: false,
@@ -149,8 +146,7 @@ export class PaysComponent implements OnInit {
     else _date = date;
     this.svc.getCorte(id, _date).subscribe((data: any) => {
       let _rowData: detailsCorte[] = [];
-this.showTable = true;
-
+      this.showTable = true;
 
       for (let i = 0; i < data.length; i++) {
         const e = data[i];
@@ -159,10 +155,7 @@ this.showTable = true;
           Curp: e.dataset,
           Documento: e.document,
           Estado: e.state,
-          Fecha: String(e.createdAt).substring(
-            0,
-            String(e.createdAt).length - 1
-          ),
+          Fecha: e.createdAt,
           Nombres: e.nameinside,
           Precio: e.price,
           Marked: false,
@@ -176,7 +169,7 @@ this.showTable = true;
 
   selectClient(e: any): void {
     this.getCorteClient(e.client.id, e.client.nombre, e.corte);
-      this.showTable = false;
+    this.showTable = false;
   }
 
   selectDate(e: any): void {
