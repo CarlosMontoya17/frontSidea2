@@ -240,6 +240,7 @@ export class RfcsComponent implements OnInit, OnDestroy {
         
         
         this.svc.newRequest(_type, _curp, _rfc).subscribe((res:any) => {
+          console.log(res);
           
           if(typeof(res) == "object") {
             //new table
@@ -272,6 +273,9 @@ export class RfcsComponent implements OnInit, OnDestroy {
               });
           } 
           else {
+         
+      
+            
             SimpleMixed("error", "VUELVE A INTENTAR POR FAVOR");
           }         
         }, (err:any) =>{ 
@@ -331,8 +335,8 @@ export class RfcsComponent implements OnInit, OnDestroy {
 
     this.svc.downloadRfc(Id).subscribe((data:any) => {
       if(data?.b64){
-        console.log(data);
         
+  
         this.utils.downloadPDF(data?.b64, RFC);
         let _f = this.Filtros.find((d:any) => d.Id == 1);
         if(_f) {
@@ -397,7 +401,7 @@ export class RfcsComponent implements OnInit, OnDestroy {
   PendientsResult(): void {
     this.socket.on("user_rfcrefresh", async (msg: any) => {
       try{
-        console.log(msg);
+        
         
         if(msg){
           this.svc.getRefreshing().subscribe((data: boolean) => {          

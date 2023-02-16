@@ -110,7 +110,7 @@ export class PaysComponent implements OnInit {
     else _date = date;
     this.svc.getClientsOnDate(_date).subscribe((data: any) => {
       this.Clientes = data;
-      console.log(data);
+     
     });
   }
 

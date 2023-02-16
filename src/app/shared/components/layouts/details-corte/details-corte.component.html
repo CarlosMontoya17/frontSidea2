@@ -34,12 +34,12 @@
     </div>
 
 
-    <div id="data-table" class="table-data" *ngIf="rowData.length>0"
+    <div id="data-table" class="table-data" *ngIf="rowData.length>0 && paginacion == false"
         [ngStyle]="{'background-color': Inputs[0].Value, 'color': Inputs[1].Value}">
-        <div class="header" #nameClient [ngStyle]="{'background-color': Inputs[0].Value}" *ngIf="paginacion == false">
+        <div class="header" #nameClient [ngStyle]="{'background-color': Inputs[0].Value}">
             <h4 class="d-inline-block titulo" >{{nombreNegocio}}</h4>
         </div>
-        <table class="table table-striped table-dark table-hover" >
+        <table class="table table-striped table-dark table-hover"  >
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
@@ -52,10 +52,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr  *ngFor="let rows of rowData  |
-                    paginate : { itemsPerPage: 15, currentPage: page }"
+                <tr  *ngFor="let rows of rowData  | 
+                    paginate : { itemsPerPage: 15, currentPage: page };  let indexof = index;"
                     [ngStyle]="{'cursor': Painting? 'cell': 'auto'}" (click)="SelectRow(rows)"
                     [ngClass]="{'selected': rows.Marked }" >
+                   
                     <td>{{rows.Index}}</td>
                     <td>{{rows.Documento}}</td>
                     <td>{{rows.Fecha | date:'dd/MM/yyyy hh:mm:ss' }}</td>
@@ -77,7 +78,8 @@
         </table>
         <pagination-controls (pageChange)="onTableDataChange($event)" previousLabel="Anterior"
             nextLabel="Siguiente"></pagination-controls>
-
+            <!-- TABLA COMPLETA -->
+           
         <h4 class="d-inline-block">CONTEO GENERAL</h4>
         <table class="table table-striped table-dark table-hover">
             <thead class="thead-dark">
@@ -103,7 +105,74 @@
     </div>
 
 
+    <div    id="data-table2" class="table-data" *ngIf="rowData.length>0 && vista" 
+        [ngStyle]="{'background-color': Inputs[0].Value, 'color': Inputs[1].Value}">
+        <div class="header" #nameClient [ngStyle]="{'background-color': Inputs[0].Value}">
+            <h4 class="d-inline-block titulo" >{{nombreNegocio}}</h4>
+        </div>
+        <table class="table table-striped table-dark table-hover" >
+            <thead class="thead-dark">
+                <tr>
+                
+                    <th scope="col">#</th>
+                    <th scope="col">DOCUMENTO</th>
+                    <th scope="col">FECHA</th>
+                    <th scope="col">ESTADO</th>
+                    <th scope="col">NOMBRES</th>
+                    <th scope="col">CURP</th>
+                    <th scope="col">PRECIO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  *ngFor="let rows of rowData" 
+                    [ngStyle]="{'cursor': Painting? 'cell': 'auto'}" (click)="SelectRow(rows)"
+                    [ngClass]="{'selected': rows.Marked }" >
+                  
+                    <td>{{rows.Index}}</td>
+                    <td>{{rows.Documento}}</td>
+                    <td>{{rows.Fecha | date:'dd/MM/yyyy hh:mm:ss' }}</td>
+                    <td>{{rows.Estado}}</td>
+                    <td>{{rows.Nombres}}</td>
+                    <td>{{rows.Curp}}</td>
+                    <td>{{rows.Precio}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="bg-dark">TOTAL:</td>
+                    <td class="bg-danger">{{PrecioFinal}}</td>
+                </tr>
+            </tbody>
+        </table>
+    
+            <!-- TABLA COMPLETA -->
+           
+        <h4 class="d-inline-block">CONTEO GENERAL</h4>
+        <table class="table table-striped table-dark table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <ng-container *ngFor="let p of Contador">
+                        <th scope="col">{{p.Label}}</th>
+                    </ng-container>
+                </tr>
+            </thead>
+            <tbody>
+                <tr scope="row">
+                    <ng-container *ngFor="let p of Contador">
+                        <td (click)="SelectContador(p)"
+                            [ngStyle]="{'cursor': Painting? 'cell': 'auto', 'font-weight': p.Value!=0? '800': 'normal', 'color': p.Value==0? 'rgb(104 104 104)': '#ffffff'}"
+                            [ngClass]="{'selected': p.Marked, 'bg-danger': p.Label == 'Total' }">
+                            {{p.Value}}
+                        </td>
+                    </ng-container>
+                </tr>
+            </tbody>
 
+        </table>
+    </div>
   
 
 </div>

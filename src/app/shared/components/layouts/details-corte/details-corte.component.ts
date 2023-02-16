@@ -22,10 +22,12 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
   items: any;
   indexOfItems: any;
   paginacion: boolean = false;
+  vista: boolean = false;
   @ViewChild('nameClient') nameClient!: ElementRef;
   @ViewChild('screen') screen!: ElementRef;
   @ViewChild('canvas') canvas!: ElementRef;
   @ViewChild('downloadLink') downloadLink!: ElementRef;
+  
   //collection = {count:30,data:[]};
 
   Contador: ContadorTable[] = [
@@ -137,7 +139,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
       }
     });
 
-    console.log();
+    
     
   }
 
@@ -150,12 +152,13 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
   async onTableDataChange(event: any) {
     this.page = event;
 
-    console.log(this.page);
+
     
   }
 
   async paginacionCorte2(corteDelUsuario:any) {
-    this.paginacion = true;
+    this.paginacion = false;
+
     let backup = corteDelUsuario;
     let itemsTotal: number = corteDelUsuario.length;
     let divide: number = Math.floor(itemsTotal / this.itemPerPage);
@@ -166,6 +169,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
     if (res != 0) {
       pages += 1;
     }
+
 
     let currentPageData = corteDelUsuario;
     let index = 0;
@@ -182,115 +186,35 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
         }
       }
 
+        
       this.indexOfItems.push(indexes);
       this.items = await pageData;
+
 
       this.nameClient.nativeElement.style.setProperty("position", "relative"); 
       this.nameClient.nativeElement.style.setProperty("top", "0"); 
       html2canvas(document.querySelector("#data-table")!).then((data:any) => {
         if (this.paginacion == true && a > 0){
-  let a = document.createElement('a');
+
+          let a = document.createElement('a');
           a.href =  data.toDataURL('image/png');
           a.download = `${this.nombreNegocio}.png`;
           a.click();
           a.remove();
           this.nameClient.nativeElement.style.setProperty("position", "sticky"); 
           this.nameClient.nativeElement.style.setProperty("top", "79px"); 
-
-        }
-        
-      }); 
-      
-      await html2canvas(this.screen.nativeElement).then((canvas) => {
-        if (this.paginacion == true && a > 0) {
-          this.canvas.nativeElement.src = canvas.toDataURL();
-          this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
-          let pagina = a;
-          this.downloadLink.nativeElement.download =
-            'Corte -' +
-            this.nombreNegocio +
-            '-Pag:' +
-            pagina +
-            '-' +
-            pages +
-            ' .png';
           this.downloadLink.nativeElement.click();
         }
-      });
+         
+      }); 
+    
+      
     }
     corteDelUsuario = backup;
     this.indexOfItems = [];
-    console.log(corteDelUsuario);
-    
+
   }
 
-  async paginacionCorte() {
-    this.paginacion = true;
-    let _data = this.rowData;
-    let _rowData = _data.map(d => {
-      return {
-        Indice: d.Index,
-        Documento: d.Documento,
-        Nombres: d.Nombres,
-        Dato: d.Curp,
-        Fecha: new Date(d.Fecha).toLocaleString(),
-        Estado: d.Estado,
-        Precio: d.Precio,
-        Cliente: d.Cliente
-      }
-    });
-
- 
-    let backup = _rowData;
-    let itemsTotal: number = _rowData.length;
-    let divide: number = Math.floor(itemsTotal / this.itemPerPage);
-    let res: number = itemsTotal % this.itemPerPage;
-
-    let pages: number = divide;
-
-    if (res != 0) {
-      pages += 1;
-    }
-
-    let currentPageData = _rowData;
-    let index = 0;
-    for (let a = 0; a < pages + 1; a++) {
-      let pageData = [];
-      let indexes = [];
-      this.indexOfItems = [];
-      for (let b = 0; b < this.itemPerPage; b++) {
-        if (currentPageData[currentPageData.length - 1] != undefined) {
-          pageData.push(currentPageData[currentPageData.length - 1]);
-          currentPageData.pop();
-          index += 1;
-          indexes.push(index);
-        }
-
-
-        this.indexOfItems.push(indexes);
-        this.items = await pageData;
-        this.nameClient.nativeElement.style.setProperty("position", "relative"); 
-    this.nameClient.nativeElement.style.setProperty("top", "0"); 
-    html2canvas(document.querySelector("#data-table")!).then((data:any) => {
-      if (  this.paginacion = true&& a > 0){
-
-  let a = document.createElement('a');
-        a.href =  data.toDataURL('image/png');
-        a.download = `${this.nombreNegocio}.png`;
-        a.click();
-        a.remove();
-        this.nameClient.nativeElement.style.setProperty("position", "sticky"); 
-        this.nameClient.nativeElement.style.setProperty("top", "79px"); 
-      }
-      
-    }); 
-      }
-
-   
-    }
-    _rowData = backup;
-    this.indexOfItems = [];
-  }
 
   onSelectColor(): void {
     this.ChangeColor = !this.ChangeColor;
@@ -361,7 +285,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
   }
 
   exportPng(): void {
-
+    this.vista = true;
     let _data = this.rowData;
     let _rowData = _data.map(d => {
       return {
@@ -376,6 +300,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
       }
     });
 if(_rowData.length <= 10 ){
+
   this.nameClient.nativeElement.style.setProperty("position", "relative"); 
   this.nameClient.nativeElement.style.setProperty("top", "0"); 
   html2canvas(document.querySelector("#data-table")!).then((data:any) => {
@@ -389,9 +314,10 @@ if(_rowData.length <= 10 ){
   }); 
 
 
+
 }
 else if (_rowData.length > 10) {
-  console.log(_rowData.length);
+
   Swal.fire({
     title: 'Aviso',
     text: 'Tienes mas de 10 elementos, ¿Deseas descargarlo por partes?',
@@ -406,13 +332,15 @@ else if (_rowData.length > 10) {
     
        
 this.paginacionCorte2(_rowData);
+
+
     
     } else {
       this.paginacion = false;
-
+        
       this.nameClient.nativeElement.style.setProperty("position", "relative"); 
       this.nameClient.nativeElement.style.setProperty("top", "0"); 
-      html2canvas(document.querySelector("#data-table")!).then((data:any) => {
+      html2canvas(document.querySelector("#data-table2")!).then((data:any) => {
           let a = document.createElement('a');
           a.href =  data.toDataURL('image/png');
           a.download = `${this.nombreNegocio}.png`;
@@ -422,7 +350,7 @@ this.paginacionCorte2(_rowData);
           this.nameClient.nativeElement.style.setProperty("top", "79px"); 
       }); 
  
-   
+      this.vista =false;
     }
   });
 }
