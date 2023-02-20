@@ -303,6 +303,8 @@ export class ActasComponent implements OnInit {
                 let _date:any = _f.Content?.Default;
                 if(_date == 'Actual') _date = 'null';
                 this.getPeticiones(_date);
+            
+                
               
               }
               this.utils.ErrorManage(err);

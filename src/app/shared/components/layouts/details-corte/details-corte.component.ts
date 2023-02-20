@@ -155,7 +155,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
 
     
   }
-
+  //PAGINACION CORTE POR PAGINA
   async paginacionCorte2(corteDelUsuario:any) {
     this.paginacion = false;
 
@@ -191,6 +191,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
       this.items = await pageData;
 
 
+
       this.nameClient.nativeElement.style.setProperty("position", "relative"); 
       this.nameClient.nativeElement.style.setProperty("top", "0"); 
       html2canvas(document.querySelector("#data-table")!).then((data:any) => {
@@ -212,6 +213,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
     }
     corteDelUsuario = backup;
     this.indexOfItems = [];
+    
 
   }
 
@@ -312,11 +314,11 @@ if(_rowData.length <= 10 ){
       this.nameClient.nativeElement.style.setProperty("position", "sticky"); 
       this.nameClient.nativeElement.style.setProperty("top", "79px"); 
   }); 
-
+  this.vista =false;
 
 
 }
-else if (_rowData.length > 10) {
+else if (_rowData.length >= 10) {
 
   Swal.fire({
     title: 'Aviso',
@@ -330,8 +332,14 @@ else if (_rowData.length > 10) {
   }).then(async (result) => {
     if (result.isConfirmed) {
     
-       
-this.paginacionCorte2(_rowData);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Por el momento no esta disponible esta herramienta',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+//this.paginacionCorte2(_rowData);
 
 
     

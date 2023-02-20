@@ -70,6 +70,9 @@ export class UtilsService {
     else if (err.status == 500) {
       SimpleMixed("error", "ERROR FAVOR DE INFORMARLO");
     }
+    else if (err.status == 403) {
+      SimpleMixed("warning", "LLEGASTE A TU LIMITE");
+    }
     else if (err.status == 401) {
       localStorage.clear();
       this.router.navigate(['/']);
