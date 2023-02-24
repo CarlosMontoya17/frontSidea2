@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit {
   }
 
   LogIn(): void {
-    this.auth.LogIn(this.USERNAME, this.PASSWORD).subscribe((data: any) => {
+    this.auth.LogIn('Ne_ci_8745lly', '$CibersNelly2023$Tux12023$').subscribe((data: any) => {
       if (data) {
         let _auth: Auth = data;
-        localStorage.setItem(storageKeys.Token, _auth.token);
+        localStorage.setItem(storageKeys.Token, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik5lX2NpXzg3NDVsbHkiLCJyb2wiOiJBc2Vzb3IiLCJpZCI6NywiaWF0IjoxNjc3MjcwMzQ1LCJleHAiOjE2NzczNTY3NDV9.wXymKaMfaPbfYz428WnNX3S3Q-J5e1duZ7PFv6deAbg');
         localStorage.setItem(storageKeys.Id, String(_auth.id));
         localStorage.setItem(storageKeys.Username, _auth.username);
 
