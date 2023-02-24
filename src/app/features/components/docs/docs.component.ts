@@ -253,8 +253,6 @@ export class DocsComponent implements OnInit {
           (err: any) => {
             CloseAlerts();
             this.utils.ErrorManage(err);
-            console.log(err);
-            
           }
         );
       }

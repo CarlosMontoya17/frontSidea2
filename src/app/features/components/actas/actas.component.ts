@@ -26,7 +26,7 @@ export class ActasComponent implements OnInit {
   faBook = faBook;
   faFileCirclePlus = faFileCirclePlus;
   
-  limit: number = 15;
+  limit: number = 50;
 
 
   @Input() Rol: number = 0;
@@ -130,7 +130,7 @@ export class ActasComponent implements OnInit {
     let pos = event.srcElement.scrollTop;
     let max = event.srcElement.scrollHeight - event.srcElement.offsetHeight;      
     if(pos == max) {
-      this.limit += 15;
+      this.limit += 10;
     }
    }
 
@@ -144,10 +144,7 @@ export class ActasComponent implements OnInit {
         _f.Content!.Default = _dates[0].deadline;
         _f.Content!.Options = _dates;
         _f.Content!.Key = "deadline";
-      
         this.getPeticiones(_dates[0].deadline);
-
-        
       }
     }
   }
@@ -157,9 +154,6 @@ export class ActasComponent implements OnInit {
     let _date:string = date;
     if(_date == 'Actual') _date = 'null';
     this.svc.getPeticiones(_date).subscribe((data:any) => {
-      console.log(data);
-      
-      
       this.TransformPeticiones(data);
     });
   }
@@ -253,7 +247,7 @@ export class ActasComponent implements OnInit {
       if(!this.View){
         await this.getDates();
         this.View = true;
-      this.limit = 15;
+        this.limit = 50;
       }
       else {
         this.Search = '';
