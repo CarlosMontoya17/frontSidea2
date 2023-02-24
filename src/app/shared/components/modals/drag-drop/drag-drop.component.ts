@@ -29,6 +29,8 @@ export class DragDropComponent implements OnInit {
       fileRaw: _file,
       fileName: _file?.name
     };
+    console.log(e);
+    
   }
 
   next(): void {
