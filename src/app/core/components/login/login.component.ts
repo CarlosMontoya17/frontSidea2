@@ -32,8 +32,10 @@ export class LoginComponent implements OnInit {
 
         this.router.navigate(['app']);
       }
-    }, () => {
+    }, (err:any) => {
       SimpleAlert("error", "ERROR", "Credenciales invalidas");
+      console.log(err);
+      
     });
   }
 }
