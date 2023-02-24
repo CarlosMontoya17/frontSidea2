@@ -40,7 +40,6 @@ export class PdfResultComponent implements OnInit {
       state: this.Data.estado
     };
 
-      
     this.dialog.close(_data);
   }
 

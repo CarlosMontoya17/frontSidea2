@@ -15,7 +15,7 @@ export class DocsService {
   sendPDF(fileRaw: any, fileName: any): Observable<any> {
     const _body = new FormData();
     _body.append('doc', fileRaw, fileName);
-    return this.http.post(`${_api}/api/actas/reg/load/`, _body);
+    return this.http.post(`${_api}/api/actas/load`, _body);
   }
 
   newReg(read: any): Observable<any> {
