@@ -4,7 +4,6 @@ import { storageKeys } from '../../models/storageKeys.model';
 import { AuthService } from '../../services/auth.service';
 import { Roles } from 'src/app/core/models/roles.model';
 import { UtilsService } from 'src/app/features/services/utils.service';
-import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'app-layout',
@@ -19,7 +18,7 @@ export class LayoutComponent implements OnInit {
   myServices: string = '';
   View:number = 0;
 
-  constructor(private auth: AuthService, private utils: UtilsService, private socket: SocketService) { }
+  constructor(private auth: AuthService, private utils: UtilsService) { }
 
   ngOnInit(): void {
     this.getView();
@@ -43,7 +42,7 @@ export class LayoutComponent implements OnInit {
     this.View = View;
     localStorage.setItem(storageKeys.View, String(View));
     if(View == 6){
-      this.socket.Close(this.myId);
+      // this.socket.Close(this.myId);
     }
     else {
       this.SocketView(View);
@@ -51,7 +50,7 @@ export class LayoutComponent implements OnInit {
   }
 
   SocketView(View: number): void {
-    this.socket.View(this.myUsername, this.myId, ViewString(View));
+    // this.socket.View(this.myUsername, this.myId, ViewString(View));
   }
 
   getView(): void {
