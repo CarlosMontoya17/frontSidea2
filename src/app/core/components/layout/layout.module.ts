@@ -14,11 +14,12 @@ import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
 
 
-// const config: SocketIoConfig = { url: 'http://localhost:3030', options: {} };
+const config: SocketIoConfig = { url: 'http://localhost:3030', options: {} };
 
 @NgModule({
   declarations: [LayoutComponent],
   imports: [
+    SocketIoModule.forRoot(config),
     CommonModule, 
     SidebarModule, 
     NavbarModule, 
