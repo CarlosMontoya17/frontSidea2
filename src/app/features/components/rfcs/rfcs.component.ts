@@ -12,7 +12,7 @@ import { UsersService } from '../../services/users.service';
 import { UtilsService } from '../../services/utils.service';
 import { SimpleMixed } from 'src/app/shared/alerts';
 import { addonPendients } from 'src/app/shared/models/pendients.model';
-import { Socket } from 'ngx-socket-io';
+
 import { TableModalComponent } from 'src/app/shared/components/modals/table-modal/table-modal.component';
 import { tableModal } from 'src/app/shared/models/table.model';
 
@@ -21,7 +21,7 @@ import { tableModal } from 'src/app/shared/models/table.model';
   templateUrl: './rfcs.component.html',
   styleUrls: ['./rfcs.component.scss']
 })
-export class RfcsComponent implements OnInit, OnDestroy {
+export class RfcsComponent implements OnInit {
 
   CardInfo: cardInfo[] = [
     {
@@ -72,7 +72,7 @@ export class RfcsComponent implements OnInit, OnDestroy {
     TitleSearch: 'Busqueda por',
     Searches: ['CURP','RFC'],
     TitleType: 'Tipo de persona',
-    Types: ['FISICA', 'MORAL'],
+    Types: ['FISICA'],
     Primary: 'Types',
     DependencySearch: {
       Type: 'MORAL',
@@ -99,10 +99,10 @@ export class RfcsComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private users: UsersService,
     private utils: UtilsService,
-    private socket: Socket
+    
   ) {
 
-    this.PendientsResult();
+ 
    }
 
   ngOnInit(): void {
@@ -112,10 +112,7 @@ export class RfcsComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.socket.removeListener('user_rfcrefresh');
-  }
-
+  
   modeView(e: string): void {
     this.ModeView = e;
     localStorage.setItem("mv", e);
@@ -397,35 +394,7 @@ export class RfcsComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**Socket */
-  PendientsResult(): void {
-    this.socket.on("user_rfcrefresh", async (msg: any) => {
-      try{
-        
-        
-        if(msg){
-          this.svc.getRefreshing().subscribe((data: boolean) => {          
-            if(data){
-              if(msg.to == this.Id){
-                this.getPendients();
-                let _f = this.Filtros.find((d:any) => d.Id == 1);
-                if(_f) {
-                  let _date:any = _f.Content?.Default;
-                  if(_date){
-                    if(_date == 'Actual') _date = 'null';
-                    this.getPeticiones(_date);
-                  }
-                }
-              }
-            }
-          });
-        }
-      }
-      catch{
-      }
-    });
-  }
-
+ 
 
 
 
