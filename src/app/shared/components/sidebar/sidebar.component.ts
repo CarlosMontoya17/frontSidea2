@@ -28,7 +28,9 @@ export class SidebarComponent implements OnInit {
   @Input() Services: string = 'none';
   @Input() Rol: number = 0;
   @Output() View: EventEmitter<number> = new EventEmitter();
-  constructor(private router: Router, private user: UsersService) {}
+  constructor(private router: Router, private user: UsersService) {
+    
+  }
 
   ngOnInit(): void {}
 

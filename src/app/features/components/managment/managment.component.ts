@@ -77,7 +77,7 @@ export class ManagmentComponent implements OnInit, OnChanges {
   capturar() {
     // Pasamos el valor seleccionado a la variable verSeleccion
     this.verSeleccion = this.Rol_Request;
-    console.log(this.verSeleccion);
+
 
     if (this.verSeleccion == 'Todos') {
       this.showtable = false;
@@ -189,7 +189,7 @@ export class ManagmentComponent implements OnInit, OnChanges {
       cancelButtonText: 'No, cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log(user);
+   
 
         this.svc.deleteUser(user.id).subscribe(
           (e: any) => {
@@ -209,7 +209,7 @@ export class ManagmentComponent implements OnInit, OnChanges {
 
   async servicios(id: any, username: any, servicios: any) {
     this.userToUpdateServices = [id, username, servicios];
-    console.log(this.userToUpdateServices);
+
     if (this.userToUpdateServices[2] == 'none') {
       this.servicios_rol = 'Ninguno';
     } else if (this.userToUpdateServices[2] == 'all') {

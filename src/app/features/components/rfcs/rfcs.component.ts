@@ -193,7 +193,7 @@ export class RfcsComponent implements OnInit {
   }
 
 
-
+  // Date: String(p[i].createdAt).substring(0, p[i].createdAt.length - 3),
   transformarPeticiones(p: any): void {
     let info: cardRequest[] = [];
     for (let i = 0; i < p.length; i++) {            
@@ -201,17 +201,17 @@ export class RfcsComponent implements OnInit {
         Id: p[i].id,
         Background: '/assets/images/icons/rfc.png',
         Available: p[i].comments=="Descargado"? true: false,
-        Date: String(p[i].createdAt).substring(0, p[i].createdAt.length - 3),
+        Date: p[i].createdAt,
         Comments: p[i].comments,
         Index: i+1,
         Downloaded: p[i].downloaded,
-        Filename: `${p[i].search=="CURP"? p[i].curp: p[i].rfc}.pdf`,
+        Filename: `${p[i].search=="CURP"? p[i].rfc: p[i].curp}.pdf`,
         ReAssigned: p[i].transposeId==null? false:true,
         Rol: this.Rol,
         Type: p[i].type,
         Search: {
           Type: p[i].search,
-          CURP: p[i].search=="CURP"? p[i].curp: p[i].rfc,
+          CURP: p[i].search=="CURP"? p[i].rfc: p[i].curp,
           State: p[i].estado
         },
         Title: 'REGISTRO FEDERAL DE CONTRIBUYENTES',
@@ -220,6 +220,8 @@ export class RfcsComponent implements OnInit {
       info.push(peticion);
     }
     this.Peticiones = info;
+    console.log(info);
+    
   }
 
 

@@ -45,7 +45,7 @@
                     <th scope="col">#</th>
                     <th scope="col">DOCUMENTO</th>
                     <th scope="col">FECHA</th>
-                    <th scope="col">ESTADO</th>
+                    <th scope="col">ESTADOyu</th>
                     <th scope="col">NOMBRES</th>
                     <th scope="col">CURP</th>
                     <th scope="col">PRECIO</th>
@@ -71,8 +71,8 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td class="bg-dark">TOTAL:</td>
-                    <td class="bg-danger">{{PrecioFinal}}</td>
+                    <td class="bg-dark" >TOTAL:</td>
+                    <td class="bg-danger" style="font-size: 20px; font-weight: bold;">{{PrecioFinal}}</td>
                 </tr>
             </tbody>
         </table>
@@ -92,7 +92,7 @@
             <tbody>
                 <tr scope="row">
                     <ng-container *ngFor="let p of Contador">
-                        <td (click)="SelectContador(p)"
+                        <td style="font-size: 20px; font-weight: bold;"(click)="SelectContador(p)"
                             [ngStyle]="{'cursor': Painting? 'cell': 'auto', 'font-weight': p.Value!=0? '800': 'normal', 'color': p.Value==0? 'rgb(104 104 104)': '#ffffff'}"
                             [ngClass]="{'selected': p.Marked, 'bg-danger': p.Label == 'Total' }">
                             {{p.Value}}
