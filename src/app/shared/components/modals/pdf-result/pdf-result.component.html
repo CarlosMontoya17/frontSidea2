@@ -9,6 +9,13 @@
                     <input [value]="Data.curp!"  type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" disabled>
                 </div>
             </div>
+            <div class="col" *ngIf="Data.curp">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">RFC</span>
+                    <input [value]="Data.curp!"  type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                </div>
+            </div>
+    
     
             <div class="col" *ngIf="Data.estado">
                 <div class="input-group mb-3">

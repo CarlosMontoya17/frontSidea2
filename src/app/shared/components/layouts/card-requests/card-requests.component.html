@@ -15,7 +15,9 @@
 
             <div class="searchCURP">
                 <p class="Card-desc">TIPO: {{ Info.Type! }} </p>
-                <p class="Card-desc">{{ Info.Search.Type }}: {{ Info.Search.CURP }} </p>
+                <p class="Card-desc" *ngIf="Info.Search.Type !='RFC'" > CURP: {{ Info.Search.CURP }} </p>
+                <p class="Card-desc" *ngIf="Info.Search.Type =='RFC'" > CURP: {{ Info.Search.CURP }} </p>
+                <p class="Card-desc"*ngIf="Info.Search.Type =='RFC'" >RFC: {{ Info.Search.RFC }} </p>
                 <p class="Card-desc" *ngIf="Info.Search.State != ''">ESTADO: {{ Info.Search.State }} </p>
             </div>
 

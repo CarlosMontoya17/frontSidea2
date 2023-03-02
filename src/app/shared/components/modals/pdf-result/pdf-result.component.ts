@@ -27,6 +27,8 @@ export class PdfResultComponent implements OnInit {
     this.ClientId = client.id;
     this.users.getOne(client.id).subscribe((data:any) => {
       this.AsesorData = data;
+      console.log(data);
+      
     });
   }
 

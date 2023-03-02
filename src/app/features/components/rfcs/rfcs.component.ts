@@ -70,7 +70,7 @@ export class RfcsComponent implements OnInit {
   Reqs: modalRequest = {
     Title: 'Solicitar RFC',
     TitleSearch: 'Busqueda por',
-    Searches: ['CURP','RFC'],
+    Searches: ['CURP'],
     TitleType: 'Tipo de persona',
     Types: ['FISICA'],
     Primary: 'Types',
@@ -189,6 +189,8 @@ export class RfcsComponent implements OnInit {
     }
     this.svc.obtenerPeticiones(_date).subscribe((data:any) => {
       this.transformarPeticiones(data);
+   
+      
     });
   }
 
@@ -205,13 +207,14 @@ export class RfcsComponent implements OnInit {
         Comments: p[i].comments,
         Index: i+1,
         Downloaded: p[i].downloaded,
-        Filename: `${p[i].search=="CURP"? p[i].rfc: p[i].curp}.pdf`,
+        Filename: `${p[i].search=="CURP"? p[i].curp: p[i].rfc}.pdf`,
         ReAssigned: p[i].transposeId==null? false:true,
         Rol: this.Rol,
         Type: p[i].type,
         Search: {
           Type: p[i].search,
-          CURP: p[i].search=="CURP"? p[i].rfc: p[i].curp,
+          CURP: p[i].search=="CURP"? p[i].curp: p[i].curp,
+          RFC:p[i].search=="RFC"? p[i].rfc: p[i].rfc,
           State: p[i].estado
         },
         Title: 'REGISTRO FEDERAL DE CONTRIBUYENTES',
@@ -220,7 +223,7 @@ export class RfcsComponent implements OnInit {
       info.push(peticion);
     }
     this.Peticiones = info;
-    console.log(info);
+ 
     
   }
 

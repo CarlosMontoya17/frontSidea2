@@ -224,8 +224,6 @@ export class ActasComponent implements OnInit {
 
   onDownloadRequest(item: cardRequest): void {
     this.onDownloadActa(item.Id, item.Search.CURP);
-
-    
   }
 
   onDownloadActa(Id: any, CURP: any): void {
@@ -243,7 +241,7 @@ export class ActasComponent implements OnInit {
     }, (err:any) => this.utils.ErrorManage(err));
   }
 
-//buttons de oinformacion de actas
+
   async cardsButtons(item: cardInfo): Promise<void> {
     if(item.Id == 0){
       if(!this.View){
