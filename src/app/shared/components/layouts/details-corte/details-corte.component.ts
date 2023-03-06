@@ -223,8 +223,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
   }
 
   onResetColor(): void {
-    this.Inputs[0].Value = this.bgColor;
-    this.Inputs[1].Value = this.fgColor;
+   
   }
   
   onChangeColor(e: any, elemnt: InputColors): void {
@@ -238,10 +237,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
     this.Painting = !this.Painting;
   }
   OnClean():void{
-
-    this.Inputs[0].Value = this.bgColor;
-    this.Inputs[1].Value = this.fgColor;
-
+    this.SelectRow(this.indexOfItems);
   }
 
   SelectRow(item: detailsCorte): void {
