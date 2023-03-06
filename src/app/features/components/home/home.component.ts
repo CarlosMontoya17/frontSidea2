@@ -34,6 +34,7 @@ export class HomeComponent implements OnChanges {
     switch (this.Rol) {
       case 1:
         this.GiveMe_AllRobots();
+        this.autoSave();
         break;
       case 2:
         break;
@@ -42,6 +43,8 @@ export class HomeComponent implements OnChanges {
   save: boolean = false;
   autoSave() {
     setInterval(() => {
+     // console.log("Verifciando");
+      
       this.refresh();
       this.save = true;
     }, 1000);
@@ -57,7 +60,7 @@ export class HomeComponent implements OnChanges {
         this.Robots = data;
         this.statu = data;
         for (let i = 0; i < this.statu.length; i++) {
-          console.log(this.statu[i]);
+          
           if (
             this.statu[i].status == 'Off' &&
             this.statu[i].name == 'RFCPOAM'
