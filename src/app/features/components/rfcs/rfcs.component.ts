@@ -74,7 +74,7 @@ export class RfcsComponent implements OnInit {
   Reqs: modalRequest = {
     Title: 'Solicitar RFC',
     TitleSearch: 'Busqueda por',
-    Searches: ['CURP'],
+    Searches: ['CURP', 'RFC'],
     TitleType: 'Tipo de persona',
     Types: ['FISICA'],
     Primary: 'Types',

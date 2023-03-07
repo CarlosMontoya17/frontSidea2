@@ -43,8 +43,8 @@ export class HomeComponent implements OnChanges {
   save: boolean = false;
   autoSave() {
     setInterval(() => {
-     // console.log("Verifciando");
-      
+      // console.log("Verifciando");
+
       this.refresh();
       this.save = true;
     }, 1000);
@@ -58,9 +58,23 @@ export class HomeComponent implements OnChanges {
     this.robots.GetRobots_SID().subscribe(
       (data: any) => {
         this.Robots = data;
+        var registro1;
+        var registro2
+        for (let i = 0; i < data.length; i++) {
+       
+        if ( data[i].name == 'Registro Civil 1') {
+            registro1=  data[i].current;
+        }
+          else    
+          if ( data[i].name == 'Registro Civil 2') {
+              registro2=  data[i].current;
+          }
+          var suma = registro1+registro2;
+          console.log(suma);
+          
+        }
         this.statu = data;
         for (let i = 0; i < this.statu.length; i++) {
-          
           if (
             this.statu[i].status == 'Off' &&
             this.statu[i].name == 'RFCPOAM'
