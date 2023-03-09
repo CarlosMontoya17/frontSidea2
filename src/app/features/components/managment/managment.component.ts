@@ -108,6 +108,8 @@ export class ManagmentComponent implements OnInit, OnChanges {
   getMyUsers(): void {
     this.svc.getMyClient().subscribe((data) => {
       this.Request = data;
+
+      
       this.view = true;
       this.showtable = true;
     });
@@ -125,7 +127,27 @@ export class ManagmentComponent implements OnInit, OnChanges {
       this.CardInfo.find((d) => d.Id == 0)!.HideBtn = false;
     }
   }
+newUser(){
 
+    const _dialog = this.dialog.open(AddUserComponent);
+    _dialog.componentInstance.myData = {
+      rol: this.myRol,
+      username: this.Username,
+      id: this.myId,
+      servicios: '',
+      status: true,
+    };
+
+    _dialog.afterClosed().subscribe((data: any) => {
+      if (data) {
+        this.svc.addUser(data).subscribe(() => {
+          this.getMyUsers();
+        });
+      }
+    });
+  
+
+}
   async cardsButtons(item: cardInfo): Promise<void> {
     if (item.Id == 0) {
       const _dialog = this.dialog.open(AddUserComponent);

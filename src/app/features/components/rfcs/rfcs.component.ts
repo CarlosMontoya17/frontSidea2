@@ -76,7 +76,7 @@ export class RfcsComponent implements OnInit {
     TitleSearch: 'Busqueda por',
     Searches: ['CURP', 'RFC'],
     TitleType: 'Tipo de persona',
-    Types: ['FISICA'],
+    Types: ['FISICA','MORAL'],
     Primary: 'Types',
     DependencySearch: {
       Type: 'MORAL',

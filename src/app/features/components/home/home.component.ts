@@ -52,7 +52,7 @@ export class HomeComponent implements OnChanges {
   refresh(): void {
     setTimeout(function () {
       window.location.reload();
-    }, 20000);
+    }, 60000);
   }
   GiveMe_AllRobots() {
     this.robots.GetRobots_SID().subscribe(

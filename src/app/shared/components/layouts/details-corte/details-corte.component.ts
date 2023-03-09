@@ -157,8 +157,7 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
   }
   //PAGINACION CORTE POR PAGINA
   async paginacionCorte2(corteDelUsuario:any) {
-    this.paginacion = false;
-
+    this.paginacion = true;
     let backup = corteDelUsuario;
     let itemsTotal: number = corteDelUsuario.length;
     let divide: number = Math.floor(itemsTotal / this.itemPerPage);
@@ -169,7 +168,6 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
     if (res != 0) {
       pages += 1;
     }
-
 
     let currentPageData = corteDelUsuario;
     let index = 0;
@@ -186,34 +184,29 @@ export class DetailsCorteComponent implements OnInit, OnChanges {
         }
       }
 
-        
       this.indexOfItems.push(indexes);
       this.items = await pageData;
 
+      
+  this.nameClient.nativeElement.style.setProperty("position", "relative"); 
+  this.nameClient.nativeElement.style.setProperty("top", "0"); 
+  html2canvas(document.querySelector("#data-table")!).then((data:any) => {
+    if (this.paginacion == true && a > 0) {
+      let a = document.createElement('a');
+      a.href =  data.toDataURL('image/png');
+      a.download = `${this.nombreNegocio}.png`;
+      a.click();
+      a.remove();
+      this.nameClient.nativeElement.style.setProperty("position", "sticky"); 
+      this.nameClient.nativeElement.style.setProperty("top", "79px"); 
+    }
+  }); 
+  this.vista =false;
 
-
-      this.nameClient.nativeElement.style.setProperty("position", "relative"); 
-      this.nameClient.nativeElement.style.setProperty("top", "0"); 
-      html2canvas(document.querySelector("#data-table")!).then((data:any) => {
-        if (this.paginacion == true && a > 0){
-
-          let a = document.createElement('a');
-          a.href =  data.toDataURL('image/png');
-          a.download = `${this.nombreNegocio}.png`;
-          a.click();
-          a.remove();
-          this.nameClient.nativeElement.style.setProperty("position", "sticky"); 
-          this.nameClient.nativeElement.style.setProperty("top", "79px"); 
-          this.downloadLink.nativeElement.click();
-        }
-         
-      }); 
-    
       
     }
-    corteDelUsuario = backup;
+corteDelUsuario = backup;
     this.indexOfItems = [];
-    
 
   }
 
@@ -328,14 +321,14 @@ else if (_rowData.length >= 10) {
   }).then(async (result) => {
     if (result.isConfirmed) {
     
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Por el momento no esta disponible esta herramienta',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-//this.paginacionCorte2(_rowData);
+      // Swal.fire({
+      //   position: 'center',
+      //   icon: 'error',
+      //   title: 'Por el momento no esta disponible esta herramienta',
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      // });
+this.paginacionCorte2(_rowData);
 
 
     

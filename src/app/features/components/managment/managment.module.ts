@@ -15,6 +15,8 @@ import { FormsModule } from '@angular/forms';
 import { CardRequestsModule } from "../../../shared/components/layouts/card-requests/card-requests.module";
 import { EmptyStateModule } from "../../../shared/components/layouts/empty-state/empty-state.module";
 import { ItemRequestsModule } from "../../../shared/components/layouts/item-requests/item-requests.module";
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @NgModule({
     declarations: [
@@ -32,6 +34,8 @@ import { ItemRequestsModule } from "../../../shared/components/layouts/item-requ
         EditUserModule,
         SharedModule,
         FormsModule,
+        MatTooltipModule,
+
       
     
     

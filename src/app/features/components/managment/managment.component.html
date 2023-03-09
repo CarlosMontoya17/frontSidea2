@@ -1,4 +1,5 @@
 <div class="myCard">
+
     <div style="width: 100%; height: 126%; z-index: 1;  background-color: #2121217a;" class="position-absolute top-0"
         *ngIf="showEditServicesModal == true">
         <div class="modal-dialog" style="position: sticky; top: 0px;background: #424242;">
@@ -57,13 +58,13 @@
     <br><br>
 
     <div class="container">
-        <div class="box" *ngIf="Rol == 1 && view" >
+        <div class="box" *ngIf="Rol == 1 && view">
             <select [(ngModel)]="Rol_Request" (change)="capturar()">
                 <option selected hidden style="text-transform: uppercase;">Rol</option>
-                
+
                 <option *ngFor="let dato of datos">
                     {{dato}}
-                  </option>
+                </option>
             </select>
         </div>
         <!-- <div class="box2" *ngIf="Rol == 1 && view">
@@ -87,7 +88,7 @@
 
 
 
-        <div class="row" >
+        <div class="row">
             <table class="table table-dark table-striped table-hover" *ngIf="showtable">
                 <thead>
                     <tr>
@@ -98,6 +99,8 @@
                         <th scope="col" *ngIf="Rol == 1 || Rol == 2">Precios</th>
                         <th scope="col" *ngIf="Rol == 1 || Rol == 2">Otros</th>
                         <th scope="col" *ngIf="Rol == 1 || Rol == 2">Servicios</th>
+                        <th scope="col" *ngIf="Rol == 1 || Rol == 2">Limite</th>
+                        <th scope="col" *ngIf="Rol == 1 || Rol == 2">Descargados</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -107,12 +110,26 @@
                         <td>{{req.username}}</td>
                         <td>{{req.nombre}}</td>
                         <td>{{req.rol}}</td>
-                        <td *ngIf="Rol == 1 || Rol == 2"><button class="btn" (click)="editUser(req.id)">Editar
-                                usuario</button></td>
-                        <td *ngIf="Rol == 1 || Rol == 2"><button class="btn2" (click)="deleteUser(req)">Eliminar
-                                usuario</button></td>
-                        <td *ngIf="Rol == 1 || Rol == 2"><button class="btn3"
-                                (click)="servicios(req.id,req.username,req.servicios)">Servicios</button></td>
+                        <td *ngIf="Rol == 1 || Rol == 2">
+                            <button class="btn" (click)="editUser(req.id)" mat-raised-button>
+                                <mat-icon matTooltip="Editar usuario">Editar usuario</mat-icon>
+                            </button>
+                        </td>
+                        <td *ngIf="Rol == 1 || Rol == 2">
+
+                            <button class="btn2" (click)="deleteUser(req)" mat-raised-button [disabled]="true">
+                                <mat-icon matTooltip="Elimnar usuario">Eliminar</mat-icon>
+                            </button>
+
+                        </td>
+                        <td *ngIf="Rol == 1 || Rol == 2">
+                            <button class="btn3" (click)="servicios(req.id,req.username,req.servicios)"
+                                mat-raised-button [disabled]="false">
+                                <mat-icon matTooltip="Ver servicios">Servicios</mat-icon>
+                            </button>
+                        </td>
+                        <td *ngIf="Rol == 1 || Rol == 2">{{req.actas_limit}}</td>
+                        <td *ngIf="Rol == 1 || Rol == 2">{{req.actas_current}}</td>
                     </tr>
                 </tbody>
 
