@@ -139,7 +139,7 @@ export class PaysComponent implements OnInit {
       this.NameSelect = this.Username;
     });
   }
-
+  //Me trae el corte del cliente
   getCorteClient(id: any, name: any, date: any): void {
     let _date: any;
     if (date == 'Actual') _date = null;
